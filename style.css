@@ -1,0 +1,172 @@
+/* RESET GENERAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* ENCABEZADO */
+.encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 15px 25px;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+.logo span {
+  color: #00796b;
+  margin-left: 6px;
+  font-weight: normal;
+}
+
+/* NAVEGACIÓN */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+}
+.nav-links a:hover {
+  color: #00796b;
+}
+
+/* BÚSQUEDA */
+.busqueda {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-radius: 20px;
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  max-width: 300px;
+  flex-grow: 1;
+  margin: 10px;
+}
+.busqueda i {
+  color: #888;
+  margin-right: 6px;
+}
+.busqueda input {
+  border: none;
+  background: transparent;
+  outline: none;
+  flex: 1;
+}
+
+/* ACCIONES */
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.acciones a {
+  text-decoration: none;
+  color: #000;
+}
+.btn-primario {
+  background-color: #004d40;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+/* MENÚ HAMBURGUESA */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    background: #fff;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .busqueda,
+  .acciones {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+/* seccion principal */
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f7f2;
+  color: #333;
+}
+
+header {
+  background-color: #2e7d32;
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.contenido {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.seccion {
+  background-color: white;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.seccion h2 {
+  color: #2e7d32;
+  margin-bottom: 1rem;
+}
+
+footer {
+  background-color: #c8e6c9;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #2e7d32;
+}
+
+
