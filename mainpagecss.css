@@ -1,0 +1,201 @@
+/* RESET GENERAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* ENCABEZADO */
+.encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 15px 25px;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+.logo span {
+  color: #00796b;
+  margin-left: 6px;
+  font-weight: normal;
+}
+
+/* NAVEGACIÓN */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+}
+.nav-links a:hover {
+  color: #00796b;
+}
+
+/* BÚSQUEDA */
+.busqueda {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  border-radius: 20px;
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  max-width: 300px;
+  flex-grow: 1;
+  margin: 10px;
+}
+.busqueda i {
+  color: #888;
+  margin-right: 6px;
+}
+.busqueda input {
+  border: none;
+  background: transparent;
+  outline: none;
+  flex: 1;
+}
+
+/* ACCIONES */
+.acciones {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.acciones a {
+  text-decoration: none;
+  color: #000;
+}
+.btn-primario {
+  background-color: #004d40;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+/* MENÚ HAMBURGUESA */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    background: #fff;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .busqueda,
+  .acciones {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* SECCIÓN PRINCIPAL */
+.seccion-principal {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #fafafa;
+}
+.seccion-principal h1 {
+  font-size: 32px;
+  color: #004d40;
+  margin-bottom: 10px;
+}
+.seccion-principal p {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 30px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* GALERÍA */
+.galeria-animales {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+.tarjeta-animal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 280px;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+.tarjeta-animal img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.tarjeta-animal h3 {
+  margin: 12px 0 6px;
+  color: #00796b;
+}
+.tarjeta-animal p {
+  font-size: 14px;
+  color: #555;
+}
+.tarjeta-animal:hover {
+  transform: translateY(-5px);
+}
+
+/* PIE DE PÁGINA */
+.footer {
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
+.footer-info p {
+  margin-bottom: 10px;
+}
+.saber-mas {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 18px;
+  color: #004d40;
+  transition: color 0.3s;
+}
+.saber-mas:hover {
+  color: #009688;
+}
