@@ -76,7 +76,7 @@
         const animalList = document.getElementById("list-animal");
         const inputs = document.querySelectorAll("input[type=text], textarea, input[type=file]");
         const submitButton = document.getElementById("submit-btn");
-
+        
         function cargarAnimal(id) {
             fetch('get_animal.php?id=' + id)
                 .then(response => response.json())
@@ -97,7 +97,6 @@
 
         funcSelect.addEventListener("change", function () {
             const value = this.value;
-
             if (value === "eliminar") {
                 inputs.forEach(el => el.disabled = true);
                 animalList.disabled = false;
