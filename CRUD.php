@@ -6,55 +6,57 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     exit;
 }
 
-function guardarImagen() {
-    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === 0) {
-        $nombreTemp = $_FILES['imagen']['tmp_name'];
-        $nombreFinal = uniqid() . '_' . basename($_FILES['imagen']['name']);
-        $destino = 'imgs/' . $nombreFinal;
+//guardar imagen de la especie en el servidor
+function saveImage() {
+    if (isset($_FILES['img']) && $_FILES['img']['error'] === 0) {
+        $tempName = $_FILES['imagen']['tmp_name'];
+        $finalName = uniqid() . '_' . basename($_FILES['img']['name']);
+        $location = 'imgs/' . $finalName;
         
         // Validación del archivo (tipo y tamaño)
-        $tipoPermitido = ['image/jpeg', 'image/png', 'image/gif'];
-        $tamañoMaximo = 5 * 1024 * 1024; // 5MB
+        $allowedFormat = ['image/jpeg', 'image/png', 'image/gif'];
+        $maxSize = 5 * 1024 * 1024; // 5MB
 
-        if (!in_array($_FILES['imagen']['type'], $tipoPermitido)) {
+        if (!in_array($_FILES['img']['type'], $allowedFormat)) {
             $_SESSION['status'] = "error";
             $_SESSION['message'] = "Formato de imagen no permitido.";
             header("Location: admin.php");
             exit;
         }
 
-        if ($_FILES['imagen']['size'] > $tamañoMaximo) {
+        if ($_FILES['img']['size'] > $maxSize) {
             $_SESSION['status'] = "error";
             $_SESSION['message'] = "La imagen es demasiado grande. El tamaño máximo es de 5MB.";
             header("Location: admin.php");
             exit;
         }
 
-        move_uploaded_file($nombreTemp, $destino);
-        return $destino;
+        move_uploaded_file($tempName, $location);
+        return $location;
     }
     return ""; // En caso de que no haya imagen
 }
 
-function agregarAnimal(&$animales, $archivo) {
-    $nuevo = [
+//agregar especie, recibe 2 parametros: array de especies y ruta del archivo json
+function addSpecie(&$species, $file) {
+    $new = [
         "id" => uniqid(),
-        "nombre" => $_POST['name'],
-        "nombre_alt" => $_POST['name_alt'],
-        "nombre_cientifico" => $_POST['name_sc'],
-        "orden" => $_POST['orden'],
-        "familia" => $_POST['family'],
-        "descripcion" => $_POST['desc'],
-        "ecologia" => $_POST['eco'],
-        "distribucion" => $_POST['distr'],
-        "imagen" => guardarImagen() // Si la imagen no se sube correctamente, será una cadena vacía
+        "name" => $_POST['name'],
+        "alt_name" => $_POST['alt_name'],
+        "scient_name" => $_POST['scient_name'],
+        "order" => $_POST['order'],
+        "family" => $_POST['family'],
+        "description" => $_POST['description'],
+        "ecology" => $_POST['ecology'],
+        "distribution" => $_POST['distribution'],
+        "img" => saveImage() // Si la imagen no se sube correctamente, será una cadena vacía
     ];
 
      // Validación de los campos
     if (
-        empty($_POST['name']) || empty($_POST['name_alt']) || empty($_POST['name_sc']) ||
-        empty($_POST['orden']) || empty($_POST['family']) || empty($_POST['desc']) ||
-        empty($_POST['eco']) || empty($_POST['distr'])
+        empty($_POST['name']) || empty($_POST['alt_name']) || empty($_POST['scient_name']) ||
+        empty($_POST['order']) || empty($_POST['family']) || empty($_POST['description']) ||
+        empty($_POST['ecology']) || empty($_POST['distribution'])
     ) {
         $_SESSION['status'] = "error";
         $_SESSION['message'] = "Todos los campos son obligatorios. Por favor, complete todo el formulario.";
@@ -62,82 +64,88 @@ function agregarAnimal(&$animales, $archivo) {
         exit;
     }
     // Verificamos si la imagen está vacía (no se subió)
-    if (empty($nuevo['imagen'])) {
+    if (empty($new['img'])) {
         $_SESSION['status'] = "error";
         $_SESSION['message'] = "La imagen es obligatoria. Por favor, sube una imagen.";
         header("Location: admin.php");
         exit;
     }
-
-    $animales[] = $nuevo;
-    file_put_contents($archivo, json_encode($animales, JSON_PRETTY_PRINT));
+    //añadir nueva especie al array y escribir en el json
+    $species[] = $new;
+    file_put_contents($file, json_encode($species, JSON_PRETTY_PRINT));
     $_SESSION['status'] = "success";
-    $_SESSION['message'] = "Animal agregado correctamente.";
+    $_SESSION['message'] = "Especie agregada correctamente.";
     header("Location: admin.php");
     exit;
 }
 
 
-function modificarAnimal(&$animales, $archivo) {
-    $id = $_POST['list-animal'];
+function updateSpecie(&$species, $file) {
+    $id = $_POST['list-species'];
 
-    foreach ($animales as &$animal) {
-        if ($animal['id'] === $id) {
-            $animal['nombre'] = $_POST['name'];
-            $animal['nombre_alt'] = $_POST['name_alt'];
-            $animal['nombre_cientifico'] = $_POST['name_sc'];
-            $animal['orden'] = $_POST['orden'];
-            $animal['familia'] = $_POST['family'];
-            $animal['descripcion'] = $_POST['desc'];
-            $animal['ecologia'] = $_POST['eco'];
-            $animal['distribucion'] = $_POST['distr'];
+    foreach ($species as &$specie) {
+        if ($specie['id'] === $id) {
+            $specie['name'] = $_POST['name'];
+            $specie['alt_name'] = $_POST['alt_name'];
+            $specie['scient_name'] = $_POST['scient_name'];
+            $specie['order'] = $_POST['order'];
+            $specie['family'] = $_POST['family'];
+            $specie['description'] = $_POST['description'];
+            $specie['ecology'] = $_POST['ecology'];
+            $specie['distribution'] = $_POST['distribution'];
 
             // Solo si se subió una nueva imagen
-            if (!empty($_FILES['imagen']['name'])) {
-                $animal['imagen'] = guardarImagen();
+            if (!empty($_FILES['img']['name'])) {
+                $specie['img'] = saveImage();
             }
 
-            file_put_contents($archivo, json_encode($animales, JSON_PRETTY_PRINT));
+            file_put_contents($file, json_encode($species, JSON_PRETTY_PRINT));
             $_SESSION['status'] = "success";
+            $_SESSION['message'] = "Especie actualizada correctamente.";
             header("Location: admin.php");
             exit;
         }
     }
 
     $_SESSION['status'] = "error";
+    $_SESSION['message'] = "No se pudo modificar la especie.";
     header("Location: admin.php");
     exit;
 }
 
-function eliminarAnimal(&$animales, $archivo) {
-    $id = $_POST['list-animal'];
-    $nuevaLista = array_filter($animales, fn($a) => $a['id'] !== $id);
+//eliminar especie. recibe 2 parametros: el array de especies y la ruta del archivo json
+function deleteSpecie(&$species, $file) {
+    $id = $_POST['list-species'];
+    $newList = array_filter($species, fn($specie) => $specie['id'] !== $id);
 
-    file_put_contents($archivo, json_encode(array_values($nuevaLista), JSON_PRETTY_PRINT));
+    file_put_contents($file, json_encode(array_values($newList), JSON_PRETTY_PRINT));
     $_SESSION['status'] = "success";
+    $_SESSION['message'] = "La especie seleccionada fue eliminada correctamente.";
     header("Location: admin.php");
     exit;
 }
 
 
-$accion = $_POST['functionality']; // 'agregar', 'modificar' o 'eliminar'
+$action = $_POST['functionality']; // 'agregar', 'modificar' o 'eliminar'
 
 // 1. Leer JSON actual
-$archivo = 'especies.json';
-$animales = file_exists($archivo) ? json_decode(file_get_contents($archivo), true) : [];
+$file = 'species.json';
+$species = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
 
-switch ($accion) {
-    case 'agregar':
-        agregarAnimal($animales, $archivo);
+//llamada a la funcion dependiendo de la accion del usuario
+switch ($action) {
+    case 'add':
+        addSpecie($species, $file);
         break;
-    case 'modificar':
-        modificarAnimal($animales, $archivo);
+    case 'update':
+        updateSpecie($species, $file);
         break;
-    case 'eliminar':
-        eliminarAnimal($animales, $archivo);
+    case 'delete':
+        deleteSpecie($species, $file);
         break;
     default:
         $_SESSION['status'] = "error";
+        $_SESSION['message'] = "No se ha seleccionado ninguna opcion";
         header("Location: admin.php");
         exit;
 }
