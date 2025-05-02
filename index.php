@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zoológico - Natural Life</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="mainpagecss.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
@@ -44,10 +44,10 @@
 
   <!-- SECCIÓN PRINCIPAL -->
   <section class="seccion-principal">
-    <h1>Bienvenido a Zoo Natural Life</h1>
-    <p>Explora la biodiversidad del planeta en un solo lugar. Más de 200 especies te esperan para descubrirlas.</p>
+    <h1>Bienvenido al MiniZoo Juan VVIII</h1>
+    <p>Explora la biodiversidad del planeta en un solo lugar. Más de 60 especies te esperan para descubrirlas.</p>
 
-<!-- Galería de animales -->
+<!-- Galería de animales
 <div class="galeria-animales">
   <div class="tarjeta-animal">
     <img src="https://placehold.co/300x200?text=León" alt="León" />
@@ -110,7 +110,47 @@
     <a href="#"><i class="fas fa-info-circle saber-mas"></i></a>
   </div>
 </div>
+-->
+<div class="galeria-animales">
+  <?php
+  $jsonPath = 'species.json';
 
+  // verificar si el archivo existe
+  if (file_exists($jsonPath)) {
+      $jsonContent = file_get_contents($jsonPath);
+      $speciesList = json_decode($jsonContent, true);
+
+      // verificar si hay especies en el JSON
+      if (!empty($speciesList)) {
+          foreach ($speciesList as $animal) {
+              //VERIFICAR LUEGO CON LOS DATOS DEL JSON REAL!!!!!!!!!!!!!!!!!!!!!
+              $name = htmlspecialchars($animal["name"]);
+              $description = htmlspecialchars($animal["description"]);
+
+              // acortar la descripción si es más larga de 100 caracteres y a;adir puntos suspensivos
+              $shortDescription = strlen($description) > 100
+                  ? substr($description, 0, 100) . '...'
+                  : $description;
+
+              echo '<div class="tarjeta-animal">';
+              echo '<h3>' . $name . '</h3>';
+              echo '<p>' . $shortDescription . '</p>';
+              // verifica si hay imagen
+              if (isset($animal["img"]) && !empty($animal["img"])) {
+                  echo '<img src="' . htmlspecialchars($animal["img"]) . '" alt="' . $name . '">';
+              }
+              echo '</div>';
+          }
+      } else {
+          // si no hay especies en el JSON
+          echo '<p style="text-align:center; color:#777; margin-top: 20px;"> No hay animalitos para mostrar por el momento 🦥</p>';
+      }
+  } else {
+      // si no se encuentra el archivo
+      echo '<p style="text-align:center; color:#777; margin-top: 20px;">⚠️ Archivo de especies no encontrado ⚠️</p>';
+  }
+  ?>
+</div>
   </section>
 
   <!-- PIE DE PÁGINA -->
