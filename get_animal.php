@@ -1,13 +1,13 @@
 <?php
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $archivo = 'especies.json';
-    if (file_exists($archivo)) {
-        $animales = json_decode(file_get_contents($archivo), true);
-        foreach ($animales as $animal) {
-            if ($animal['id'] === $id) {
+    $file = 'species.json';
+    if (file_exists($file)) {
+        $species = json_decode(file_get_contents($file), true);
+        foreach ($species as $specie) {
+            if ($specie['id'] === $id) {
                 header('Content-Type: application/json');
-                echo json_encode($animal);
+                echo json_encode($specie);
                 exit;
             }
         }
