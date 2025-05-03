@@ -68,7 +68,7 @@
                     <?= htmlspecialchars($specie['name']) ?>
                 </option>
             <?php endforeach; ?>
-        </select><br><br>
+        </select>
 
         <button type="submit" id="submit-btn">Confirmar Acción</button>
     </form>

@@ -9,9 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 //guardar imagen de la especie en el servidor
 function saveImage() {
     if (isset($_FILES['img']) && $_FILES['img']['error'] === 0) {
-        $tempName = $_FILES['imagen']['tmp_name'];
+        $tempName = $_FILES['img']['tmp_name'];
         $finalName = uniqid() . '_' . basename($_FILES['img']['name']);
-        $location = 'imgs/' . $finalName;
+        $location = 'img/' . $finalName;
         
         // Validación del archivo (tipo y tamaño)
         $allowedFormat = ['image/jpeg', 'image/png', 'image/gif'];
@@ -37,6 +37,20 @@ function saveImage() {
     return ""; // En caso de que no haya imagen
 }
 
+//generar y guardar en el servidor el QR de cada especie
+function generateQR($url,$name,$id){
+    include('phpqrcode/qrlib.php');
+    $location = "QR/".$id.$name.".png";
+    QRcode::png($url,$location,QR_ECLEVEL_L,10);
+    if(!file_exists($location)) return "";
+    return $location;
+}
+
+//generar una url para cada especie
+function generateURL($id){
+    return "https://www.juanxiiizoo.infinityfreapp.com/specie_info.php?id=".$id;
+}
+
 //agregar especie, recibe 2 parametros: array de especies y ruta del archivo json
 function addSpecie(&$species, $file) {
     $new = [
@@ -51,6 +65,10 @@ function addSpecie(&$species, $file) {
         "distribution" => $_POST['distribution'],
         "img" => saveImage() // Si la imagen no se sube correctamente, será una cadena vacía
     ];
+    //generar nuevo QR
+    $new['url'] = generateURL($new['id']); // Si el QR no se genero correctamente, será una cadena vacía
+    //generar nueva url
+    $new['qr'] = generateQR($new['url'],$new['name'],$new['id']);
 
      // Validación de los campos
     if (
@@ -70,6 +88,13 @@ function addSpecie(&$species, $file) {
         header("Location: admin.php");
         exit;
     }
+    //verificamos si el QR esta vacio (no se pudo generar)
+    if (empty($new['qr'])) {
+        $_SESSION['status'] = "error";
+        $_SESSION['message'] = "El QR no pudo generarse por problemas deconocidos.";
+        header("Location: admin.php");
+        exit;
+    }
     //añadir nueva especie al array y escribir en el json
     $species[] = $new;
     file_put_contents($file, json_encode($species, JSON_PRETTY_PRINT));
@@ -79,7 +104,7 @@ function addSpecie(&$species, $file) {
     exit;
 }
 
-
+//actualizar especie, recibe 2 parametros: array de especies y ubicacion del archivo json
 function updateSpecie(&$species, $file) {
     $id = $_POST['list-species'];
 
