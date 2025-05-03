@@ -23,7 +23,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
     <h2>Ingrese la clave para acceder al panel de administración: </h2>
-    <form action="post">
+    <form method="post">
         <input type="password" name="key" required>
         <button type="submit">Acceder</button>
     </form>
