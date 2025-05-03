@@ -1,5 +1,11 @@
 <!-- admin.php -->
-<?php session_start();?>
+<?php 
+session_start();
+    if (!isset($_SESSION["access"])) {
+        header("Location: adm-login.php");
+        exit;
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="es">
