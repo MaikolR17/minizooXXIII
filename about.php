@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Acerca del Zoológico</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="aboutjs.css">
 </head>
 <body>
   <header>
@@ -32,5 +32,6 @@
   <footer>
     <p>&copy; 2025 Zoo Natural Life. Todos los derechos reservados.</p>
   </footer>
+  <script src="aboutjs.js"></script>
 </body>
 </html>

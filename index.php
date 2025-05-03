@@ -44,7 +44,7 @@
 
   <!-- SECCIÓN PRINCIPAL -->
   <section class="seccion-principal">
-    <h1>Bienvenido al MiniZoo Juan VVIII</h1>
+    <h1>Bienvenido al MiniZoo Juan XXIII</h1>
     <p>Explora la biodiversidad del planeta en un solo lugar. Más de 60 especies te esperan para descubrirlas.</p>
 
 <!-- Galería de animales
@@ -111,6 +111,7 @@
   </div>
 </div>
 -->
+    
 <div class="galeria-animales">
   <?php
   $jsonPath = 'species.json';
@@ -151,6 +152,7 @@
   }
   ?>
 </div>
+
   </section>
 
   <!-- PIE DE PÁGINA -->
@@ -169,6 +171,7 @@
   </footer>
 
   <!-- JavaScript -->
-  <script src="script.js"></script>
+  <script src="mainpagejs.js"></script>
+
 </body>
 </html>
