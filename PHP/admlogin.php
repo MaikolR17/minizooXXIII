@@ -6,7 +6,7 @@ $right_key = "Made-By-LASI-2025";
 if($_SERVER["REQUEST_METHOD"] === "POST") {
     if($_POST["key"] === $right_key) {
         $_SESSION["access"] = true;
-        header("Location: ../admin.php");
+        header("Location: ../PHP/admin.php");
         exit;
     } else {
         $wrongkey = "Clave Incorrecta";
@@ -20,6 +20,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Access</title>
+    <link rel="stylesheet" href="../CSS/admlogin.css">
 </head>
 <body>
     <h2>Ingrese la clave para acceder al panel de administración: </h2>
