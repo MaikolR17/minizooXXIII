@@ -2,7 +2,7 @@
 <?php 
 session_start();
     if (!isset($_SESSION["access"])) {
-        header("Location: adm-login.php");
+        header("Location: admlogin.php");
         exit;
     }
 ?>
@@ -67,8 +67,8 @@ session_start();
         ?>
 
         <label for="list-species">Elija un animal registrado:</label>
-        <select name="list-species" id="list-species">
-            <option value=""> --Seleccione una especie-- </option>
+        <select name="list-species" id="list-species" disabled>
+            <option value="" disabled selected> --Seleccione una especie-- </option>
             <?php foreach ($list_species as $specie): ?>
                 <option value="<?= htmlspecialchars($specie['id']) ?>">
                     <?= htmlspecialchars($specie['name']) ?>
@@ -76,7 +76,7 @@ session_start();
             <?php endforeach; ?>
         </select>
 
-        <button type="submit" id="submit-btn">Confirmar Acción</button>
+        <button type="submit" id="submit-btn">Agregar Especie</button>
     </form>
     
     <script>
@@ -103,24 +103,34 @@ session_start();
                 })
                 .catch(error => console.error("Error cargando datos:", error));
         }
+        
         //evento para modificar el DOM dependiendo de la funcionalidad seleccionada
         funcSelect.addEventListener("change", function () {
             const value = this.value;
 
             if (value === "delete") { //se desactivan todos los inputs, se activa el select de la lista de especies y el boton cambia de nombre a 'Confirmar eliminacion'
-                inputs.forEach(del => del.disabled = true);
+                inputs.forEach(del => {
+                    del.disabled = true
+                    del.value = ""; //limpiar formulario
+                    });
                 animalList.disabled = false;
+                animalList.selectedIndex = 0; //se selecciona la primera opcion del select
                 submitButton.textContent = "Confirmar Eliminación";
             } else if (value === "update") { //se activan todos los inputs, se activa el select de la lista de especies y el boton cambia de nombre a 'Confirmar Modificacion'
                 inputs.forEach(del => del.disabled = false);
                 animalList.disabled = false;
+                animalList.selectedIndex = 0; //se selecciona la primera opcion del select
                 submitButton.textContent = "Confirmar Modificación";
                 // Si ya hay un animal seleccionado, cargarlo
                 if (animalList.value) {
                     loadSpecie(animalList.value);
                 }
             } else { //se activan todos los inputs, se desactiva el select de la lista de especies y el boton cambia de nombre a 'Agregar Especie'
-                inputs.forEach(del => del.disabled = false);
+                inputs.forEach(del => {
+                    del.disabled = false;
+                    del.value = ""; //limpiar formulario
+                    });
+                animalList.selectedIndex = 0; //se selecciona la primera opcion del select
                 animalList.disabled = true;
                 submitButton.textContent = "Agregar Especie";
             }
