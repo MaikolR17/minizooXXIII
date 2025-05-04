@@ -139,6 +139,7 @@
               // verifica si hay imagen
               if (isset($animal["img"]) && !empty($animal["img"])) {
                   echo '<img src="' . htmlspecialchars($animal["img"]) . '" alt="' . $name . '">';
+                  echo '<img src="' . $animal['qr'] . '" alt="Código QR">';
               }
               echo '</div>';
           }

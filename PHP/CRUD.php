@@ -37,10 +37,14 @@ function saveImage() {
     return ""; // En caso de que no haya imagen
 }
 
+// Generar una url para cada especie
+function generateURL($id) {
+    return "https://www.juanxiiizoo.infinityfreapp.com/specie_info.php?id=" . $id;
+}
 
-//generar una url para cada especie
-function generateURL($id){
-    return "https://www.juanxiiizoo.infinityfreapp.com/specie_info.php?id=".$id;
+// Genera codigo qr basandose en la url
+function generateQRCodeURL($url) {
+    return "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url);
 }
 
 //agregar especie, recibe 2 parametros: array de especies y ruta del archivo json
@@ -58,7 +62,8 @@ function addSpecie(&$species, $file) {
         "img" => saveImage() // Si la imagen no se sube correctamente, será una cadena vacía
     ];
     //generar nuevo QR
-    $new['url'] = generateURL($new['id']); // Si el QR no se genero correctamente, será una cadena vacía
+    $new['url'] = generateURL($new['id']); // Si la URL no se genero correctamente, será una cadena vacía
+    $new['qr'] = generateQRCodeURL($new['url']); // genera la imagen QR desde una API 
 
      // Validación de los campos
     if (
