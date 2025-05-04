@@ -17,6 +17,8 @@ session_start();
 </head>
 <body>
 
+    <h1 id = "titleForm"> Formulario de Especies </h1>
+
 <!-- Formulario para agregar, modificar o eliminar especie -->
     <form action="CRUD.php" method="POST" enctype="multipart/form-data" id="animal-form">
 <!--contenedor de la caja de alertas, donde se informan errores y acciones completadas correctamente-->
