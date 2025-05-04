@@ -1,7 +1,7 @@
 <?php
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $file = 'species.json';
+    $file = '../species.json';
     if (file_exists($file)) {
         $species = json_decode(file_get_contents($file), true);
         foreach ($species as $specie) {

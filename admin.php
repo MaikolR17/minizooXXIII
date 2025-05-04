@@ -2,7 +2,7 @@
 <?php 
 session_start();
     if (!isset($_SESSION["access"])) {
-        header("Location: admlogin.php");
+        header("Location: PHP/admlogin.php");
         exit;
     }
 ?>
@@ -87,7 +87,7 @@ session_start();
         const submitButton = document.getElementById("submit-btn");
         //funcion para obtener los datos de la especie seleccionada y mostrarlos en los inputs recibe como parametro el id de la especie
         function loadSpecie(id) {
-            fetch('get_animal.php?id=' + id)
+            fetch('PHP/get_animal.php?id=' + id)
                 .then(response => response.json())
                 .then(data => {
                     if (data) {

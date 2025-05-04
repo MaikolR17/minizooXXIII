@@ -32,6 +32,6 @@
   <footer>
     <p>&copy; 2025 Zoo Natural Life. Todos los derechos reservados.</p>
   </footer>
-  <script src="aboutjs.js"></script>
+  <script src="../javaScript/aboutjs.js"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@ $right_key = "Made-By-LASI-2025";
 if($_SERVER["REQUEST_METHOD"] === "POST") {
     if($_POST["key"] === $right_key) {
         $_SESSION["access"] = true;
-        header("Location: admin.php");
+        header("Location: ../admin.php");
         exit;
     } else {
         $wrongkey = "Clave Incorrecta";
