@@ -2,7 +2,7 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: admin.php");
+    header("Location: ../admin.php");
     exit;
 }
 
@@ -11,7 +11,7 @@ function saveImage() {
     if (isset($_FILES['img']) && $_FILES['img']['error'] === 0) {
         $tempName = $_FILES['img']['tmp_name'];
         $finalName = uniqid() . '_' . basename($_FILES['img']['name']);
-        $location = 'img/' . $finalName;
+        $location = '../img/' . $finalName;
         
         // Validación del archivo (tipo y tamaño)
         $allowedFormat = ['image/jpeg', 'image/png', 'image/gif'];
@@ -20,14 +20,14 @@ function saveImage() {
         if (!in_array($_FILES['img']['type'], $allowedFormat)) {
             $_SESSION['status'] = "error";
             $_SESSION['message'] = "Formato de imagen no permitido.";
-            header("Location: admin.php");
+            header("Location: ../admin.php");
             exit;
         }
 
         if ($_FILES['img']['size'] > $maxSize) {
             $_SESSION['status'] = "error";
             $_SESSION['message'] = "La imagen es demasiado grande. El tamaño máximo es de 5MB.";
-            header("Location: admin.php");
+            header("Location: ../admin.php");
             exit;
         }
 
@@ -37,14 +37,6 @@ function saveImage() {
     return ""; // En caso de que no haya imagen
 }
 
-//generar y guardar en el servidor el QR de cada especie
-function generateQR($url,$name,$id){
-    include('phpqrcode/qrlib.php');
-    $location = "QR/".$id.$name.".png";
-    QRcode::png($url,$location,QR_ECLEVEL_L,10);
-    if(!file_exists($location)) return "";
-    return $location;
-}
 
 //generar una url para cada especie
 function generateURL($id){
@@ -67,8 +59,6 @@ function addSpecie(&$species, $file) {
     ];
     //generar nuevo QR
     $new['url'] = generateURL($new['id']); // Si el QR no se genero correctamente, será una cadena vacía
-    //generar nueva url
-    $new['qr'] = generateQR($new['url'],$new['name'],$new['id']);
 
      // Validación de los campos
     if (
@@ -78,29 +68,23 @@ function addSpecie(&$species, $file) {
     ) {
         $_SESSION['status'] = "error";
         $_SESSION['message'] = "Todos los campos son obligatorios. Por favor, complete todo el formulario.";
-        header("Location: admin.php");
+        header("Location: ../admin.php");
         exit;
     }
     // Verificamos si la imagen está vacía (no se subió)
     if (empty($new['img'])) {
         $_SESSION['status'] = "error";
         $_SESSION['message'] = "La imagen es obligatoria. Por favor, sube una imagen.";
-        header("Location: admin.php");
+        header("Location: ../admin.php");
         exit;
     }
-    //verificamos si el QR esta vacio (no se pudo generar)
-    if (empty($new['qr'])) {
-        $_SESSION['status'] = "error";
-        $_SESSION['message'] = "El QR no pudo generarse por problemas deconocidos.";
-        header("Location: admin.php");
-        exit;
-    }
+    
     //añadir nueva especie al array y escribir en el json
     $species[] = $new;
     file_put_contents($file, json_encode($species, JSON_PRETTY_PRINT));
     $_SESSION['status'] = "success";
     $_SESSION['message'] = "Especie agregada correctamente.";
-    header("Location: admin.php");
+    header("Location: ../admin.php");
     exit;
 }
 
@@ -127,14 +111,14 @@ function updateSpecie(&$species, $file) {
             file_put_contents($file, json_encode($species, JSON_PRETTY_PRINT));
             $_SESSION['status'] = "success";
             $_SESSION['message'] = "Especie actualizada correctamente.";
-            header("Location: admin.php");
+            header("Location: ../admin.php");
             exit;
         }
     }
 
     $_SESSION['status'] = "error";
     $_SESSION['message'] = "No se pudo modificar la especie.";
-    header("Location: admin.php");
+    header("Location: ..//admin.php");
     exit;
 }
 
@@ -146,7 +130,7 @@ function deleteSpecie(&$species, $file) {
     file_put_contents($file, json_encode(array_values($newList), JSON_PRETTY_PRINT));
     $_SESSION['status'] = "success";
     $_SESSION['message'] = "La especie seleccionada fue eliminada correctamente.";
-    header("Location: admin.php");
+    header("Location: a../dmin.php");
     exit;
 }
 
@@ -154,7 +138,7 @@ function deleteSpecie(&$species, $file) {
 $action = $_POST['functionality']; // 'agregar', 'modificar' o 'eliminar'
 
 // 1. Leer JSON actual
-$file = 'species.json';
+$file = '../species.json';
 $species = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
 
 //llamada a la funcion dependiendo de la accion del usuario
@@ -171,6 +155,6 @@ switch ($action) {
     default:
         $_SESSION['status'] = "error";
         $_SESSION['message'] = "No se ha seleccionado ninguna opcion";
-        header("Location: admin.php");
+        header("Location: ..//admin.php");
         exit;
 }

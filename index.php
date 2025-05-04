@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zoológico - Natural Life</title>
-  <link rel="stylesheet" href="mainpagecss.css" />
+  <link rel="stylesheet" href="CSS/mainpagecss.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
@@ -171,7 +171,7 @@
   </footer>
 
   <!-- JavaScript -->
-  <script src="mainpagejs.js"></script>
+  <script src="javaScript/mainpagejs.js"></script>
 
 </body>
 </html>
