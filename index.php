@@ -10,18 +10,18 @@
 <body>
 
   <!-- ENCABEZADO -->
-  <header class="encabezado">
+  <header class="encabezado" role="banner">
     <div class="logo">
-      <strong>MiniZoo</strong><span>Juan XXIII</span>
+      <strong>Zoo</strong><span>Natural Life</span>
     </div>
 
-    <!-- Ícono hamburguesa (solo visible en móviles) -->
-    <div class="menu-toggle" id="menu-toggle">
+    <!-- Botón menú hamburguesa para móviles -->
+    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-links">
       <i class="fas fa-bars"></i>
-    </div>
+    </button>
 
-    <!-- Menú de navegación -->
-    <nav class="nav-links" id="nav-links">
+    <!-- Navegación principal -->
+    <nav class="nav-links" id="nav-links" role="navigation" aria-label="Menú principal">
       <a href="#contacto">Contacto</a>
       <a href="#ubicacion">Ubicación</a>
       <a href="#redes">Redes</a>
@@ -29,26 +29,31 @@
     </nav>
 
     <!-- Barra de búsqueda -->
-    <div class="busqueda">
-      <i class="fas fa-search"></i>
-      <input type="text" id="searchInput" placeholder="Busca por nombre...">
-    </div>
+    <form class="busqueda" role="search" aria-label="Buscar en el sitio">
+      <label for="buscar" class="sr-only">Buscar</label>
+      <i class="fas fa-search" aria-hidden="true"></i>
+      <input id="buscar" type="text" placeholder="Busca una especie, sección o evento" />
+    </form>
 
-
-    <!-- Acciones (idioma, login, boletos) -->
-    <div class="acciones">
-      <i class="fas fa-globe"></i>
+    <!-- Acciones de usuario -->
+    <div class="acciones" role="group" aria-label="Acciones de usuario">
+      <i class="fas fa-globe" aria-hidden="true"></i>
       <a href="#">Iniciar sesión</a>
       <a href="#" class="btn-primario">¡Compra boletos!</a>
     </div>
+
+    <!-- Botón de modo oscuro -->
+    <button id="modo-oscuro-toggle" class="btn-darkmode" aria-pressed="false">
+      <i class="fas fa-moon" aria-hidden="true"></i> Modo oscuro
+    </button>
   </header>
 
   <!-- SECCIÓN PRINCIPAL -->
-  <section class="seccion-principal">
+  <main class="seccion-principal" role="main">
     <h1>Bienvenido al MiniZoo Juan XXIII</h1>
     <p>Explora la biodiversidad del planeta en un solo lugar. Más de 60 especies te esperan para descubrirlas.</p>
     
-    <div class="galeria-animales">
+    <section class="galeria-animales" aria-label="Galería de animales del zoológico">
   <?php
   $jsonPath = 'species.json';
 
@@ -67,7 +72,7 @@
                   ? substr($description, 0, 100) . '...'
                   : $description;
 
-              echo '<div class="tarjeta-animal"';
+              echo '<article class="tarjeta-animal"';
               echo ' data-id="' . $id . '"';
               echo ' data-name="' . strtolower($name) . '"';
               echo ' data-scientific="' . strtolower($scient_name) . '">';
@@ -80,8 +85,8 @@
                   echo '<img src="' . htmlspecialchars($animal["qr"]) . '" alt="Código QR">';
               }
 
-              echo '<br><a href="'.$animal['url'].'"><i class="fas fa-info-circle saber-mas"></i></a>';
-              echo '</div>';
+              echo '<br><a href="'.$animal['url'].'" aria-label="Más información sobre '.$animal['name'].'"><i class="fas fa-info-circle saber-mas" aria-hidden="true"></i></a>';
+              echo '</article>';
               echo '<p id="noResults" style="text-align:center; color:#777; margin-top:20px; display:none;">No se encontraron coincidencias 🐾</p>';
           }
       } else {
@@ -91,25 +96,25 @@
       echo '<p style="text-align:center; color:#777; margin-top: 20px;">⚠️ Archivo de especies no encontrado ⚠️</p>';
   }
   ?>
-</div>
+</section>
 
 
 
-  </section>
+</main>
 
   <!-- PIE DE PÁGINA -->
-  <footer class="footer" id="contacto">
+  <footer class="footer" role="contentinfo" id="contacto">
     <div class="footer-info">
-      <p><strong>Contacto:</strong> (123) 456-7890 | info@zoonaturallife.com</p>
-      <p><strong>Ubicación:</strong> Av. de los Animales 123, Ciudad Natural</p>
+      <p><strong>Contacto:</strong> <a href="tel:+1234567890">(123) 456-7890</a> | <a href="mailto:info@zoonaturallife.com">info@zoonaturallife.com</a></p>
+      <p id="ubicacion"><strong>Ubicación:</strong> Av. de los Animales 123, Ciudad Natural</p>
       <p id="redes"><strong>Redes:</strong>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
       </p>
       <p id="acerca-de-nosotros"><strong>Acerca de nosotros:</strong> Somos un zoológico dedicado a la conservación, educación y el bienestar animal.</p>
     </div>
-    <p class="copyright">&copy; 2025 MiniZoo Juan XXIII. Todos los derechos reservados.</p>
+    <p class="copyright">&copy; 2025 Zoológico Natural Life. Todos los derechos reservados.</p>
   </footer>
 
   <!-- JavaScript -->

@@ -11,7 +11,7 @@ function saveImage() {
     if (isset($_FILES['img']) && $_FILES['img']['error'] === 0) {
         $tempName = $_FILES['img']['tmp_name'];
         $finalName = uniqid() . '_' . basename($_FILES['img']['name']);
-        $location = 'img/' . $finalName;
+        $location = '../img/' . $finalName;
         
         // Validación del archivo (tipo y tamaño)
         $allowedFormat = ['image/jpeg', 'image/png', 'image/gif'];
@@ -32,7 +32,7 @@ function saveImage() {
         }
 
         move_uploaded_file($tempName, $location);
-        return $location;
+        return 'img/'.$finalName;
     }
     return ""; // En caso de que no haya imagen
 }
@@ -114,6 +114,9 @@ function updateSpecie(&$species, $file) {
 
             // Solo si se subió una nueva imagen
             if (!empty($_FILES['img']['name'])) {
+                //se elimina la imagen anterior antes de guardar una nueva
+                unlink('../'.$specie['img']);
+                //se guarda la nueva imagen
                 $specie['img'] = saveImage();
             }
 
@@ -134,9 +137,16 @@ function updateSpecie(&$species, $file) {
 //eliminar especie. recibe 2 parametros: el array de especies y la ruta del archivo json
 function deleteSpecie(&$species, $file) {
     $id = $_POST['list-species'];
+    //eliminar la imagen de la especie del servidor
+    foreach($species as $specie){
+        if($id == $specie['id']){
+            unlink('../'.$specie['img']);
+        }
+    }
     $newList = array_filter($species, fn($specie) => $specie['id'] !== $id);
-
+    //reescribir el archivo json con todas las especies, excepto la eliminada
     file_put_contents($file, json_encode(array_values($newList), JSON_PRETTY_PRINT));
+
     $_SESSION['status'] = "success";
     $_SESSION['message'] = "La especie seleccionada fue eliminada correctamente.";
     header("Location: admin.php");

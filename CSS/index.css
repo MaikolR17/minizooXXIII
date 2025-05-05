@@ -1,4 +1,6 @@
-/* RESET GENERAL */
+/* ------------------------ */
+/* RESET GENERAL            */
+/* ------------------------ */
 * {
   margin: 0;
   padding: 0;
@@ -8,9 +10,14 @@
 body {
   font-family: 'Segoe UI', sans-serif;
   scroll-behavior: smooth;
+  line-height: 1.6;
+  background-color: #fff;
+  color: #000;
 }
 
-/* ENCABEZADO */
+/* ------------------------ */
+/* ENCABEZADO Y MENÚ        */
+/* ------------------------ */
 .encabezado {
   display: flex;
   flex-wrap: wrap;
@@ -34,7 +41,6 @@ body {
   font-weight: normal;
 }
 
-/* NAVEGACIÓN */
 .nav-links {
   display: flex;
   gap: 20px;
@@ -43,11 +49,15 @@ body {
   text-decoration: none;
   color: #333;
 }
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a:focus {
   color: #00796b;
+  outline: none;
 }
 
-/* BÚSQUEDA */
+/* ------------------------ */
+/* BÚSQUEDA                 */
+/* ------------------------ */
 .busqueda {
   display: flex;
   align-items: center;
@@ -70,7 +80,9 @@ body {
   flex: 1;
 }
 
-/* ACCIONES */
+/* ------------------------ */
+/* ACCIONES DE USUARIO      */
+/* ------------------------ */
 .acciones {
   display: flex;
   align-items: center;
@@ -88,14 +100,31 @@ body {
   font-weight: bold;
 }
 
-/* MENÚ HAMBURGUESA */
+/* ------------------------ */
+/* BOTÓN MODO OSCURO        */
+/* ------------------------ */
+.btn-darkmode {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* ------------------------ */
+/* MENÚ HAMBURGUESA         */
+/* ------------------------ */
 .menu-toggle {
   display: none;
   font-size: 24px;
   cursor: pointer;
 }
 
-/* RESPONSIVE */
+/* ------------------------ */
+/* RESPONSIVE NAV           */
+/* ------------------------ */
 @media screen and (max-width: 768px) {
   .nav-links {
     display: none;
@@ -126,7 +155,9 @@ body {
   }
 }
 
-/* SECCIÓN PRINCIPAL */
+/* ------------------------ */
+/* SECCIÓN PRINCIPAL        */
+/* ------------------------ */
 .seccion-principal {
   text-align: center;
   padding: 60px 20px;
@@ -146,7 +177,9 @@ body {
   margin-right: auto;
 }
 
-/* GALERÍA */
+/* ------------------------ */
+/* GALERÍA DE ANIMALES      */
+/* ------------------------ */
 .galeria-animales {
   display: flex;
   flex-wrap: wrap;
@@ -178,17 +211,6 @@ body {
 .tarjeta-animal:hover {
   transform: translateY(-5px);
 }
-
-/* PIE DE PÁGINA */
-.footer {
-  background-color: #f1f1f1;
-  text-align: center;
-  padding: 20px;
-  font-size: 14px;
-}
-.footer-info p {
-  margin-bottom: 10px;
-}
 .saber-mas {
   display: inline-block;
   margin-top: 10px;
@@ -198,4 +220,46 @@ body {
 }
 .saber-mas:hover {
   color: #009688;
+}
+
+/* ------------------------ */
+/* PIE DE PÁGINA            */
+/* ------------------------ */
+.footer {
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
+.footer-info p {
+  margin-bottom: 10px;
+}
+
+/* ------------------------ */
+/* MODO OSCURO              */
+/* ------------------------ */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode .encabezado,
+body.dark-mode .footer {
+  background-color: #1f1f1f;
+}
+
+body.dark-mode .tarjeta-animal {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+}
+
+body.dark-mode .tarjeta-animal p,
+body.dark-mode .tarjeta-animal h3 {
+  color: #f0f0f0;
+}
+
+body.dark-mode .nav-links a,
+body.dark-mode .acciones a,
+body.dark-mode .busqueda input {
+  color: #f0f0f0;
 }
