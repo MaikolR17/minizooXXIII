@@ -80,7 +80,7 @@
                   echo '<img src="' . htmlspecialchars($animal["qr"]) . '" alt="Código QR">';
               }
 
-              echo '<br><a href="specie_info.php"><i class="fas fa-info-circle saber-mas"></i></a>';
+              echo '<br><a href="'.$animal['url'].'"><i class="fas fa-info-circle saber-mas"></i></a>';
               echo '</div>';
               echo '<p id="noResults" style="text-align:center; color:#777; margin-top:20px; display:none;">No se encontraron coincidencias 🐾</p>';
           }
