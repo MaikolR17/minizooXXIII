@@ -2,7 +2,7 @@
 <?php 
 session_start();
     if (!isset($_SESSION["access"])) {
-        header("Location: PHP/admlogin.php");
+        header("Location: admlogin.php");
         exit;
     }
 ?>
@@ -65,7 +65,7 @@ session_start();
 
         <!-- Selección de especie para modificar o eliminar -->
         <?php
-        $file = 'species.json';
+        $file = '../species.json';
         $list_species = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
         ?>
 
@@ -90,7 +90,7 @@ session_start();
         const submitButton = document.getElementById("submit-btn");
         //funcion para obtener los datos de la especie seleccionada y mostrarlos en los inputs recibe como parametro el id de la especie
         function loadSpecie(id) {
-            fetch('PHP/get_animal.php?id=' + id)
+            fetch('get_animal.php?id=' + id)
                 .then(response => response.json())
                 .then(data => {
                     if (data) {
