@@ -2,7 +2,7 @@
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: ../admin.php");
+    header("Location: admin.php");
     exit;
 }
 
@@ -11,7 +11,7 @@ function saveImage() {
     if (isset($_FILES['img']) && $_FILES['img']['error'] === 0) {
         $tempName = $_FILES['img']['tmp_name'];
         $finalName = uniqid() . '_' . basename($_FILES['img']['name']);
-        $location = '../img/' . $finalName;
+        $location = 'img/' . $finalName;
         
         // Validación del archivo (tipo y tamaño)
         $allowedFormat = ['image/jpeg', 'image/png', 'image/gif'];
@@ -20,14 +20,14 @@ function saveImage() {
         if (!in_array($_FILES['img']['type'], $allowedFormat)) {
             $_SESSION['status'] = "error";
             $_SESSION['message'] = "Formato de imagen no permitido.";
-            header("Location: ../admin.php");
+            header("Location: admin.php");
             exit;
         }
 
         if ($_FILES['img']['size'] > $maxSize) {
             $_SESSION['status'] = "error";
             $_SESSION['message'] = "La imagen es demasiado grande. El tamaño máximo es de 5MB.";
-            header("Location: ../admin.php");
+            header("Location: admin.php");
             exit;
         }
 
@@ -73,14 +73,18 @@ function addSpecie(&$species, $file) {
     ) {
         $_SESSION['status'] = "error";
         $_SESSION['message'] = "Todos los campos son obligatorios. Por favor, complete todo el formulario.";
-        header("Location: ../admin.php");
+        //se elimina la imagen del servidor
+        if(!empty($new['img'])){
+            unlink($new['img']);
+        }
+        header("Location: admin.php");
         exit;
     }
     // Verificamos si la imagen está vacía (no se subió)
     if (empty($new['img'])) {
         $_SESSION['status'] = "error";
         $_SESSION['message'] = "La imagen es obligatoria. Por favor, sube una imagen.";
-        header("Location: ../admin.php");
+        header("Location: admin.php");
         exit;
     }
     
@@ -89,7 +93,7 @@ function addSpecie(&$species, $file) {
     file_put_contents($file, json_encode($species, JSON_PRETTY_PRINT));
     $_SESSION['status'] = "success";
     $_SESSION['message'] = "Especie agregada correctamente.";
-    header("Location: ../admin.php");
+    header("Location: admin.php");
     exit;
 }
 
@@ -116,14 +120,14 @@ function updateSpecie(&$species, $file) {
             file_put_contents($file, json_encode($species, JSON_PRETTY_PRINT));
             $_SESSION['status'] = "success";
             $_SESSION['message'] = "Especie actualizada correctamente.";
-            header("Location: ../admin.php");
+            header("Location: admin.php");
             exit;
         }
     }
 
     $_SESSION['status'] = "error";
     $_SESSION['message'] = "No se pudo modificar la especie.";
-    header("Location: ..//admin.php");
+    header("Location: admin.php");
     exit;
 }
 
@@ -135,7 +139,7 @@ function deleteSpecie(&$species, $file) {
     file_put_contents($file, json_encode(array_values($newList), JSON_PRETTY_PRINT));
     $_SESSION['status'] = "success";
     $_SESSION['message'] = "La especie seleccionada fue eliminada correctamente.";
-    header("Location: a../dmin.php");
+    header("Location: admin.php");
     exit;
 }
 
@@ -160,6 +164,6 @@ switch ($action) {
     default:
         $_SESSION['status'] = "error";
         $_SESSION['message'] = "No se ha seleccionado ninguna opcion";
-        header("Location: ..//admin.php");
+        header("Location: admin.php");
         exit;
 }
