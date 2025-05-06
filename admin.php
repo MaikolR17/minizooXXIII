@@ -16,9 +16,9 @@
         <?php
         if (isset($_SESSION['status'])) {
             if ($_SESSION['status'] === "error") {
-                echo '<p style="color:red;">Datos vacíos... ¡Rellénelos!</p>';
+                echo '<p id="alerta" style="color:red;">Datos vacíos... ¡Rellénelos!</p>';
             } else if ($_SESSION['status'] === "success") {
-                echo '<p style="color:green;">Animal agregado correctamente.</p>';
+                echo '<p id="alerta" style="color:green;">Animal agregado correctamente.</p>';
             }
             unset($_SESSION['status']);
         }
@@ -70,13 +70,23 @@
 
         <button type="submit" id="submit-btn">Confirmar Acción</button>
     </form>
-    
+
+    <!-- Script para ocultar alerta despues de 5 segundos -->
+    <script>
+        setTimeout(function() {
+            const alerta = document.getElementById('alerta');
+            if (alerta) {
+                alerta.style.display = 'none';
+            }
+        }, 5000);
+    </script>
+
     <script>
         const funcSelect = document.getElementById("func");
         const animalList = document.getElementById("list-animal");
         const inputs = document.querySelectorAll("input[type=text], textarea, input[type=file]");
         const submitButton = document.getElementById("submit-btn");
-        
+
         function cargarAnimal(id) {
             fetch('get_animal.php?id=' + id)
                 .then(response => response.json())
@@ -105,7 +115,6 @@
                 inputs.forEach(el => el.disabled = false);
                 animalList.disabled = false;
                 submitButton.textContent = "Confirmar Modificación";
-                // Si ya hay un animal seleccionado, cargarlo
                 if (animalList.value) {
                     cargarAnimal(animalList.value);
                 }
