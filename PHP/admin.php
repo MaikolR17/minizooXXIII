@@ -41,6 +41,7 @@ session_start();
             <option value="add">Agregar</option>
             <option value="update">Modificar</option>
             <option value="delete">Eliminar</option>
+            <option value="downloadQR">Descargar QR</option>
         </select>
 
         <!-- Campos para ingresar o modificar los datos -->
@@ -106,6 +107,29 @@ session_start();
                 })
                 .catch(error => console.error("Error cargando datos:", error));
         }
+        //funcion para descargar QR, el cual descarga el QR de la especie del nombre de la especie con formato jpg
+        function downloadQR(id){
+            fetch('get_animal.php?id=' + id)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        //este paso es necesario porque ciertos navegadores ignoran el atributo download si el recurso no es servido con un encabezado adecuado (fuente: copitot)
+                        fetch(data.qr)
+                            .then(response => response.blob())
+                            .then(blob => {
+                            const link = document.createElement('a'); //se crea en elemento <a>
+                            link.href = URL.createObjectURL(blob);  //referencia a la imagen con el encabezado adecuado
+                            link.download = data.name +'.jpg' || 'imagen_descargada'; //asignacion del atributo download con el nombre del archivo
+                            document.body.appendChild(link); //se escribe el elemento en el body
+                            link.click();   //realiza un click al elemento creado
+                            document.body.removeChild(link);    //remueve el elemento
+                            URL.revokeObjectURL(link.href); //elimina el objeto creado
+                        })
+                        .catch(error => console.error('Error al descargar la imagen:', error));
+                    }
+                })
+                .catch(error => console.error("Error cargando datos:", error));
+        }
         
         //evento para modificar el DOM dependiendo de la funcionalidad seleccionada
         funcSelect.addEventListener("change", function () {
@@ -116,11 +140,16 @@ session_start();
                     del.disabled = true
                     del.value = ""; //limpiar formulario
                     });
+                submitButton.type = "submit"; //cambia el tipo de boton
                 animalList.disabled = false;
                 animalList.selectedIndex = 0; //se selecciona la primera opcion del select
                 submitButton.textContent = "Confirmar Eliminación";
             } else if (value === "update") { //se activan todos los inputs, se activa el select de la lista de especies y el boton cambia de nombre a 'Confirmar Modificacion'
-                inputs.forEach(del => del.disabled = false);
+                inputs.forEach(del =>{ 
+                    del.disabled = true;
+                    del.value = "";
+                });
+                submitButton.type = "submit"; //cambia el tipo de boton
                 animalList.disabled = false;
                 animalList.selectedIndex = 0; //se selecciona la primera opcion del select
                 submitButton.textContent = "Confirmar Modificación";
@@ -128,14 +157,24 @@ session_start();
                 if (animalList.value) {
                     loadSpecie(animalList.value);
                 }
-            } else { //se activan todos los inputs, se desactiva el select de la lista de especies y el boton cambia de nombre a 'Agregar Especie'
+            } else if(value === "add"){ //se activan todos los inputs, se desactiva el select de la lista de especies y el boton cambia de nombre a 'Agregar Especie'
                 inputs.forEach(del => {
                     del.disabled = false;
                     del.value = ""; //limpiar formulario
                     });
+                submitButton.type = "submit";    //cambia el tipo de boton
                 animalList.selectedIndex = 0; //se selecciona la primera opcion del select
                 animalList.disabled = true;
                 submitButton.textContent = "Agregar Especie";
+            } else { //se desactivan todos los inputs, se activa el select de la lista de especies y el boton cambia de nombre a 'Decargar QR y cambia de tipo a button'
+                inputs.forEach(del => {
+                    del.disabled = true
+                    del.value = ""; //limpiar formulario
+                    });
+                submitButton.type = "button";  //cambia el tipo de boton  
+                animalList.disabled = false;
+                animalList.selectedIndex = 0; //se selecciona la primera opcion del select
+                submitButton.textContent = "Descargar QR";
             }
         });
         //evento para modificar el DOM dependiendo de la especie seleccionada
@@ -143,9 +182,18 @@ session_start();
             const action = funcSelect.value;
             //comprobar que la funcionalidad seleccionada sea update para no interferir con delete
             if (action === "update") {
+                inputs.forEach(del => del.disabled = false);
                 loadSpecie(this.value);
             }
         });
+        //evento al dar click sobre el boton Descargar QR
+        submitButton.addEventListener("click", function(){
+            const action = funcSelect.value;
+            if(action === "downloadQR"){
+                downloadQR(animalList.value);
+            }
+        })
+
     </script>
 </body>
 </html>
