@@ -8,7 +8,7 @@
     $id = $_GET['id'];
     $species = json_decode(file_get_contents('species.json'),true)?  : [];
     //seleccionar la especie que coincida con el id capturado
-    $specie = array_filter($species, fn($animal)=> $animal['id'] == $id);
+    $specie = array_values(array_filter($species, fn($animal)=> $animal['id'] == $id));
     if(empty($specie)){
         header("Location: index.php");
         exit;
@@ -34,9 +34,9 @@
             </div>
             <div class ="large_text">
                 <p id ="description"><?=htmlspecialchars($specie[0]['description'])?></p>
-                <h3>ECOLOGIA</h3>
+                <h3>ECOLOGÍA</h3>
                 <p id="ecology"><?=htmlspecialchars($specie[0]['ecology'])?></p>
-                <h3>DISTRIBUCiÓN</h3>
+                <h3>DISTRIBUCIÓN</h3>
                 <p id = "distribution"><?=htmlspecialchars($specie[0]['distribution'])?></p>
             </div>
         </div>

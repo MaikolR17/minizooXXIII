@@ -39,7 +39,7 @@ function saveImage() {
 
 // Generar una url para cada especie
 function generateURL($id) {
-    return "https://juanxiiizoo.infinityfreapp.com/specie_info.php?id=" . $id;
+    return "https://juanxxiiizoo.infinityfreeapp.com/specie_info.php?id=" . $id;
 }
 
 // Genera codigo qr basandose en la url
