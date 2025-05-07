@@ -12,7 +12,7 @@
   <!-- ENCABEZADO -->
   <header class="encabezado" role="banner">
     <div class="logo">
-      <strong>Zoo</strong><span>Natural Life</span>
+      <strong>MiniZoo</strong><span>Juan XXIII</span>
     </div>
 
     <!-- Botón menú hamburguesa para móviles -->
@@ -35,16 +35,9 @@
       <input id="buscar" type="text" placeholder="Busca una especie, sección o evento" />
     </form>
 
-    <!-- Acciones de usuario -->
-    <div class="acciones" role="group" aria-label="Acciones de usuario">
-      <i class="fas fa-globe" aria-hidden="true"></i>
-      <a href="#">Iniciar sesión</a>
-      <a href="#" class="btn-primario">¡Compra boletos!</a>
-    </div>
-
     <!-- Botón de modo oscuro -->
     <button id="modo-oscuro-toggle" class="btn-darkmode" aria-pressed="false">
-      <i class="fas fa-moon" aria-hidden="true"></i> Modo oscuro
+      <i class="fas fa-moon" aria-hidden="true"></i> 
     </button>
   </header>
 
@@ -123,6 +116,22 @@
     const searchInput = document.querySelector(".busqueda input");
     const animalCards = document.querySelectorAll(".tarjeta-animal");
     const noResultsMessage = document.getElementById("noResults");
+    const darkModeToggle = document.getElementById("modo-oscuro-toggle");
+    const body = document.body;
+
+    // Aplicar preferencias guardadas al cargar la página
+    const darkMode = localStorage.getItem("modoOscuro");
+    if (darkMode === "true") {
+      body.classList.add("modo-oscuro");
+      darkModeToggle.setAttribute("aria-pressed", "true");
+    }
+
+    // Guardar preferencia cuando el usuario activa o desactiva modo oscuro
+    darkModeToggle.addEventListener("click", () => {
+      const isDark = body.classList.toggle("modo-oscuro");
+      localStorage.setItem("modoOscuro", isDark);
+      darkModeToggle.setAttribute("aria-pressed", isDark.toString());
+    });
 
     searchInput.addEventListener("input", () => {
       const searchTerm = searchInput.value.trim().toLowerCase();

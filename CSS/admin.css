@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #f5f5f5;
+    background-color: #fff;
     color: #212121;
     padding: 32px;
 }
@@ -20,7 +20,7 @@ body {
 }
 
 #animal-form {
-    background-color: #ffffff;
+    background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     max-width: 800px;
@@ -73,14 +73,85 @@ button[type="submit"]:hover {
 
 .cont-alert .error {
     background-color: #ffcdd2;
-    color: #b71c1c;
+    color: #610000;
     padding: 10px;
     border-radius: 6px;
 }
 
 .cont-alert .success {
     background-color: #c8e6c9;
-    color: #1b5e20;
+    color: #006c07;
     padding: 10px;
     border-radius: 6px;
+}
+
+/* Boton Modo oscuro */
+
+#btn-darkmode {
+    display: block;
+    margin: 0 auto 20px auto; /* centrado y con margen inferior */
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #2e7d32;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#btn-darkmode:hover {
+    background-color: #236126;
+}
+
+/* Modo Oscuro */
+body.dark-mode #btn-darkmode {
+    background-color: #2e7d32;
+    color: #fff;
+}
+
+body.dark-mode #btn-darkmode:hover {
+    background-color: #236126;
+    color: #fff;
+}
+
+body.dark-mode #animal-form {
+    background: linear-gradient(160deg, #121212, #333);
+}
+
+body.dark-mode #animal-form:hover {
+    box-shadow: 0px 0px 15px 0 #fff;
+    transition: 0.5s ease;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+    background-color: #ccc;
+    color: #050505;
+    border: 1px solid #444;
+}
+
+body.dark-mode input[type="file"] {
+    border: #444 solid 1px;
+    background: transparent;
+    color: #2e7d32;
+}
+body.dark-mode button {
+    background-color: #121212;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+body.dark-mode .error {
+    color: #ff6b6b;
+}
+
+body.dark-mode .success {
+    color: #66ff99;
 }
