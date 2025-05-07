@@ -16,14 +16,16 @@ session_start();
     <link rel="stylesheet" href="../CSS/admin.css">
 </head>
 <body>
-
+    
+    <button id="btn-darkmode">Modo Oscuro</button>
     <h1 id = "titleForm"> Formulario de Especies </h1>
-
-<!-- Formulario para agregar, modificar o eliminar especie -->
+    
+    
+    <!-- Formulario para agregar, modificar o eliminar especie -->
     <form action="CRUD.php" method="POST" enctype="multipart/form-data" id="animal-form">
-<!--contenedor de la caja de alertas, donde se informan errores y acciones completadas correctamente-->
+        <!--contenedor de la caja de alertas, donde se informan errores y acciones completadas correctamente-->
         <div class="cont-alert">
-        <?php
+            <?php
         if (isset($_SESSION['status'])) {
             if ($_SESSION['status'] === "error") {
                 echo "<p class=\"error\">".$_SESSION['message'].'</p>';
@@ -35,7 +37,7 @@ session_start();
         }
         ?>
         </div>
-    <!--Seleccion de la lista de accion a realizar-->
+        <!--Seleccion de la lista de accion a realizar-->
         <label for="functionality">¿Qué acción quieres realizar?</label>
         <select name="functionality" id="func" required>
             <option value="add">Agregar</option>
@@ -43,7 +45,7 @@ session_start();
             <option value="delete">Eliminar</option>
             <option value="downloadQR">Descargar QR</option>
         </select>
-
+        
         <!-- Campos para ingresar o modificar los datos -->
         <label for="name">Nombre Común:</label>
         <input type="text" name="name" id="name">
@@ -63,32 +65,34 @@ session_start();
         <textarea name="distribution" id="distribution" rows="4" cols="50"></textarea>
         <label for="img">Imagen de Referencia: </label>
         <input type="file" name="img" id="img">
-
+        
         <!-- Selección de especie para modificar o eliminar -->
         <?php
         $file = '../species.json';
         $list_species = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
         ?>
 
-        <label for="list-species">Elija un animal registrado:</label>
-        <select name="list-species" id="list-species" disabled>
-            <option value="" disabled selected> --Seleccione una especie-- </option>
-            <?php foreach ($list_species as $specie): ?>
-                <option value="<?= htmlspecialchars($specie['id']) ?>">
-                    <?= htmlspecialchars($specie['name']) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-
-        <button type="submit" id="submit-btn">Agregar Especie</button>
-    </form>
+<label for="list-species">Elija un animal registrado:</label>
+<select name="list-species" id="list-species" disabled>
+    <option value="" disabled selected> --Seleccione una especie-- </option>
+    <?php foreach ($list_species as $specie): ?>
+        <option value="<?= htmlspecialchars($specie['id']) ?>">
+            <?= htmlspecialchars($specie['name']) ?>
+        </option>
+        <?php endforeach; ?>
+    </select>
     
-    <script>
+    <button type="submit" id="submit-btn">Agregar Especie</button>
+</form>
+
+<script>
         //seleccion de los elementos del DOM
         const funcSelect = document.getElementById("func");
         const animalList = document.getElementById("list-species");
         const inputs = document.querySelectorAll("input[type=text], textarea, input[type=file]");
         const submitButton = document.getElementById("submit-btn");
+        const btn = document.getElementById('btn-darkmode');
+
         //funcion para obtener los datos de la especie seleccionada y mostrarlos en los inputs recibe como parametro el id de la especie
         function loadSpecie(id) {
             fetch('get_animal.php?id=' + id)
@@ -192,8 +196,26 @@ session_start();
             if(action === "downloadQR"){
                 downloadQR(animalList.value);
             }
-        })
+        });
+        
+        // Al hacer clic, alternamos dark mode y guardamos la preferencia
+        btn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            // Guardar preferencia
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
 
+        // Al cargar la página, aplicamos la preferencia guardada
+        window.addEventListener('DOMContentLoaded', () => {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+        });
     </script>
 </body>
 </html>

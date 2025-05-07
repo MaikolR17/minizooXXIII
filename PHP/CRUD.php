@@ -39,7 +39,7 @@ function saveImage() {
 
 // Generar una url para cada especie
 function generateURL($id) {
-    return "https://www.juanxiiizoo.infinityfreapp.com/specie_info.php?id=" . $id;
+    return "https://juanxiiizoo.infinityfreapp.com/specie_info.php?id=" . $id;
 }
 
 // Genera codigo qr basandose en la url
@@ -67,13 +67,13 @@ function addSpecie(&$species, $file) {
 
      // Validación de los campos
     if (
-        empty($_POST['name']) || empty($_POST['alt_name']) || empty($_POST['scient_name']) ||
-        empty($_POST['order']) || empty($_POST['family']) || empty($_POST['description']) ||
+        empty($_POST['name']) || empty($_POST['order'])|| 
+        empty($_POST['family']) || empty($_POST['description'])||
         empty($_POST['ecology']) || empty($_POST['distribution'])
     ) {
         $_SESSION['status'] = "error";
         $_SESSION['message'] = "Todos los campos son obligatorios. Por favor, complete todo el formulario.";
-        //se elimina la imagen del servidor
+        //se elimina la imagen del servidor si se subio una imagen
         if(!empty($new['img'])){
             unlink($new['img']);
         }
@@ -86,6 +86,24 @@ function addSpecie(&$species, $file) {
         $_SESSION['message'] = "La imagen es obligatoria. Por favor, sube una imagen.";
         header("Location: admin.php");
         exit;
+    }
+
+    // Validar si el nombre ya existe
+    foreach ($species as $existing) {
+        if (
+            strcasecmp($existing['name'], $_POST['name']) === 0 ||
+            strcasecmp($existing['alt_name'], $_POST['alt_name']) === 0 ||
+            strcasecmp($existing['scient_name'], $_POST['scient_name']) === 0 
+            ) {
+            $_SESSION['status'] = "error";
+            $_SESSION['message'] = "Ya existe una especie con ese nombre.";
+            // Si ya se subió imagen, se elimina para evitar basura en el servidor
+            if (!empty($new['img'])) {
+                unlink($new['img']);
+            }
+            header("Location: admin.php");
+            exit;
+        }
     }
     
     //añadir nueva especie al array y escribir en el json

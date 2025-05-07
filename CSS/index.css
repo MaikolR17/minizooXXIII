@@ -22,6 +22,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  color: #000;
   justify-content: space-between;
   background-color: #fff;
   padding: 15px 25px;
@@ -36,7 +37,7 @@ body {
   font-weight: bold;
 }
 .logo span {
-  color: #00796b;
+  color: #009688;
   margin-left: 6px;
   font-weight: normal;
 }
@@ -78,26 +79,6 @@ body {
   background: transparent;
   outline: none;
   flex: 1;
-}
-
-/* ------------------------ */
-/* ACCIONES DE USUARIO      */
-/* ------------------------ */
-.acciones {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-.acciones a {
-  text-decoration: none;
-  color: #000;
-}
-.btn-primario {
-  background-color: #004d40;
-  color: white;
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-weight: bold;
 }
 
 /* ------------------------ */
@@ -147,8 +128,7 @@ body {
     display: block;
   }
 
-  .busqueda,
-  .acciones {
+  .busqueda {
     margin-top: 10px;
     width: 100%;
     justify-content: center;
@@ -163,9 +143,10 @@ body {
   padding: 60px 20px;
   background-color: #fafafa;
 }
+
 .seccion-principal h1 {
   font-size: 32px;
-  color: #004d40;
+  color: #009688;
   margin-bottom: 10px;
 }
 .seccion-principal p {
@@ -188,7 +169,7 @@ body {
 }
 .tarjeta-animal {
   background: white;
-  border-radius: 12px;
+  border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   width: 280px;
   padding: 15px;
@@ -202,7 +183,7 @@ body {
 }
 .tarjeta-animal h3 {
   margin: 12px 0 6px;
-  color: #00796b;
+  color: #009688;
 }
 .tarjeta-animal p {
   font-size: 14px;
@@ -215,11 +196,11 @@ body {
   display: inline-block;
   margin-top: 10px;
   font-size: 18px;
-  color: #004d40;
+  color: #009688;
   transition: color 0.3s;
 }
 .saber-mas:hover {
-  color: #009688;
+  color: #004d40;
 }
 
 /* ------------------------ */
@@ -231,6 +212,12 @@ body {
   padding: 20px;
   font-size: 14px;
 }
+
+.footer a {
+  text-decoration: none;
+  color:#2e7d32;
+}
+
 .footer-info p {
   margin-bottom: 10px;
 }
@@ -243,23 +230,68 @@ body.dark-mode {
   color: #e0e0e0;
 }
 
-body.dark-mode .encabezado,
+body.dark-mode .encabezado {
+  background-color: #121212;
+}
+
+body.dark-mode .nav-links a:hover,
+body.dark-mode .nav-links a:focus {
+  color: #009688;
+  outline: none;
+}
+
+body.dark-mode .seccion-principal h1 {
+  font-size: 32px;
+  color: #009688;
+  margin-bottom: 10px;
+}
+
 body.dark-mode .footer {
-  background-color: #1f1f1f;
+  background: #121212;
+  border-top: #ccc 1px solid;
+}
+
+body.dark-mode .footer a {
+  color: #009688;
+}
+
+body.dark-mode .footer a:hover {
+  color: #004d40;
+}
+
+body.dark-mode .btn-darkmode {
+  color: #fff;
 }
 
 body.dark-mode .tarjeta-animal {
-  background-color: #2a2a2a;
-  border: 1px solid #444;
+  background: #121212;
+  border: 1px solid #505050;
+  box-shadow: 0px 0px 10px 0 #fff;
 }
 
-body.dark-mode .tarjeta-animal p,
+body.dark-mode .tarjeta-animal p {
+  color: #f0f0f0;
+}
 body.dark-mode .tarjeta-animal h3 {
-  color: #f0f0f0;
+  color: #009688;
 }
 
-body.dark-mode .nav-links a,
-body.dark-mode .acciones a,
-body.dark-mode .busqueda input {
-  color: #f0f0f0;
+body.dark-mode .seccion-principal {
+  background: linear-gradient(160deg, #121212, #333);
 }
+
+body.dark-mode .logo {
+  color: #fff;
+}
+
+body.dark-mode .seccion-principal p {
+  color: #fff;
+}
+
+body.dark-mode .nav-links a {
+  color: #fff;
+}
+
+body.dark-mode .busqueda input {
+  color: #333;
+} 
