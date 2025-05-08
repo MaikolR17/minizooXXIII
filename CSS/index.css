@@ -123,11 +123,36 @@ body {
   cursor: pointer;
 }
 
-.menu-toggle:hover {
+.menu-toggle:focus {
+  outline: none;
+  box-shadow: none;
   border: 2px solid #656565;
   color: #656565;
   padding: 8px;
   background: #fff;
+}
+
+.menu-toggle i:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.menu-toggle, .nav-links a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.menu-toggle,
+.nav-links a {
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-focus-ring-color: transparent;
+}
+
+.menu-toggle:active,
+.nav-links a:active {
+  background-color: rgba(0, 0, 0, 0.05); /* efecto suave */
+  border-radius: 8px;
 }
 
 /* ------------------------ */
