@@ -150,8 +150,10 @@ body.dark-mode button {
 
 body.dark-mode .error {
     color: #ff6b6b;
+    background-color: #610000;
 }
 
 body.dark-mode .success {
     color: #66ff99;
+    background-color: #006c07;
 }
