@@ -6,6 +6,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+html, body {
+  height: 98%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
 
 body {
   font-family: 'Segoe UI', sans-serif;
@@ -49,11 +59,16 @@ body {
 .nav-links a {
   text-decoration: none;
   color: #333;
+  padding: 3px;
 }
 .nav-links a:hover,
 .nav-links a:focus {
   color: #00796b;
   outline: none;
+}
+
+.nav-links.active {
+  display: flex;
 }
 
 /* ------------------------ */
@@ -97,10 +112,22 @@ body {
 /* ------------------------ */
 /* MENÚ HAMBURGUESA         */
 /* ------------------------ */
+
 .menu-toggle {
   display: none;
-  font-size: 24px;
+  border: 2px solid #121212;
+  border-radius: 50%;
+  font-size: 20px;
+  padding: 8px;
+  background: #fff;
   cursor: pointer;
+}
+
+.menu-toggle:hover {
+  border: 2px solid #656565;
+  color: #656565;
+  padding: 8px;
+  background: #fff;
 }
 
 /* ------------------------ */
@@ -108,20 +135,31 @@ body {
 /* ------------------------ */
 @media screen and (max-width: 768px) {
   .nav-links {
-    display: none;
     flex-direction: column;
     gap: 15px;
     background: #fff;
     position: absolute;
-    top: 70px;
+    top: 60px;
     left: 0;
     right: 0;
-    padding: 20px;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    padding: 0 20px;
+    pointer-events: none;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: max-height 0.5s ease, opacity 0.4s ease;
   }
 
   .nav-links.active {
-    display: flex;
+    max-height: 300px;
+    opacity: 1;
+    padding: 20px;
+    pointer-events: auto;
+  }
+
+  body.dark-mode .nav-links {
+    background: #121212;
   }
 
   .menu-toggle {
@@ -227,17 +265,30 @@ body {
 /* ------------------------ */
 body.dark-mode {
   background-color: #121212;
-  color: #e0e0e0;
 }
 
 body.dark-mode .encabezado {
   background-color: #121212;
 }
 
+body.dark-mode .nav-links a {
+  padding: 2px;
+  border: transparent solid 1px;
+  border-radius: 10px;
+}
+
 body.dark-mode .nav-links a:hover,
 body.dark-mode .nav-links a:focus {
   color: #009688;
+  border: #fff solid 1px;
   outline: none;
+}
+
+body.dark-mode .menu-toggle {
+  font-size: 20px;
+  color: #fff;
+  background: #121212;
+  border: #ddd solid 2px;
 }
 
 body.dark-mode .seccion-principal h1 {
@@ -249,6 +300,7 @@ body.dark-mode .seccion-principal h1 {
 body.dark-mode .footer {
   background: #121212;
   border-top: #ccc 1px solid;
+  color: white;
 }
 
 body.dark-mode .footer a {
