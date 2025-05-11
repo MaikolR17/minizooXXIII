@@ -64,6 +64,8 @@ $list_species = file_exists($file) ? json_decode(file_get_contents($file), true)
         </select>
 
         <!-- Campos para ingresar o modificar los datos -->
+        <label for="place" class="input-label">Recinto:</label>
+        <input type="number" name = "place" id="place">
         <label for="name" class="input-label">Nombre Común:</label>
         <input type="text" name="name" id="name">
         <label for="alt_name" class="input-label">Nombre Alternativo:</label> 

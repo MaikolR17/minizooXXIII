@@ -51,6 +51,7 @@ function generateQRCodeURL($url) {
 function addSpecie(&$species, $file) {
     $new = [
         "id" => uniqid(),
+        "place" => $_POST['place'],
         "name" => $_POST['name'],
         "alt_name" => $_POST['alt_name'],
         "scient_name" => $_POST['scient_name'],
@@ -121,6 +122,7 @@ function updateSpecie(&$species, $file) {
 
     foreach ($species as &$specie) {
         if ($specie['id'] === $id) {
+            $specie['place'] = $_POST['place'];
             $specie['name'] = $_POST['name'];
             $specie['alt_name'] = $_POST['alt_name'];
             $specie['scient_name'] = $_POST['scient_name'];

@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const funcSelect = document.getElementById("func");
   const animalList = document.getElementById("list-species");
   const inputs = document.querySelectorAll(
-    "input[type=text], textarea, input[type=file]"
+    "input[type=text], textarea, input[type=file],input[type=number]"
   );
   const submitButton = document.getElementById("submit-btn");
   const btn = document.getElementById("btn-darkmode");
@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
           document.getElementById("ecology").value = data.ecology || "";
           document.getElementById("distribution").value =
             data.distribution || "";
+          document.getElementById("place").value = data.place || "";
         }
       })
       .catch((error) => console.error("Error cargando datos:", error));
