@@ -1,10 +1,15 @@
 <!-- admin.php -->
 <?php 
 session_start();
-    if (!isset($_SESSION["access"])) {
-        header("Location: admlogin.php");
-        exit;
-    }
+// Verificar si el usuario tiene acceso, si no redirigir al login
+if (!isset($_SESSION["access"])) {
+    header("Location: admlogin.php");
+    exit;
+}
+
+// Cargar la lista de especies desde el archivo JSON
+$file = '../species.json';
+$list_species = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
 ?>
 
 <!DOCTYPE html>
@@ -16,28 +21,29 @@ session_start();
     <link rel="stylesheet" href="../CSS/admin.css">
 </head>
 <body>
-    
+    <!-- Botón para alternar modo oscuro -->
     <button id="btn-darkmode">Modo Oscuro</button>
-    <h1 id = "titleForm"> Formulario de Especies </h1>
-    
+    <h1 id="titleForm">Formulario de Especies</h1>
     
     <!-- Formulario para agregar, modificar o eliminar especie -->
     <form action="CRUD.php" method="POST" enctype="multipart/form-data" id="animal-form">
-        <!--contenedor de la caja de alertas, donde se informan errores y acciones completadas correctamente-->
+        <!-- Contenedor de la caja de alertas, donde se informan errores y acciones completadas correctamente -->
         <div class="cont-alert">
             <?php
-        if (isset($_SESSION['status'])) {
-            if ($_SESSION['status'] === "error") {
-                echo "<p class=\"error\">".$_SESSION['message'].'</p>';
-            } else{
-                echo "<p class=\"success\">".$_SESSION['message'].'</p>';
+            // Mostrar mensajes de estado (éxito/error)
+            if (isset($_SESSION['status'])) {
+                if ($_SESSION['status'] === "error") {
+                    echo "<p class=\"error\">".$_SESSION['message'].'</p>';
+                } else {
+                    echo "<p class=\"success\">".$_SESSION['message'].'</p>';
+                }
+                unset($_SESSION['status']);
+                unset($_SESSION['message']);
             }
-            unset($_SESSION['status']);
-            unset($_SESSION['message']);
-        }
-        ?>
+            ?>
         </div>
-        <!--Seleccion de la lista de accion a realizar-->
+        
+        <!-- Selección de la lista de acción a realizar -->
         <label for="functionality">¿Qué acción quieres realizar?</label>
         <select name="functionality" id="func" required>
             <option value="add">Agregar</option>
@@ -46,176 +52,40 @@ session_start();
             <option value="downloadQR">Descargar QR</option>
         </select>
         
+        <!-- Selección de especie para modificar o eliminar -->
+        <label for="list-species" id="species-label">Elija un animal registrado:</label>
+        <select name="list-species" id="list-species" disabled>
+            <option value="" disabled selected> --Seleccione una especie-- </option>
+            <?php foreach ($list_species as $specie): ?>
+                <option value="<?= htmlspecialchars($specie['id']) ?>">
+                    <?= htmlspecialchars($specie['name']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
         <!-- Campos para ingresar o modificar los datos -->
-        <label for="name">Nombre Común:</label>
+        <label for="name" class="input-label">Nombre Común:</label>
         <input type="text" name="name" id="name">
-        <label for="alt_name">Nombre Alternativo:</label> 
+        <label for="alt_name" class="input-label">Nombre Alternativo:</label> 
         <input type="text" name="alt_name" id="alt_name">
-        <label for="scient_name">Nombre científico:</label>
+        <label for="scient_name" class="input-label">Nombre científico:</label>
         <input type="text" name="scient_name" id="scient_name">
-        <label for="order">Orden:</label>
+        <label for="order" class="input-label">Orden:</label>
         <input type="text" name="order" id="order">
-        <label for="family">Familia:</label>
+        <label for="family" class="input-label">Familia:</label>
         <input type="text" name="family" id="family">
-        <label for="description">Descripción:</label>
+        <label for="description" class="input-label">Descripción:</label>
         <textarea name="description" id="description" rows="4" cols="50"></textarea>
-        <label for="ecology">Ecología:</label>
+        <label for="ecology" class="input-label">Ecología:</label>
         <textarea name="ecology" id="ecology" rows="4" cols="50"></textarea>
-        <label for="distribution">Distribución:</label>
+        <label for="distribution" class="input-label">Distribución:</label>
         <textarea name="distribution" id="distribution" rows="4" cols="50"></textarea>
-        <label for="img">Imagen de Referencia: </label>
+        <label for="img" class="input-label">Imagen de Referencia:</label>
         <input type="file" name="img" id="img">
         
-        <!-- Selección de especie para modificar o eliminar -->
-        <?php
-        $file = '../species.json';
-        $list_species = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
-        ?>
+        <button type="submit" id="submit-btn">Agregar Especie</button>
+    </form>
 
-<label for="list-species">Elija un animal registrado:</label>
-<select name="list-species" id="list-species" disabled>
-    <option value="" disabled selected> --Seleccione una especie-- </option>
-    <?php foreach ($list_species as $specie): ?>
-        <option value="<?= htmlspecialchars($specie['id']) ?>">
-            <?= htmlspecialchars($specie['name']) ?>
-        </option>
-        <?php endforeach; ?>
-    </select>
-    
-    <button type="submit" id="submit-btn">Agregar Especie</button>
-</form>
-
-<script>
-        //seleccion de los elementos del DOM
-        const funcSelect = document.getElementById("func");
-        const animalList = document.getElementById("list-species");
-        const inputs = document.querySelectorAll("input[type=text], textarea, input[type=file]");
-        const submitButton = document.getElementById("submit-btn");
-        const btn = document.getElementById('btn-darkmode');
-
-        //funcion para obtener los datos de la especie seleccionada y mostrarlos en los inputs recibe como parametro el id de la especie
-        function loadSpecie(id) {
-            fetch('get_animal.php?id=' + id)
-                .then(response => response.json())
-                .then(data => {
-                    if (data) {
-                        document.getElementById("name").value = data.name || "";
-                        document.getElementById("alt_name").value = data.alt_name || "";
-                        document.getElementById("scient_name").value = data.scient_name || "";
-                        document.getElementById("order").value = data.order || "";
-                        document.getElementById("family").value = data.family || "";
-                        document.getElementById("description").value = data.description || "";
-                        document.getElementById("ecology").value = data.ecology || "";
-                        document.getElementById("distribution").value = data.distribution || "";
-                    }
-                })
-                .catch(error => console.error("Error cargando datos:", error));
-        }
-        //funcion para descargar QR, el cual descarga el QR de la especie del nombre de la especie con formato jpg
-        function downloadQR(id){
-            fetch('get_animal.php?id=' + id)
-                .then(response => response.json())
-                .then(data => {
-                    if (data) {
-                        //este paso es necesario porque ciertos navegadores ignoran el atributo download si el recurso no es servido con un encabezado adecuado (fuente: copitot)
-                        fetch(data.qr)
-                            .then(response => response.blob())
-                            .then(blob => {
-                            const link = document.createElement('a'); //se crea en elemento <a>
-                            link.href = URL.createObjectURL(blob);  //referencia a la imagen con el encabezado adecuado
-                            link.download = data.name +'.jpg' || 'imagen_descargada'; //asignacion del atributo download con el nombre del archivo
-                            document.body.appendChild(link); //se escribe el elemento en el body
-                            link.click();   //realiza un click al elemento creado
-                            document.body.removeChild(link);    //remueve el elemento
-                            URL.revokeObjectURL(link.href); //elimina el objeto creado
-                        })
-                        .catch(error => console.error('Error al descargar la imagen:', error));
-                    }
-                })
-                .catch(error => console.error("Error cargando datos:", error));
-        }
-        
-        //evento para modificar el DOM dependiendo de la funcionalidad seleccionada
-        funcSelect.addEventListener("change", function () {
-            const value = this.value;
-
-            if (value === "delete") { //se desactivan todos los inputs, se activa el select de la lista de especies y el boton cambia de nombre a 'Confirmar eliminacion'
-                inputs.forEach(del => {
-                    del.disabled = true
-                    del.value = ""; //limpiar formulario
-                    });
-                submitButton.type = "submit"; //cambia el tipo de boton
-                animalList.disabled = false;
-                animalList.selectedIndex = 0; //se selecciona la primera opcion del select
-                submitButton.textContent = "Confirmar Eliminación";
-            } else if (value === "update") { //se activan todos los inputs, se activa el select de la lista de especies y el boton cambia de nombre a 'Confirmar Modificacion'
-                inputs.forEach(del =>{ 
-                    del.disabled = true;
-                    del.value = "";
-                });
-                submitButton.type = "submit"; //cambia el tipo de boton
-                animalList.disabled = false;
-                animalList.selectedIndex = 0; //se selecciona la primera opcion del select
-                submitButton.textContent = "Confirmar Modificación";
-                // Si ya hay un animal seleccionado, cargarlo
-                if (animalList.value) {
-                    loadSpecie(animalList.value);
-                }
-            } else if(value === "add"){ //se activan todos los inputs, se desactiva el select de la lista de especies y el boton cambia de nombre a 'Agregar Especie'
-                inputs.forEach(del => {
-                    del.disabled = false;
-                    del.value = ""; //limpiar formulario
-                    });
-                submitButton.type = "submit";    //cambia el tipo de boton
-                animalList.selectedIndex = 0; //se selecciona la primera opcion del select
-                animalList.disabled = true;
-                submitButton.textContent = "Agregar Especie";
-            } else { //se desactivan todos los inputs, se activa el select de la lista de especies y el boton cambia de nombre a 'Decargar QR y cambia de tipo a button'
-                inputs.forEach(del => {
-                    del.disabled = true
-                    del.value = ""; //limpiar formulario
-                    });
-                submitButton.type = "button";  //cambia el tipo de boton  
-                animalList.disabled = false;
-                animalList.selectedIndex = 0; //se selecciona la primera opcion del select
-                submitButton.textContent = "Descargar QR";
-            }
-        });
-        //evento para modificar el DOM dependiendo de la especie seleccionada
-        animalList.addEventListener("change", function () {
-            const action = funcSelect.value;
-            //comprobar que la funcionalidad seleccionada sea update para no interferir con delete
-            if (action === "update") {
-                inputs.forEach(del => del.disabled = false);
-                loadSpecie(this.value);
-            }
-        });
-        //evento al dar click sobre el boton Descargar QR
-        submitButton.addEventListener("click", function(){
-            const action = funcSelect.value;
-            if(action === "downloadQR"){
-                downloadQR(animalList.value);
-            }
-        });
-        
-        // Al hacer clic, alternamos dark mode y guardamos la preferencia
-        btn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            // Guardar preferencia
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
-        });
-
-        // Al cargar la página, aplicamos la preferencia guardada
-        window.addEventListener('DOMContentLoaded', () => {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.body.classList.add('dark-mode');
-            }
-        });
-    </script>
+    <script src="../javaScript/admin.js"></script>
 </body>
 </html>
