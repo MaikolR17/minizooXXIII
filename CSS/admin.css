@@ -1,0 +1,169 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: #fff;
+    color: #212121;
+    padding: 32px;
+}
+
+#titleForm {
+    color: #2e7d32;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#animal-form {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: auto;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-left: 8px solid #2e7d32;
+}
+
+label {
+    font-weight: bold;
+    color: #2e7d32;
+}
+
+input[type="text"], textarea, select, input[type="file"], input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+    resize: none;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #fdd835;
+}
+
+button[type="submit"], button[type="button"] {
+    background-color: #2e7d32;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover, button[type="button"]:hover {
+    background-color: #1b5e20;
+}
+
+.cont-alert {
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.cont-alert .error {
+    background-color: #ffcdd2;
+    color: #610000;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.cont-alert .success {
+    background-color: #c8e6c9;
+    color: #006c07;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+#btn-darkmode {
+    display: block;
+    margin: 0 auto 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #2e7d32;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#btn-darkmode:hover {
+    background-color: #236126;
+}
+
+label.disabled-label {
+    opacity: 0.6;
+}
+
+input:disabled, textarea:disabled, select:disabled {
+    background-color: #f0f0f0;
+    color: #666;
+}
+
+/* Modo Oscuro */
+body.dark-mode #btn-darkmode {
+    background-color: #2e7d32;
+    color: #fff;
+}
+
+body.dark-mode #btn-darkmode:hover {
+    background-color: #236126;
+    color: #fff;
+}
+
+body.dark-mode #animal-form {
+    background: linear-gradient(160deg, #121212, #333);
+}
+
+body.dark-mode #animal-form:hover {
+    box-shadow: 0px 0px 15px 0 #fff;
+    transition: 0.5s ease;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode input, body.dark-mode textarea, body.dark-mode select {
+    background-color: #ccc;
+    color: #050505;
+    border: 1px solid #444;
+}
+
+body.dark-mode input[type="file"] {
+    border: #444 solid 1px;
+    background: transparent;
+    color: #2e7d32;
+}
+
+body.dark-mode button {
+    background-color: #121212;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+body.dark-mode .error {
+    color: white;
+    background-color: #610000;
+}
+
+body.dark-mode .success {
+    color: white;
+    background-color: #006c07;
+}
+
+body.dark-mode input:disabled, body.dark-mode textarea:disabled, body.dark-mode select:disabled {
+    background-color: #444;
+    color: #999;
+}

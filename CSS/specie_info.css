@@ -1,0 +1,110 @@
+/* Paleta basada en el cartel: verde oliva, marrón tierra, beige claro, gris oscuro */
+:root {
+    --verde-oliva: #4d6d36;
+    --marron-tierra: #8b5e3c;
+    --beige-fondo: #f4f1e6;
+    --gris-texto: #333333;
+    --naranja-oxido: #b56428;
+    --blanco: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--beige-fondo);
+    color: var(--gris-texto);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+main {
+    max-width: 960px;
+    margin: auto;
+    padding: 2rem;
+    background-color: var(--blanco);
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2.2rem;
+    color: var(--verde-oliva);
+}
+
+h2 {
+    font-size: 1.6rem;
+    color: var(--verde-oliva);
+}
+
+h3 {
+    font-size: 1.2rem;
+    color: var(--marron-tierra);
+    margin-top: 1.5rem;
+}
+
+a {
+    color: var(--naranja-oxido);
+    text-decoration: underline;
+}
+
+a:focus, button:focus {
+    outline: 3px solid var(--naranja-oxido);
+    outline-offset: 3px;
+}
+
+.info_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.img_order_family {
+    flex: 1 1 280px;
+    text-align: center;
+}
+
+.img_order_family img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+}
+
+.img_order_family p {
+    margin: 0.5rem 0;
+    font-weight: bold;
+    color: var(--verde-oliva);
+}
+
+.large_text {
+    flex: 2 1 300px;
+}
+
+#description, #ecology, #distribution {
+    font-size: 1rem;
+    color: var(--gris-texto);
+}
+
+/* Responsividad para móviles */
+@media (max-width: 768px) {
+    .info_container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    main {
+        padding: 1rem;
+    }
+
+    h1, h2, h3 {
+        text-align: center;
+    }
+}
