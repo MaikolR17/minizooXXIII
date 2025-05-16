@@ -197,3 +197,4 @@ switch ($action) {
         header("Location: admin.php");
         exit;
 }
+?>
