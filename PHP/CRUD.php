@@ -1,56 +1,161 @@
 <?php
 session_start();
+require_once 'conex.php';
 
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+$db = new ConexionDB();
+
+if (!$db->conectar()) {
+    setError("No se pudo conectar a la base de datos: " . $db->getError());
+}
+
+$conn = $db->getConexion();
+
+function setError(string $msg) {
+    $_SESSION['status'] = "error";
+    $_SESSION['message'] = $msg;
     header("Location: admin.php");
     exit;
 }
 
-//guardar imagen de la especie en el servidor
-function saveImage() {
-    if (isset($_FILES['img']) && $_FILES['img']['error'] === 0) {
-        $tempName = $_FILES['img']['tmp_name'];
-        $finalName = uniqid() . '_' . basename($_FILES['img']['name']);
-        $location = '../img/' . $finalName;
-        
-        // Validación del archivo (tipo y tamaño)
-        $allowedFormat = ['image/jpeg', 'image/png', 'image/gif'];
-        $maxSize = 5 * 1024 * 1024; // 5MB
-
-        if (!in_array($_FILES['img']['type'], $allowedFormat)) {
-            $_SESSION['status'] = "error";
-            $_SESSION['message'] = "Formato de imagen no permitido.";
-            header("Location: admin.php");
-            exit;
-        }
-
-        if ($_FILES['img']['size'] > $maxSize) {
-            $_SESSION['status'] = "error";
-            $_SESSION['message'] = "La imagen es demasiado grande. El tamaño máximo es de 5MB.";
-            header("Location: admin.php");
-            exit;
-        }
-
-        move_uploaded_file($tempName, $location);
-        return 'img/'.$finalName;
-    }
-    return ""; // En caso de que no haya imagen
+function setSuccess(string $msg) {
+    $_SESSION['status'] = "success";
+    $_SESSION['message'] = $msg;
+    header("Location: admin.php");
+    exit;
 }
 
-// Generar una url para cada especie
-function generateURL($id) {
+function saveImage() {
+    if (!isset($_FILES['img']) || $_FILES['img']['error'] !== 0) {
+        setError("No se recibió ninguna imagen válida.");
+    }
+
+    $temp = $_FILES['img']['tmp_name'];
+    $name = basename($_FILES['img']['name']);
+    $uniqueName = $name;
+
+    $relativePath = 'img/' . $uniqueName;
+    $fullPath = '../' . $relativePath;
+
+    $allowed = ['image/jpeg', 'image/png', 'image/gif'];
+    $max = 5 * 1024 * 1024;
+
+    if (!in_array($_FILES['img']['type'], $allowed)) {
+        setError("Formato de imagen no permitido. Solo JPG, PNG y GIF.");
+    }
+
+    if ($_FILES['img']['size'] > $max) {
+        setError("La imagen excede el tamaño máximo de 5MB.");
+    }
+
+    if (!is_dir('../img')) {
+        mkdir('../img', 0777, true);
+    }
+
+    if (!move_uploaded_file($temp, $fullPath)) {
+        setError("Error al guardar la imagen.");
+    }
+
+    return $relativePath;
+}
+
+function generateURL(string $id): string {
     return "https://juanxxiiizoo.infinityfreeapp.com/specie_info.php?id=" . $id;
 }
 
-// Genera codigo qr basandose en la url
-function generateQRCodeURL($url) {
+function generateQRCodeURL(string $url): string {
     return "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url);
 }
 
-//agregar especie, recibe 2 parametros: array de especies y ruta del archivo json
-function addSpecie(&$species, $file) {
-    $new = [
-        "id" => uniqid(),
+function generateQRCodeImage(string $url, string $id): string {
+    $qrApiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url);
+
+    $qrDir = '../img/';
+    if (!is_dir($qrDir)) {
+        mkdir($qrDir, 0777, true);
+    }
+
+    $qrFilename = 'qr_' . $id .'.png';
+    $qrPath = $qrDir . $qrFilename;
+    $qrRelative = 'img/' . $qrFilename;
+
+    $qrImage = file_get_contents($qrApiUrl);
+    file_put_contents($qrPath, $qrImage);
+
+    return $qrRelative; 
+}
+
+
+
+function addSpecie(mysqli $conn) {
+    $img = saveImage();
+
+    $requiredFields = ['place', 'name', 'alt_name', 'scient_name', 'order', 'family', 'description', 'ecology', 'distribution'];
+    foreach ($requiredFields as $field) {
+        if (empty($_POST[$field])) {
+            if (!empty($img)) { unlink('../' . $img); }
+            setError("Todos los campos son obligatorios.");
+        }
+    }
+    if (empty($img)) {
+        setError("La imagen es obligatoria.");
+    }
+
+    $place = $conn->real_escape_string($_POST['place']);
+    $name = $conn->real_escape_string($_POST['name']);
+    $alt_name = $conn->real_escape_string($_POST['alt_name']);
+    $scient_name = $conn->real_escape_string($_POST['scient_name']);
+    $order = $conn->real_escape_string($_POST['order']);
+    $family = $conn->real_escape_string($_POST['family']);
+    $description = $conn->real_escape_string($_POST['description']);
+    $ecology = $conn->real_escape_string($_POST['ecology']);
+    $distribution = $conn->real_escape_string($_POST['distribution']);
+    $img = $conn->real_escape_string($img);
+
+    $check = "SELECT id FROM especies WHERE name = '$name' OR alt_name = '$alt_name' OR scient_name = '$scient_name' LIMIT 1";
+    $res = mysqli_query($conn, $check);
+    if ($res && mysqli_num_rows($res) > 0) {
+        if (!empty($img)) { unlink('../' . $img); }
+        setError("Ya existe una especie con ese nombre.");
+    }
+
+    $sql = "INSERT INTO especies (place, name, alt_name, scient_name, img, `order`, family, description, ecology, distribution)
+            VALUES ('$place', '$name', '$alt_name', '$scient_name', '$img', '$order', '$family', '$description', '$ecology', '$distribution')";
+
+    if (!mysqli_query($conn, $sql)) {
+        if (!empty($img)) unlink('../' . $img);
+        setError("Error al agregar la especie: " . mysqli_error($conn));
+    }
+    
+    $id = $conn->insert_id;
+    $url = generateURL($id);
+    $qrApiUrl = generateQRCodeURL($url);
+
+    // Ruta donde se guardará localmente
+    $qrFilename = 'qr_' . $id . '.png';
+    $qrRelativePath = 'img/' . $qrFilename;
+    $qrFullPath = '../' . $qrRelativePath;
+
+    // Descargar la imagen QR y guardarla localmente
+    $qrImage = file_get_contents($qrApiUrl);
+    if ($qrImage === false) {
+        if (!empty($img)) unlink('../' . $img);
+        setError("Error al generar o guardar el código QR.");
+    }
+    file_put_contents($qrFullPath, $qrImage);
+
+    $updateQR = "UPDATE especies SET qr_url = '$url', qr_img = '$qrRelativePath' WHERE id = $id";
+
+    mysqli_query($conn, $updateQR);
+
+    setSuccess("Especie agregada correctamente.");
+}
+
+
+function updateSpecie(mysqli $conn) {
+    $id = $_POST['list-species'];
+    $img = saveImage();
+    
+    $updates = [
         "place" => $_POST['place'],
         "name" => $_POST['name'],
         "alt_name" => $_POST['alt_name'],
@@ -59,142 +164,87 @@ function addSpecie(&$species, $file) {
         "family" => $_POST['family'],
         "description" => $_POST['description'],
         "ecology" => $_POST['ecology'],
-        "distribution" => $_POST['distribution'],
-        "img" => saveImage() // Si la imagen no se sube correctamente, será una cadena vacía
+        "distribution" => $_POST['distribution']
     ];
-    //generar nuevo QR
-    $new['url'] = generateURL($new['id']); // Si la URL no se genero correctamente, será una cadena vacía
-    $new['qr'] = generateQRCodeURL($new['url']); // genera la imagen QR desde una API 
-
-     // Validación de los campos
-    if (
-        empty($_POST['name']) || empty($_POST['order'])|| 
-        empty($_POST['family']) || empty($_POST['description'])||
-        empty($_POST['ecology']) || empty($_POST['distribution'])
-    ) {
-        $_SESSION['status'] = "error";
-        $_SESSION['message'] = "Todos los campos son obligatorios. Por favor, complete todo el formulario.";
-        //se elimina la imagen del servidor si se subio una imagen
-        if(!empty($new['img'])){
-            unlink($new['img']);
-        }
-        header("Location: admin.php");
-        exit;
+    
+    if (!empty($img)) {
+        $updates["img"] = $img;
     }
-    // Verificamos si la imagen está vacía (no se subió)
-    if (empty($new['img'])) {
-        $_SESSION['status'] = "error";
-        $_SESSION['message'] = "La imagen es obligatoria. Por favor, sube una imagen.";
-        header("Location: admin.php");
-        exit;
-    }
-
-    // Validar si el nombre ya existe
-    foreach ($species as $existing) {
-        if (
-            strcasecmp($existing['name'], $_POST['name']) === 0 ||
-            strcasecmp($existing['alt_name'], $_POST['alt_name']) === 0 ||
-            strcasecmp($existing['scient_name'], $_POST['scient_name']) === 0 
-            ) {
-            $_SESSION['status'] = "error";
-            $_SESSION['message'] = "Ya existe una especie con ese nombre.";
-            // Si ya se subió imagen, se elimina para evitar basura en el servidor
-            if (!empty($new['img'])) {
-                unlink($new['img']);
-            }
-            header("Location: admin.php");
-            exit;
+    
+    foreach (['place', 'name', 'alt_name', 'scient_name', 'order', 'family', 'description', 'ecology', 'distribution'] as $field) {
+        if (empty($updates[$field])) {
+            if (!empty($img)) unlink('../' . $img);
+            setError("Todos los campos son obligatorios.");
         }
     }
     
-    //añadir nueva especie al array y escribir en el json
-    $species[] = $new;
-    file_put_contents($file, json_encode($species, JSON_PRETTY_PRINT));
-    $_SESSION['status'] = "success";
-    $_SESSION['message'] = "Especie agregada correctamente.";
-    header("Location: admin.php");
-    exit;
+    $sql_parts = [];
+    foreach ($updates as $field => $value) {
+        $sql_parts[] = "`$field` = '" . $conn->real_escape_string($value) . "'";
+    }
+    
+    $sql = "UPDATE especies SET " . implode(", ", $sql_parts) . " WHERE id = '" . $conn->real_escape_string($id) . "'";
+    
+    if (!mysqli_query($conn, $sql)) {
+        if (!empty($img)) unlink('../' . $img);
+        setError("Error al actualizar la especie: " . mysqli_error($conn));
+    }
+    
+    setSuccess("Especie modificada correctamente.");
 }
 
-//actualizar especie, recibe 2 parametros: array de especies y ubicacion del archivo json
-function updateSpecie(&$species, $file) {
+function deleteSpecie(mysqli $conn) {
     $id = $_POST['list-species'];
 
-    foreach ($species as &$specie) {
-        if ($specie['id'] === $id) {
-            $specie['place'] = $_POST['place'];
-            $specie['name'] = $_POST['name'];
-            $specie['alt_name'] = $_POST['alt_name'];
-            $specie['scient_name'] = $_POST['scient_name'];
-            $specie['order'] = $_POST['order'];
-            $specie['family'] = $_POST['family'];
-            $specie['description'] = $_POST['description'];
-            $specie['ecology'] = $_POST['ecology'];
-            $specie['distribution'] = $_POST['distribution'];
+    // Obtener las rutas de imagen y QR de la especie
+    $res = mysqli_query($conn, "SELECT img, qr_img FROM especies WHERE id = '" . $conn->real_escape_string($id) . "'");
+    
+    if ($res && mysqli_num_rows($res) > 0) {
+        $data = mysqli_fetch_assoc($res);
 
-            // Solo si se subió una nueva imagen
-            if (!empty($_FILES['img']['name'])) {
-                //se elimina la imagen anterior antes de guardar una nueva
-                unlink('../'.$specie['img']);
-                //se guarda la nueva imagen
-                $specie['img'] = saveImage();
-            }
+        $img = $data['img'];
+        $qr = $data['qr_img'];
 
-            file_put_contents($file, json_encode($species, JSON_PRETTY_PRINT));
-            $_SESSION['status'] = "success";
-            $_SESSION['message'] = "Especie actualizada correctamente.";
-            header("Location: admin.php");
-            exit;
+        // Eliminar imagen si existe
+        if (!empty($img) && file_exists('../' . $img)) {
+            unlink('../' . $img);
+        }
+
+        // Eliminar QR si existe
+        if (!empty($qr) && file_exists('../' . $qr)) {
+            unlink('../' . $qr);
         }
     }
 
-    $_SESSION['status'] = "error";
-    $_SESSION['message'] = "No se pudo modificar la especie.";
-    header("Location: admin.php");
-    exit;
-}
-
-//eliminar especie. recibe 2 parametros: el array de especies y la ruta del archivo json
-function deleteSpecie(&$species, $file) {
-    $id = $_POST['list-species'];
-    //eliminar la imagen de la especie del servidor
-    foreach($species as $specie){
-        if($id == $specie['id']){
-            unlink('../'.$specie['img']);
-        }
+    // Eliminar la especie de la base de datos
+    $sql = "DELETE FROM especies WHERE id = '" . $conn->real_escape_string($id) . "'";
+    if (!mysqli_query($conn, $sql)) {
+        setError("Error al eliminar la especie: " . mysqli_error($conn));
     }
-    $newList = array_filter($species, fn($specie) => $specie['id'] !== $id);
-    //reescribir el archivo json con todas las especies, excepto la eliminada
-    file_put_contents($file, json_encode(array_values($newList), JSON_PRETTY_PRINT));
 
-    $_SESSION['status'] = "success";
-    $_SESSION['message'] = "La especie seleccionada fue eliminada correctamente.";
-    header("Location: admin.php");
-    exit;
+    if(isset($id)) {
+        setSuccess("La especie fue eliminada correctamente.");
+    } else {
+        setError("¡No seleccionaste ninguna especie!");
+    }
 }
 
+$action = $_POST['functionality'] ?? '';
 
-$action = $_POST['functionality']; // 'agregar', 'modificar' o 'eliminar'
-
-// 1. Leer JSON actual
-$file = '../species.json';
-$species = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
-
-//llamada a la funcion dependiendo de la accion del usuario
 switch ($action) {
     case 'add':
-        addSpecie($species, $file);
+        addSpecie($conn);
         break;
     case 'update':
-        updateSpecie($species, $file);
+        updateSpecie($conn);
         break;
     case 'delete':
-        deleteSpecie($species, $file);
+        deleteSpecie($conn);
         break;
-    default:
-        $_SESSION['status'] = "error";
-        $_SESSION['message'] = "No se ha seleccionado ninguna opcion";
-        header("Location: admin.php");
-        exit;
 }
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    header("Location: admin.php");
+}
+
 ?>

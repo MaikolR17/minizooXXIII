@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
   // Elementos del DOM
   const funcSelect = document.getElementById("func");
@@ -13,10 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Cargar datos de especie
   function loadSpecie(id) {
-    fetch("get_animal.php?id=" + id)
+    fetch(`get_animal.php?id=${id}`)
       .then((response) => response.json())
       .then((data) => {
-        if (data) {
+        if (data && !data.error) {
+          document.getElementById("place").value = data.place || "";
           document.getElementById("name").value = data.name || "";
           document.getElementById("alt_name").value = data.alt_name || "";
           document.getElementById("scient_name").value = data.scient_name || "";
@@ -24,34 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
           document.getElementById("family").value = data.family || "";
           document.getElementById("description").value = data.description || "";
           document.getElementById("ecology").value = data.ecology || "";
-          document.getElementById("distribution").value =
-            data.distribution || "";
-          document.getElementById("place").value = data.place || "";
-        }
-      })
-      .catch((error) => console.error("Error cargando datos:", error));
-  }
-
-  // Descargar QR
-  function downloadQR(id) {
-    fetch("get_animal.php?id=" + id)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data) {
-          fetch(data.qr)
-            .then((response) => response.blob())
-            .then((blob) => {
-              const link = document.createElement("a");
-              link.href = URL.createObjectURL(blob);
-              link.download = data.name + ".jpg" || "imagen_descargada";
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-              URL.revokeObjectURL(link.href);
-            })
-            .catch((error) =>
-              console.error("Error al descargar la imagen:", error)
-            );
+          document.getElementById("distribution").value = data.distribution || "";
+        } else {
+          console.error("Especie no encontrada:", data.error);
         }
       })
       .catch((error) => console.error("Error cargando datos:", error));
@@ -61,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
   funcSelect.addEventListener("change", function () {
     const value = this.value;
 
-    if (value === "delete" || value === "downloadQR") {
+    if (value === "delete") {
       inputs.forEach((input) => {
         input.disabled = true;
         input.value = "";
@@ -76,8 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
       speciesLabel.style.display = "block";
       animalList.style.display = "block";
       animalList.selectedIndex = 0;
-      submitButton.textContent =
-        value === "delete" ? "Confirmar Eliminación" : "Descargar QR";
+      submitButton.textContent = "Confirmar Eliminación";
     } else if (value === "update") {
       inputs.forEach((input) => {
         input.disabled = true;
@@ -116,19 +90,15 @@ document.addEventListener("DOMContentLoaded", function () {
   // Manejar selección de animal
   animalList.addEventListener("change", function () {
     const action = funcSelect.value;
-
+  
     if (action === "update") {
       inputs.forEach((input) => (input.disabled = false));
       inputLabels.forEach((label) => label.classList.remove("disabled-label"));
-      loadSpecie(this.value);
-    }
-  });
-
-  // Manejar descarga de QR
-  submitButton.addEventListener("click", function () {
-    const action = funcSelect.value;
-    if (action === "downloadQR") {
-      downloadQR(animalList.value);
+  
+      const selectedId = this.value;
+      if (selectedId) {
+        loadSpecie(selectedId); 
+      }
     }
   });
 
