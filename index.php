@@ -1,3 +1,26 @@
+<?php
+require_once 'PHP/conex.php'; // Asegúrate de que esta ruta sea correcta
+
+$conex = new ConexionDB();
+
+if (!$conex->conectar()) {
+    die("❌ Error de conexión: " . $conex->getError());
+}
+
+$conn = $conex->getConexion();
+
+$sql = "SELECT * FROM especies";
+$result = $conn->query($sql);
+
+if ($result->num_rows === 0) {
+  echo "⚠️ No se encontraron especies en la base de datos.";
+}
+
+if (!$result) {
+    die("❌ Error en la consulta: " . $conn->error);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -47,20 +70,14 @@
     <p>Explora la biodiversidad del planeta en un solo lugar. Más de 60 especies te esperan para descubrirlas.</p>
     
     <section class="galeria-animales" aria-label="Galería de animales del zoológico">
-  <?php
-  $jsonPath = 'species.json';
-
-  if (file_exists($jsonPath)) {
-      $jsonContent = file_get_contents($jsonPath);
-      $speciesList = json_decode($jsonContent, true);
-
-      if (!empty($speciesList)) {
-          foreach ($speciesList as $animal) {
+      <?php
+      if ($result->num_rows > 0) {
+          while ($animal = $result->fetch_assoc()) {
               $id = htmlspecialchars($animal["id"]);
               $name = htmlspecialchars($animal["name"]);
               $scient_name = htmlspecialchars($animal["scient_name"]);
               $description = htmlspecialchars($animal["description"]);
-
+      
               $shortDescription = strlen($description) > 100
                   ? substr($description, 0, 100) . '...'
                   : $description;
@@ -69,31 +86,25 @@
               echo ' data-id="' . $id . '"';
               echo ' data-name="' . strtolower($name) . '"';
               echo ' data-scientific="' . strtolower($scient_name) . '">';
-              
+      
               echo '<h3>' . $name . '</h3>';
               echo '<p>' . $shortDescription . '</p>';
-
-              if (isset($animal["img"]) && !empty($animal["img"])) {
-                  echo '<img src="' . htmlspecialchars($animal["img"]) . '" alt="' . $name . '">';
-                  echo '<img src="' . htmlspecialchars($animal["qr"]) . '" alt="Código QR">';
+      
+              if (!empty($animal["img"])) {
+                echo '<img src="' . $animal['img'] . '" alt="' . $name . '">';
               }
-
-              echo '<br><a href="'.$animal['url'].'" aria-label="Más información sobre '.$animal['name'].'"><i class="fas fa-info-circle saber-mas" aria-hidden="true"></i></a>';
+              
+              $url = filter_var($animal['url'], FILTER_SANITIZE_URL);
+              echo '<br><a href="'. $url .'" aria-label="Más información sobre '.$name .'"><i class="fas fa-info-circle saber-mas" aria-hidden="true"></i></a>';
               echo '</article>';
-              echo '<p id="noResults" style="text-align:center; color:#777; margin-top:20px; display:none;">No se encontraron coincidencias 🐾</p>';
           }
-      } else {
+          echo '<p id="noResults" style="text-align:center; color:#777; margin-top:20px; display:none;">No se encontraron coincidencias 🐾</p>';
+        } else {
           echo '<p style="text-align:center; color:#777; margin-top: 20px;"> No hay animalitos para mostrar por el momento 🦥</p>';
-      }
-  } else {
-      echo '<p style="text-align:center; color:#777; margin-top: 20px;">⚠️ Archivo de especies no encontrado ⚠️</p>';
-  }
-  ?>
-</section>
-
-
-
-</main>
+        }
+      ?>
+    </section>
+  </main>
 
   <!-- PIE DE PÁGINA -->
   <footer class="footer" role="contentinfo" id="contacto">

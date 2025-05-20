@@ -1,15 +1,30 @@
 <!-- admin.php -->
 <?php 
 session_start();
+require_once 'conex.php';
+$conex = new ConexionDB();
+$conex->conectar();
+$conn = $conex->conex;
+
 // Verificar si el usuario tiene acceso, si no redirigir al login
 if (!isset($_SESSION["access"])) {
     header("Location: admlogin.php");
     exit;
 }
 
-// Cargar la lista de especies desde el archivo JSON
-$file = '../species.json';
-$list_species = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
+// Leer las especies desde la base de datos
+$list_species = [];
+
+$sql = "SELECT id, name FROM especies"; 
+$result = mysqli_query($conn, $sql);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $list_species[] = $row;
+    }
+} else {
+    $list_species = [];
+}
 ?>
 
 <!DOCTYPE html>
@@ -49,12 +64,11 @@ $list_species = file_exists($file) ? json_decode(file_get_contents($file), true)
             <option value="add">Agregar</option>
             <option value="update">Modificar</option>
             <option value="delete">Eliminar</option>
-            <option value="downloadQR">Descargar QR</option>
         </select>
         
         <!-- Selección de especie para modificar o eliminar -->
         <label for="list-species" id="species-label">Elija un animal registrado:</label>
-        <select name="list-species" id="list-species" disabled>
+        <select name="list-species" id="list-species" onchange="loadAnimal(this.value)"disabled>
             <option value="" disabled selected> --Seleccione una especie-- </option>
             <?php foreach ($list_species as $specie): ?>
                 <option value="<?= htmlspecialchars($specie['id']) ?>">
@@ -63,7 +77,6 @@ $list_species = file_exists($file) ? json_decode(file_get_contents($file), true)
             <?php endforeach; ?>
         </select>
 
-        <!-- Campos para ingresar o modificar los datos -->
         <label for="place" class="input-label">Recinto:</label>
         <input type="number" name = "place" id="place">
         <label for="name" class="input-label">Nombre Común:</label>
