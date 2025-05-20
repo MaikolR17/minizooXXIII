@@ -243,9 +243,8 @@ switch ($action) {
         break;
 }
 
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    setError("Acceso no permitido.");
-
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    header("Location: admin.php");
 }
 
 ?>
