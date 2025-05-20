@@ -1,5 +1,5 @@
 <?php
-require_once 'PHP/conex.php'; // Asegúrate de que esta ruta sea correcta
+require_once 'PHP/conex.php';
 
 $conex = new ConexionDB();
 
@@ -11,14 +11,6 @@ $conn = $conex->getConexion();
 
 $sql = "SELECT * FROM especies";
 $result = $conn->query($sql);
-
-if ($result->num_rows === 0) {
-  echo "⚠️ No se encontraron especies en la base de datos.";
-}
-
-if (!$result) {
-    die("❌ Error en la consulta: " . $conn->error);
-}
 ?>
 
 <!DOCTYPE html>
