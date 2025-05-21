@@ -66,6 +66,18 @@ function generateQRCodeURL(string $url): string {
     return "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url);
 }
 
+//escribir en el historial de registros
+function writeFile($admName,$action,$specieName,$id){
+    @$file = fopen("../reg/AdminHistory.txt",'a');
+    if(!$file){
+        setError("La accion se realizo correctamente, pero no se pudo acceder al archivo para guardar el registro. Por favor contacta con los desarrolladores para obetener una solucion");
+    }
+    date_default_timezone_set('America/Asuncion');
+    $text = date("d/m/Y H:i")."- ".$admName." ".$action." la especie de nombre: \"".$specieName."\" y id ".$id."\n";
+    fwrite($file,$text);
+    fclose($file);
+}
+
 function generateQRCodeImage(string $url, string $id): string {
     $qrApiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url);
 
@@ -83,7 +95,6 @@ function generateQRCodeImage(string $url, string $id): string {
 
     return $qrRelative; 
 }
-
 
 
 function addSpecie(mysqli $conn) {
@@ -147,6 +158,8 @@ function addSpecie(mysqli $conn) {
 
     mysqli_query($conn, $updateQR);
 
+    writeFile($_SESSION['admin'],"agrego",$name,$id);
+
     setSuccess("Especie agregada correctamente.");
 }
 
@@ -189,7 +202,9 @@ function updateSpecie(mysqli $conn) {
         if (!empty($img)) unlink('../' . $img);
         setError("Error al actualizar la especie: " . mysqli_error($conn));
     }
-    
+
+    writeFile($_SESSION['admin'],"modifico",$updates['name'],$id);
+
     setSuccess("Especie modificada correctamente.");
 }
 
@@ -204,6 +219,7 @@ function deleteSpecie(mysqli $conn) {
 
         $img = $data['img'];
         $qr = $data['qr_img'];
+        $name = $data['name'];
 
         // Eliminar imagen si existe
         if (!empty($img) && file_exists('../' . $img)) {
@@ -223,6 +239,7 @@ function deleteSpecie(mysqli $conn) {
     }
 
     if(isset($id)) {
+        writeFile($_SESSION['admin'],"elimino",$name,$id);
         setSuccess("La especie fue eliminada correctamente.");
     } else {
         setError("¡No seleccionaste ninguna especie!");

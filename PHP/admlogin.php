@@ -1,14 +1,33 @@
 <?php 
 session_start();
 
-$right_key = "Made-By-LASI-2025";
+function admlogin($adminName){
+    $_SESSION['access'] = true;
+    $_SESSION['admin'] = $adminName;
+    header("Location: admin.php");
+    exit;
+}
 
 if($_SERVER["REQUEST_METHOD"] === "POST") {
-    if($_POST["key"] === $right_key) {
-        $_SESSION["access"] = true;
-        header("Location: admin.php");
-        exit;
-    } else {
+    if($_POST["key"] === "0405_Admin01") {
+        admlogin("Admin01");
+    }else if($_POST["key"] === "5456_Admin02"){
+        admlogin("Admin02");
+    }else if($_POST["key"] === "1289_Admin03"){
+        admlogin("Admin03");
+    }else if($_POST["key"] === "2037_Admin04"){
+        admlogin("Admin04");
+    }else if($_POST["key"] === "5868_Admin05"){
+        admlogin("Admin05");
+    }else if($_POST["key"] === "4235_Admin06"){
+        admlogin("Admin06");
+    }else if($_POST["key"] === "8821_Admin07"){
+        admlogin("Admin07");
+    }else if($_POST["key"] === "6697_Admin08"){
+        admlogin("Admin08");
+    }else if($_POST["key"] === "7275_Admin09"){
+        admlogin("Admin09");
+    }else {
         $wrongkey = "Clave Incorrecta";
     }
 }
