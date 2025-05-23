@@ -102,5 +102,6 @@ if ($result && mysqli_num_rows($result) > 0) {
     </form>
 
     <script src="../javaScript/admin.js"></script>
+    <script src="../javaScript/client_side_validation.js"></script>
 </body>
 </html>
