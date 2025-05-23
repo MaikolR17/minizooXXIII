@@ -1,5 +1,5 @@
 <?php
-require_once 'PHP/conex.php';
+require_once 'PHP/conex.php'; // Asegúrate de que esta ruta sea correcta
 
 $conex = new ConexionDB();
 
@@ -11,6 +11,7 @@ $conn = $conex->getConexion();
 
 $sql = "SELECT * FROM especies";
 $result = $conn->query($sql);
+
 ?>
 
 <!DOCTYPE html>
@@ -86,8 +87,10 @@ $result = $conn->query($sql);
                 echo '<img src="' . $animal['img'] . '" alt="' . $name . '">';
               }
               
-              $url = filter_var($animal['url'], FILTER_SANITIZE_URL);
-              echo '<br><a href="'. $url .'" aria-label="Más información sobre '.$name .'"><i class="fas fa-info-circle saber-mas" aria-hidden="true"></i></a>';
+              $id = urlencode($animal['id']);
+              echo '<a href="specie_info.php?id=' . $id . '" aria-label="Más información sobre ' . $name . '">
+                      <i class="fas fa-info-circle saber-mas" aria-hidden="true"></i>
+                    </a>';
               echo '</article>';
           }
           echo '<p id="noResults" style="text-align:center; color:#777; margin-top:20px; display:none;">No se encontraron coincidencias 🐾</p>';
