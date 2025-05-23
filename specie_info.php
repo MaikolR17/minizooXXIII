@@ -10,13 +10,15 @@ if (!isset($_GET['id'])) {
     exit;
 }
 
-// Capturar el ID de la especie
+// Consulta SQL para obtener los datos de la especie
 $id = $_GET['id'];
 
-// Consulta SQL para obtener los datos de la especie
 $stmt = $conn->prepare("SELECT * FROM especies WHERE id = ?");
-$stmt->execute([$id]);
-$specie = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmt->bind_param("i", $id); // "i" porque es un entero
+$stmt->execute();
+$result = $stmt->get_result();
+$specie = $result->fetch_all(MYSQLI_ASSOC);
+
 
 // Validar que exista la especie
 if (!$specie) {
