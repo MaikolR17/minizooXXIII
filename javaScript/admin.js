@@ -1,3 +1,5 @@
+import { validateInput,validateAll} from "./client_side_validation.js";  
+
 document.addEventListener("DOMContentLoaded", function () {
   // Elementos del DOM
   const funcSelect = document.getElementById("func");
@@ -5,10 +7,58 @@ document.addEventListener("DOMContentLoaded", function () {
   const inputs = document.querySelectorAll(
     "input[type=text], textarea, input[type=file],input[type=number]"
   );
+
+  const notRepeatedElements = document.querySelectorAll("#name,#scient_name,#alt_name");
+  const requiredElements = document.querySelectorAll("textarea, #family,#order");
   const submitButton = document.getElementById("submit-btn");
   const btn = document.getElementById("btn-darkmode");
   const inputLabels = document.querySelectorAll(".input-label");
   const speciesLabel = document.getElementById("species-label");
+
+  //validaciones del lado del cliente
+
+  /**
+   * Valida los campos requeridos
+   * @param {HTMLElement} element -Recibe un elemento tipo input
+   * @returns {void}
+   */
+  function validateRequired(element){
+    if(element.value.length === 0){
+          element.classList.remove("input_success");
+      }else{
+          element.classList.add("input_success");
+          validateAll(funcSelect,animalList,element,submitButton);
+      }
+  }
+
+  function validateRequiredHandler(event){
+    validateRequired(event.target);
+  }
+
+  function validateInputHandler(event){
+    validateInput(event.target,event.target.id,funcSelect,submitButton,animalList);
+  }
+
+  function addValidationEvents(){
+    requiredElements.forEach(element=>element.addEventListener("input", validateRequiredHandler));
+    notRepeatedElements.forEach(element=>element.addEventListener("input",validateInputHandler));
+  }
+
+  function removeValidationEvents(){
+    requiredElements.forEach(element=>{
+      element.removeEventListener("input",validateRequiredHandler);
+      element.classList.remove("input_success");
+    });
+    notRepeatedElements.forEach(element=>{
+      element.removeEventListener("input", validateInputHandler)
+      element.classList.remove("input_error");
+      element.classList.remove("input_success");
+    }
+    );
+  }
+
+  addValidationEvents();
+
 
   // Cargar datos de especie
   function loadSpecie(id) {
@@ -37,6 +87,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const value = this.value;
 
     if (value === "delete") {
+      removeValidationEvents();
+      submitButton.disabled = false;
       inputs.forEach((input) => {
         input.disabled = true;
         input.value = "";
@@ -53,6 +105,8 @@ document.addEventListener("DOMContentLoaded", function () {
       animalList.selectedIndex = 0;
       submitButton.textContent = "Confirmar Eliminación";
     } else if (value === "update") {
+      submitButton.disabled = true;
+      addValidationEvents();
       inputs.forEach((input) => {
         input.disabled = true;
         input.value = "";
@@ -69,6 +123,8 @@ document.addEventListener("DOMContentLoaded", function () {
       animalList.selectedIndex = 0;
       submitButton.textContent = "Confirmar Modificación";
     } else if (value === "add") {
+      submitButton.disabled = true;
+      addValidationEvents();
       inputs.forEach((input) => {
         input.disabled = false;
         input.value = "";

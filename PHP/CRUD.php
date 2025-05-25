@@ -66,8 +66,17 @@ function generateQRCodeURL(string $url): string {
     return "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url);
 }
 
-//escribir en el historial de registros
-function writeFile($admName,$action,$specieName,$id){
+
+/**
+ * Escribe en el historial de registros en un archivo .txt
+ * 
+ * @param string $admName Nombre del administrador que realizo la accion
+ * @param string $action Accion realizada por el administrador
+ * @param string $specieName Nombre de la especie
+ * @param int $id ID de la especie
+ * @return void No devuelve ningun valor
+ */
+function writeFile(string $admName,string $action,string $specieName,int $id):void{
     @$file = fopen("../reg/AdminHistory.txt",'a');
     if(!$file){
         setError("La accion se realizo correctamente, pero no se pudo acceder al archivo para guardar el registro. Por favor contacta con los desarrolladores para obetener una solucion");
@@ -189,7 +198,7 @@ function updateSpecie(mysqli $conn) {
             if (!empty($img)) unlink('../' . $img);
             setError("Todos los campos son obligatorios.");
         }
-    }
+    } 
     
     $sql_parts = [];
     foreach ($updates as $field => $value) {
