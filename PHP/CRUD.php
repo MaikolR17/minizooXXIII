@@ -76,16 +76,19 @@ function generateQRCodeURL(string $url): string {
  * @param int $id ID de la especie
  * @return void No devuelve ningun valor
  */
-function writeFile(string $admName,string $action,string $specieName,int $id):void{
-    @$file = fopen("../reg/AdminHistory.txt",'a');
-    if(!$file){
-        setError("La accion se realizo correctamente, pero no se pudo acceder al archivo para guardar el registro. Por favor contacta con los desarrolladores para obetener una solucion");
-    }
-    date_default_timezone_set('America/Asuncion');
-    $text = date("d/m/Y H:i")."- ".$admName." ".$action." la especie de nombre: \"".$specieName."\" y id ".$id."\n";
-    fwrite($file,$text);
-    fclose($file);
-}
+// function writeFile(string $admName,string $action,string $specieName,int $id):void{
+//     $regDir = '../reg/AdminHistory.json';
+//     $file = file_exists($regDir)? file_get_contents($regDir): [];   
+//     $decodedFile = json_decode($file,true)? : [];
+//     date_default_timezone_set('America/Asuncion');
+//     $text = date("d/m/Y H:i")."- ".$admName." ".$action." la especie de nombre: \"".$specieName."\" y id ".$id;
+//     $decodedFile[] = $text;
+//     if(file_exists($regDir)){
+//         file_put_contents($regDir, json_encode($decodedFile));
+//     }else{
+//         setError("Error en la escritura del registro, ponte en contacto con los desarrolladores.");
+//     }
+// }
 
 function generateQRCodeImage(string $url, string $id): string {
     $qrApiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url);
@@ -109,7 +112,7 @@ function generateQRCodeImage(string $url, string $id): string {
 function addSpecie(mysqli $conn) {
     $img = saveImage();
 
-    $requiredFields = ['place', 'name', 'alt_name', 'scient_name', 'order', 'family', 'description', 'ecology', 'distribution'];
+    $requiredFields = ['name', 'alt_name', 'scient_name', 'order', 'family', 'description', 'ecology', 'distribution'];
     foreach ($requiredFields as $field) {
         if (empty($_POST[$field])) {
             if (!empty($img)) { unlink('../' . $img); }
@@ -167,7 +170,7 @@ function addSpecie(mysqli $conn) {
 
     mysqli_query($conn, $updateQR);
 
-    writeFile($_SESSION['admin'],"agrego",$name,$id);
+    // writeFile($_SESSION['admin'],"agrego",$_POST['name'],intval($id));
 
     setSuccess("Especie agregada correctamente.");
 }
@@ -193,7 +196,7 @@ function updateSpecie(mysqli $conn) {
         $updates["img"] = $img;
     }
     
-    foreach (['place', 'name', 'alt_name', 'scient_name', 'order', 'family', 'description', 'ecology', 'distribution'] as $field) {
+    foreach (['name', 'alt_name', 'scient_name', 'order', 'family', 'description', 'ecology', 'distribution'] as $field) {
         if (empty($updates[$field])) {
             if (!empty($img)) unlink('../' . $img);
             setError("Todos los campos son obligatorios.");
@@ -212,7 +215,7 @@ function updateSpecie(mysqli $conn) {
         setError("Error al actualizar la especie: " . mysqli_error($conn));
     }
 
-    writeFile($_SESSION['admin'],"modifico",$updates['name'],$id);
+    // writeFile($_SESSION['admin'],"modifico",$updates['name'],intval($id));
 
     setSuccess("Especie modificada correctamente.");
 }
@@ -248,7 +251,7 @@ function deleteSpecie(mysqli $conn) {
     }
 
     if(isset($id)) {
-        writeFile($_SESSION['admin'],"elimino",$name,$id);
+        // writeFile($_SESSION['admin'],"agrego",$_POST['name'],intval($id));
         setSuccess("La especie fue eliminada correctamente.");
     } else {
         setError("¡No seleccionaste ninguna especie!");
