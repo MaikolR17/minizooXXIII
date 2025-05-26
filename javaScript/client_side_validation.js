@@ -1,7 +1,7 @@
 
 /**
  * Calcula si una cadena esta vacia
- * @param {*} inputText - Recibe un elemento del DOM
+ * @param {HTMLElement} inputText - Recibe un elemento del DOM
  * @returns {boolean} -retorna true en caso que la cadena esta vacia y false si no lo esta 
  */
 function isEmpty(inputText){
@@ -16,14 +16,14 @@ function isEmpty(inputText){
  * @param {HTMLElement} btn - Recibe el objeto boton de envio
  * @returns {boolean} True si se valida correctamente y false si no
  */
-export function validateAll(func,speciesList,input,btn){
-    if(!validateSpecie("name",func,speciesList) || !validateSpecie("scient_name",func,speciesList) || 
-    !validateSpecie("alt_name",func,speciesList) || isEmpty(input) || isEmpty(input) || 
+export function validateAll(func,speciesList,input){
+    if(!validateSpecie("name",func,speciesList,input) || !validateSpecie("scient_name",func,speciesList,input) || 
+    !validateSpecie("alt_name",func,speciesList,input) || isEmpty(input) || isEmpty(input) || 
     isEmpty(input) || isEmpty(input) || isEmpty(input)){
-        btn.disabled = true;
+        console.log("No se validaron todos los inputs");
         return false;
     }else{
-        btn.disabled = false;
+        console.log("Se validaron todos los inputs");
         return true;
     }
 }
@@ -31,45 +31,51 @@ export function validateAll(func,speciesList,input,btn){
 /**
  * Valida atributos de especies repetidas
  * @param {string} atribute - Recibe el atributo de la especie ej(name, scient_name, alt_name)
- * @param {*} func - Recibe el objeto de funcionalidad
- * @param {*} speciesList - Recibe el objeto de seleccion de especies
+ * @param {HTMLElement} func - Recibe el objeto de funcionalidad
+ * @param {HTMLElement} speciesList - Recibe el objeto de seleccion de especies
+ * @param {HTMLElement} input - Recibe el objeto input
  * @returns {boolean} False en caso de encontrar un atributo repetido y true en caso contrario 
  */
-function validateSpecie(attribute,func,speciesList){
+function validateSpecie(attribute,func,speciesList,input){
     fetch(`get_all_animals.php?attribute=${attribute}`)
       .then((response) => response.json())
       .then((data) => {
-        const specieSelected = speciesList.value || "";
-        const nameAttribute = getSpecieAttribute(specieSelected,"name")?.toLowerCase() || "";
-        const scientNameAttribute = getSpecieAttribute(specieSelected,"scient_name")?.toLowerCase() || "";
-        const altNameAttribute = getSpecieAttribute(specieSelected,"alt_name")?.toLowerCase() || "";
         const result = data.map(item => item.toLowerCase());
-        if(attribute == "name"){
-          const specieNamee = document.getElementById("name").value.toLowerCase();
-          if(func.value ==='add' && result.includes(specieNamee)){
-            return false;
-          }else if(result.includes(specieNamee) && nameAttribute !== specieNamee){
-            return false;
-          }
-          return true;
-        }else if(attribute == "scient_name"){
-          const scientNamee = document.getElementById("scient_name").value.toLowerCase();
-          if(func.value ==='add' && result.includes(scientNamee)){
-            return false;
-          }else if(result.includes(scientNamee) && scientNameAttribute !== scientNamee){
-            return false;
-          }
-          return true;
-        }else{
-            const altNamee = document.getElementById("alt_name").value.toLowerCase();
-            if(func.value ==='add' && result.includes(altNamee)){
-                return false;
-            }else if(result.includes(altNamee) && altNameAttribute !== altNamee){
-                return false;
-            }
-            return true;
+        const specie_selected = speciesList.value || "";
+        const inputValue = input.value.toLowerCase() || "";
+        let specie_attribute;
+
+        async function getAttributeValue(){
+          specie_attribute = await getSpecieAttribute(specie_selected, attribute);
+          return specie_attribute;
         }
-      })
+        (async () => {await getAttributeValue();})();
+        console.log(result);
+        console.log(specie_selected);
+        console.log(specie_attribute);
+        if(func.value === 'add'){
+          if(result.includes(inputValue)) {
+            console.log("Ya existe esta especie"); 
+            return false;
+          }
+          console.log("validado");
+          return true;
+        }else if(func.value === 'update'){
+          if(!result.includes(inputValue)){
+            console.log("validado"); 
+            return true;
+          }
+          else if(result.includes(inputValue) && compareAttributes(inputValue,specie_selected,attribute)){
+            console.log("validado");
+            return true;
+          }else if(!result.includes(inputValue)){
+            console.log("Validado");
+            return true;
+          }
+          console.log("Ya existe esta especie");
+          return false;
+        }
+      }).catch(error=>console.log("Error al obtener los datos ",error));
 }
 
 /**
@@ -78,15 +84,21 @@ function validateSpecie(attribute,func,speciesList){
  * @param {string}-attribute -Recibe el atributo que se necesita conocer
  * @returns {string} El atributo de la especie o una cadena vacia en caso de encontrarlo
  */
-function getSpecieAttribute(id,attribute){
+async function getSpecieAttribute(id,attribute){
     if(id === "") return "";
-    fetch(`get_animal.php?id=${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if(attribute === 'name') return data.name;
+    try{
+    const response = await fetch(`get_animal.php?id=${id}`);
+    const data = await response.json();
+        console.log(data);
+        if(attribute === 'name'){ 
+          console.log(data.name);
+          return data.name;
+        }
         else if(attribute === 'scient_name') return data.scient_name;
         else return data.alt_name;
-      }).catch((error)=>console.log("Error al leer los datos: ",error));
+      }catch(error){
+        console.log("Error al recibir los datos ",error);
+      }
 }
 
 /**
@@ -102,20 +114,34 @@ export function validateInput(object,attribute,action,btn,speciesList){
         object.classList.remove("imput_error");
         object.classList.remove("input_success");
     }
-    else if(validateSpecie(attribute,action,speciesList)){
+    else if(validateSpecie(attribute,action,speciesList,object)){
         object.classList.remove("input_error");
         object.classList.add("input_success");
-        if(validateAll(action,speciesList,object,btn) && document.querySelector("input[type=file]").files.length === 0 && action === 'add'){
+        if(action.value === 'add'){
+          if(validateAll(action,speciesList,object) && document.querySelector("input[type=file]").files.length === 1){
+            console.log("Boton desbloqueado");
+            btn.disabled = false;
+          }else{
+            console.log("Boton blockeado");
             btn.disabled = true;
-        }else if(validateAll(action,speciesList,object,btn) && document.querySelector("input[type=file]").files.length === 1 && action === 'add'){
+          }
+        }else if(action.value === 'update'){
+          if(validateAll(action,speciesList,object) && document.querySelector("input[type=file]").files.length === 1){
+            console.log("Boton desbloqueado");
             btn.disabled = false;
-        }else if(validateAll(action,speciesList,object,btn) && action === 'update'){
+          }else if(validateAll(action,speciesList,object) && document.querySelector("input[type=file]").files.length === 0){
+            console.log("Boton desbloqueado");
             btn.disabled = false;
+          }else{
+            console.log("Boton bloqueado");
+            btn.disabled = true;
+          }
         }
-    }else{
+      }else{
         object.classList.remove("input_success");
         object.classList.add("input_error");
-    }
+        btn.disabled = true;
+      }
 }
 
 

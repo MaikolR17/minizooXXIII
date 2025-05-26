@@ -1,4 +1,4 @@
-import { validateInput,validateAll} from "./client_side_validation.js";  
+// import { validateInput,validateAll} from "./client_side_validation.js";  
 
 document.addEventListener("DOMContentLoaded", function () {
   // Elementos del DOM
@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
     "input[type=text], textarea, input[type=file],input[type=number]"
   );
 
-  const notRepeatedElements = document.querySelectorAll("#name,#scient_name,#alt_name");
-  const requiredElements = document.querySelectorAll("textarea, #family,#order");
+  // const notRepeatedElements = document.querySelectorAll("#name,#scient_name,#alt_name");
+  // const requiredElements = document.querySelectorAll("textarea, #family,#order");
   const submitButton = document.getElementById("submit-btn");
   const btn = document.getElementById("btn-darkmode");
   const inputLabels = document.querySelectorAll(".input-label");
@@ -22,42 +22,42 @@ document.addEventListener("DOMContentLoaded", function () {
    * @param {HTMLElement} element -Recibe un elemento tipo input
    * @returns {void}
    */
-  function validateRequired(element){
-    if(element.value.length === 0){
-          element.classList.remove("input_success");
-      }else{
-          element.classList.add("input_success");
-          validateAll(funcSelect,animalList,element,submitButton);
-      }
-  }
+  // function validateRequired(element){
+  //   if(element.value.length === 0){
+  //         element.classList.remove("input_success");
+  //     }else{
+  //         element.classList.add("input_success");
+  //         validateAll(funcSelect,animalList,element,submitButton);
+  //     }
+  // }
 
-  function validateRequiredHandler(event){
-    validateRequired(event.target);
-  }
+  // function validateRequiredHandler(event){
+  //   validateRequired(event.target);
+  // }
 
-  function validateInputHandler(event){
-    validateInput(event.target,event.target.id,funcSelect,submitButton,animalList);
-  }
+  // function validateInputHandler(event){
+  //   validateInput(event.target,event.target.id,funcSelect,submitButton,animalList);
+  // }
 
-  function addValidationEvents(){
-    requiredElements.forEach(element=>element.addEventListener("input", validateRequiredHandler));
-    notRepeatedElements.forEach(element=>element.addEventListener("input",validateInputHandler));
-  }
+  // function addValidationEvents(){
+  //   requiredElements.forEach(element=>element.addEventListener("input", validateRequiredHandler));
+  //   notRepeatedElements.forEach(element=>element.addEventListener("input",validateInputHandler));
+  // }
 
-  function removeValidationEvents(){
-    requiredElements.forEach(element=>{
-      element.removeEventListener("input",validateRequiredHandler);
-      element.classList.remove("input_success");
-    });
-    notRepeatedElements.forEach(element=>{
-      element.removeEventListener("input", validateInputHandler)
-      element.classList.remove("input_error");
-      element.classList.remove("input_success");
-    }
-    );
-  }
+  // function removeValidationEvents(){
+  //   requiredElements.forEach(element=>{
+  //     element.removeEventListener("input",validateRequiredHandler);
+  //     element.classList.remove("input_success");
+  //   });
+  //   notRepeatedElements.forEach(element=>{
+  //     element.removeEventListener("input", validateInputHandler)
+  //     element.classList.remove("input_error");
+  //     element.classList.remove("input_success");
+  //   }
+  //   );
+  // }
 
-  addValidationEvents();
+  // addValidationEvents();
 
 
   // Cargar datos de especie
@@ -87,8 +87,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const value = this.value;
 
     if (value === "delete") {
-      removeValidationEvents();
-      submitButton.disabled = false;
+      // removeValidationEvents();
+      // submitButton.disabled = false;
       inputs.forEach((input) => {
         input.disabled = true;
         input.value = "";
@@ -105,8 +105,8 @@ document.addEventListener("DOMContentLoaded", function () {
       animalList.selectedIndex = 0;
       submitButton.textContent = "Confirmar Eliminación";
     } else if (value === "update") {
-      submitButton.disabled = true;
-      addValidationEvents();
+      // submitButton.disabled = true;
+      // addValidationEvents();
       inputs.forEach((input) => {
         input.disabled = true;
         input.value = "";
@@ -123,8 +123,8 @@ document.addEventListener("DOMContentLoaded", function () {
       animalList.selectedIndex = 0;
       submitButton.textContent = "Confirmar Modificación";
     } else if (value === "add") {
-      submitButton.disabled = true;
-      addValidationEvents();
+      // submitButton.disabled = true;
+      // addValidationEvents();
       inputs.forEach((input) => {
         input.disabled = false;
         input.value = "";

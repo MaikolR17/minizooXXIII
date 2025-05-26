@@ -98,10 +98,10 @@ if ($result && mysqli_num_rows($result) > 0) {
         <label for="img" class="input-label">Imagen de Referencia:</label>
         <input type="file" name="img" id="img">
         
-        <button type="submit" id="submit-btn" disabled>Agregar Especie</button>
+        <button type="submit" id="submit-btn">Agregar Especie</button>
     </form>
 
-    <script type="module" src="../javaScript/admin.js" defer></script>
-    <script type="module" src="../javaScript/client_side_validation.js" defer></script>
+    <script src="../javaScript/admin.js"></script>
+    <!--<script type="module" src="../javaScript/client_side_validation.js" defer></script>-->
 </body>
 </html>
