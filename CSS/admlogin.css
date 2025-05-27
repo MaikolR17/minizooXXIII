@@ -28,11 +28,14 @@
 
 body {
     background: url('../img/fondo.jpg') no-repeat center center fixed;
-    height: 1000px;
+    background-size: cover;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    padding: 16px;
+    overflow: hidden;
 }
 
 form {
@@ -54,6 +57,8 @@ h2 {
     text-align: center;
     color: #2e7d32;
     margin-bottom: 16px;
+    max-width: 400px;
+    width: 100%;
 }
 
 input{
@@ -94,4 +99,22 @@ p {
     text-align: center;
     margin-top: 8px;
     font-weight: bold;
+}
+
+@media (max-width: 750px) {
+    body {
+        background: #ffffff !important;
+    }
+
+    form {
+        padding: 24px;
+        width: 100%;
+        max-width: 100%;
+        box-shadow: none;
+    }
+
+    h2 {
+        max-width: 100%;
+        width: 100%;
+    }
 }
