@@ -76,19 +76,22 @@ function generateQRCodeURL(string $url): string {
  * @param int $id ID de la especie
  * @return void No devuelve ningun valor
  */
-// function writeFile(string $admName,string $action,string $specieName,int $id):void{
-//     $regDir = '../reg/AdminHistory.json';
-//     $file = file_exists($regDir)? file_get_contents($regDir): [];   
-//     $decodedFile = json_decode($file,true)? : [];
-//     date_default_timezone_set('America/Asuncion');
-//     $text = date("d/m/Y H:i")."- ".$admName." ".$action." la especie de nombre: \"".$specieName."\" y id ".$id;
-//     $decodedFile[] = $text;
-//     if(file_exists($regDir)){
-//         file_put_contents($regDir, json_encode($decodedFile));
-//     }else{
-//         setError("Error en la escritura del registro, ponte en contacto con los desarrolladores.");
-//     }
-// }
+function writeFile(string $admName,string $action,string $specieName,int $id):void{
+    $regDir = '../reg/AdminHistory.json';
+    $file = file_exists($regDir)? file_get_contents($regDir): [];   
+    $decodedFile = json_decode($file,true)? : [];
+    date_default_timezone_set('America/Asuncion');
+    $text = date("d/m/Y H:i")."- ".$admName." ".$action." la especie de nombre: \"".$specieName."\" y id ".$id;
+    $history = [
+        'Accion del administrador' => $text
+    ];
+    $decodedFile[] = $history;
+    if(file_exists($regDir)){
+        file_put_contents($regDir, json_encode($decodedFile,JSON_PRETTY_PRINT));
+    }else{
+        setError("Error en la escritura del registro, ponte en contacto con los desarrolladores.");
+    }
+}
 
 function generateQRCodeImage(string $url, string $id): string {
     $qrApiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url);
@@ -170,7 +173,7 @@ function addSpecie(mysqli $conn) {
 
     mysqli_query($conn, $updateQR);
 
-    // writeFile($_SESSION['admin'],"agrego",$_POST['name'],intval($id));
+    //writeFile($_SESSION['admin'],"agrego",$_POST['name'],intval($id));
 
     setSuccess("Especie agregada correctamente.");
 }
@@ -215,7 +218,7 @@ function updateSpecie(mysqli $conn) {
         setError("Error al actualizar la especie: " . mysqli_error($conn));
     }
 
-    // writeFile($_SESSION['admin'],"modifico",$updates['name'],intval($id));
+    //writeFile($_SESSION['admin'],"modifico",$updates['name'],intval($id));
 
     setSuccess("Especie modificada correctamente.");
 }
@@ -251,7 +254,7 @@ function deleteSpecie(mysqli $conn) {
     }
 
     if(isset($id)) {
-        // writeFile($_SESSION['admin'],"agrego",$_POST['name'],intval($id));
+        //writeFile($_SESSION['admin'],"agrego",$_POST['name'],intval($id));
         setSuccess("La especie fue eliminada correctamente.");
     } else {
         setError("¡No seleccionaste ninguna especie!");

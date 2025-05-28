@@ -78,30 +78,30 @@ if ($result && mysqli_num_rows($result) > 0) {
         </select>
 
         <label for="place" class="input-label">Recinto:</label>
-        <input type="number" name = "place" id="place">
+        <input type="number" name = "place" id="place" data-valid="true">
         <label for="name" class="input-label">Nombre Común:</label>
-        <input type="text" name="name" id="name">
+        <input type="text" name="name" id="name" data-valid="false" required>
         <label for="alt_name" class="input-label">Nombre Alternativo:</label> 
-        <input type="text" name="alt_name" id="alt_name">
+        <input type="text" name="alt_name" id="alt_name" data-valid="true">
         <label for="scient_name" class="input-label">Nombre científico:</label>
-        <input type="text" name="scient_name" id="scient_name">
+        <input type="text" name="scient_name" id="scient_name" data-valid="true">
         <label for="order" class="input-label">Orden:</label>
-        <input type="text" name="order" id="order">
+        <input type="text" name="order" id="order" data-valid="false" required>
         <label for="family" class="input-label">Familia:</label>
-        <input type="text" name="family" id="family">
+        <input type="text" name="family" id="family" data-valid="false" required>
         <label for="description" class="input-label">Descripción:</label>
-        <textarea name="description" id="description" rows="4" cols="50"></textarea>
+        <textarea name="description" id="description" rows="4" cols="50" data-valid="false" required></textarea>
         <label for="ecology" class="input-label">Ecología:</label>
-        <textarea name="ecology" id="ecology" rows="4" cols="50"></textarea>
+        <textarea name="ecology" id="ecology" rows="4" cols="50" data-valid="false" required></textarea>
         <label for="distribution" class="input-label">Distribución:</label>
-        <textarea name="distribution" id="distribution" rows="4" cols="50"></textarea>
+        <textarea name="distribution" id="distribution" rows="4" cols="50" data-valid="false" required></textarea>
         <label for="img" class="input-label">Imagen de Referencia:</label>
         <input type="file" name="img" id="img">
         
-        <button type="submit" id="submit-btn">Agregar Especie</button>
+        <button type="submit" id="submit-btn" disabled>Agregar Especie</button>
     </form>
 
-    <script src="../javaScript/admin.js"></script>
-    <!--<script type="module" src="../javaScript/client_side_validation.js" defer></script>-->
+    <script type="module" src="../javaScript/admin.js"></script>
+    <script type="module" src="../javaScript/client_side_validation.js"></script>
 </body>
 </html>
