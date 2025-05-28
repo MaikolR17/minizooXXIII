@@ -115,7 +115,7 @@ function generateQRCodeImage(string $url, string $id): string {
 function addSpecie(mysqli $conn) {
     $img = saveImage();
 
-    $requiredFields = ['name', 'alt_name', 'scient_name', 'order', 'family', 'description', 'ecology', 'distribution'];
+    $requiredFields = ['name', 'specie_order', 'family', 'description', 'ecology', 'distribution'];
     foreach ($requiredFields as $field) {
         if (empty($_POST[$field])) {
             if (!empty($img)) { unlink('../' . $img); }
@@ -126,26 +126,26 @@ function addSpecie(mysqli $conn) {
         setError("La imagen es obligatoria.");
     }
 
-    $place = $conn->real_escape_string($_POST['place']);
+    $place = empty($_POST['place'])? NULL: $conn->real_escape_string($_POST['place']);
     $name = $conn->real_escape_string($_POST['name']);
-    $alt_name = $conn->real_escape_string($_POST['alt_name']);
-    $scient_name = $conn->real_escape_string($_POST['scient_name']);
-    $order = $conn->real_escape_string($_POST['order']);
+    $alt_name = empty($_POST['alt_name'])? NULL : $conn->real_escape_string($_POST['alt_name']);
+    $scient_name = empty($_POST['scient_name'])? NULL: $conn->real_escape_string($_POST['scient_name']);
+    $specie_order = $conn->real_escape_string($_POST['specie_order']);
     $family = $conn->real_escape_string($_POST['family']);
     $description = $conn->real_escape_string($_POST['description']);
     $ecology = $conn->real_escape_string($_POST['ecology']);
     $distribution = $conn->real_escape_string($_POST['distribution']);
     $img = $conn->real_escape_string($img);
 
-    $check = "SELECT id FROM especies WHERE name = '$name' OR alt_name = '$alt_name' OR scient_name = '$scient_name' LIMIT 1";
+    $check = "SELECT id FROM especies WHERE name = '$name' OR COALESCE(alt_name) = '$alt_name' OR COALESCE(scient_name) = '$scient_name' LIMIT 1";
     $res = mysqli_query($conn, $check);
     if ($res && mysqli_num_rows($res) > 0) {
         if (!empty($img)) { unlink('../' . $img); }
         setError("Ya existe una especie con ese nombre.");
     }
 
-    $sql = "INSERT INTO especies (place, name, alt_name, scient_name, img, `order`, family, description, ecology, distribution)
-            VALUES ('$place', '$name', '$alt_name', '$scient_name', '$img', '$order', '$family', '$description', '$ecology', '$distribution')";
+    $sql = "INSERT INTO especies (place, name, alt_name, scient_name, img, specie_order, family, description, ecology, distribution)
+            VALUES ('$place', '$name', '$alt_name', '$scient_name', '$img', '$specie_order', '$family', '$description', '$ecology', '$distribution')";
 
     if (!mysqli_query($conn, $sql)) {
         if (!empty($img)) unlink('../' . $img);
@@ -184,11 +184,11 @@ function updateSpecie(mysqli $conn) {
     $img = saveImage();
     
     $updates = [
-        "place" => $_POST['place'],
+        "place" => empty($_POST['place'])? NULL: $_POST['place'],
         "name" => $_POST['name'],
-        "alt_name" => $_POST['alt_name'],
-        "scient_name" => $_POST['scient_name'],
-        "order" => $_POST['order'],
+        "alt_name" => empty($_POST['alt_name'])? NULL : $_POST['alt_name'],
+        "scient_name" => empty($_POST['scient_name'])? NULL : $_POST['scient_name'],
+        "specie_order" => $_POST['specie_order'],
         "family" => $_POST['family'],
         "description" => $_POST['description'],
         "ecology" => $_POST['ecology'],
@@ -199,7 +199,7 @@ function updateSpecie(mysqli $conn) {
         $updates["img"] = $img;
     }
     
-    foreach (['name', 'alt_name', 'scient_name', 'order', 'family', 'description', 'ecology', 'distribution'] as $field) {
+    foreach (['name', 'specie_order', 'family', 'description', 'ecology', 'distribution'] as $field) {
         if (empty($updates[$field])) {
             if (!empty($img)) unlink('../' . $img);
             setError("Todos los campos son obligatorios.");
@@ -208,7 +208,11 @@ function updateSpecie(mysqli $conn) {
     
     $sql_parts = [];
     foreach ($updates as $field => $value) {
-        $sql_parts[] = "`$field` = '" . $conn->real_escape_string($value) . "'";
+        if(is_null($value)){
+            $sql_parts[] = "`$field` = NULL";
+        }else{
+            $sql_parts[] = "`$field` = '" . $conn->real_escape_string($value) . "'";
+        }
     }
     
     $sql = "UPDATE especies SET " . implode(", ", $sql_parts) . " WHERE id = '" . $conn->real_escape_string($id) . "'";

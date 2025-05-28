@@ -42,7 +42,7 @@ if (!$specie) {
         <div class="info_container">
             <div class="img_order_family">
                 <img src="<?=htmlspecialchars($specie[0]['img'])?>" alt="<?=htmlspecialchars($specie[0]['name'])?>">
-                <p><strong>ORDEN: </strong><?=htmlspecialchars(strtoupper($specie[0]['order']))?></p>
+                <p><strong>ORDEN: </strong><?=htmlspecialchars(strtoupper($specie[0]['specie_order']))?></p>
                 <p><strong>FAMILIA: </strong><?=htmlspecialchars(strtoupper($specie[0]['family']))?></p>
             </div>
             <div class="large_text">
