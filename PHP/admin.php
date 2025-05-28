@@ -85,8 +85,8 @@ if ($result && mysqli_num_rows($result) > 0) {
         <input type="text" name="alt_name" id="alt_name" data-valid="true">
         <label for="scient_name" class="input-label">Nombre científico:</label>
         <input type="text" name="scient_name" id="scient_name" data-valid="true">
-        <label for="order" class="input-label">Orden:</label>
-        <input type="text" name="order" id="order" data-valid="false" required>
+        <label for="specie_order" class="input-label">Orden:</label>
+        <input type="text" name="specie_order" id="specie_order" data-valid="false" required>
         <label for="family" class="input-label">Familia:</label>
         <input type="text" name="family" id="family" data-valid="false" required>
         <label for="description" class="input-label">Descripción:</label>

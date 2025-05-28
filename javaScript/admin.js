@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
           document.getElementById("name").value = data.name || "";
           document.getElementById("alt_name").value = data.alt_name || "";
           document.getElementById("scient_name").value = data.scient_name || "";
-          document.getElementById("order").value = data.order || "";
+          document.getElementById("specie_order").value = data.specie_order || "";
           document.getElementById("family").value = data.family || "";
           document.getElementById("description").value = data.description || "";
           document.getElementById("ecology").value = data.ecology || "";
