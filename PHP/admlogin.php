@@ -21,12 +21,12 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
         admlogin("Emanuel Castelvi");
     }else if($_POST["key"] === "4235_Alexix"){
         admlogin("Alexis Franco");
-    }else if($_POST["key"] === "8821_Admin07"){
-        admlogin("Admin07");
-    }else if($_POST["key"] === "6697_Admin08"){
-        admlogin("Admin08");
-    }else if($_POST["key"] === "7275_Admin09"){
-        admlogin("Admin09");
+    }else if($_POST["key"] === "8821_Fernando"){
+        admlogin("Fernando Salcedo");
+    }else if($_POST["key"] === "6697_Adrihan"){
+        admlogin("Adrihan Sandoval");
+    }else if($_POST["key"] === "7275_Stumpfs"){
+        admlogin("Sebastian Stumpfs");
     }else if($_POST['key'] === "Made-By-LASI-2025"){
         $_SESSION['access'] = true;
         $_SESSION['admin'] = "Anonimo";

@@ -96,7 +96,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         <label for="distribution" class="input-label">Distribución:</label>
         <textarea name="distribution" id="distribution" rows="4" cols="50" data-valid="false" required></textarea>
         <label for="img" class="input-label">Imagen de Referencia:</label>
-        <input type="file" name="img" id="img">
+        <input type="file" name="img" id="img" data-valid="false">
         
         <button type="submit" id="submit-btn" disabled>Agregar Especie</button>
     </form>
