@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'conex.php';
+include 'writeAdminHistory.php';
 
 $db = new ConexionDB();
 
@@ -66,33 +67,6 @@ function generateQRCodeURL(string $url): string {
     return "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url);
 }
 
-
-/**
- * Escribe en el historial de registros en un archivo .txt
- * 
- * @param string $admName Nombre del administrador que realizo la accion
- * @param string $action Accion realizada por el administrador
- * @param string $specieName Nombre de la especie
- * @param int $id ID de la especie
- * @return void No devuelve ningun valor
- */
-function writeFile(string $admName,string $action,string $specieName,int $id):void{
-    $regDir = '../reg/AdminHistory.json';
-    $file = file_exists($regDir)? file_get_contents($regDir): [];   
-    $decodedFile = json_decode($file,true)? : [];
-    date_default_timezone_set('America/Asuncion');
-    $text = date("d/m/Y H:i")."- ".$admName." ".$action." la especie de nombre: \"".$specieName."\" y id ".$id;
-    $history = [
-        'Accion del administrador' => $text
-    ];
-    $decodedFile[] = $history;
-    if(file_exists($regDir)){
-        file_put_contents($regDir, json_encode($decodedFile,JSON_PRETTY_PRINT));
-    }else{
-        setError("Error en la escritura del registro, ponte en contacto con los desarrolladores.");
-    }
-}
-
 function generateQRCodeImage(string $url, string $id): string {
     $qrApiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url);
 
@@ -144,15 +118,21 @@ function addSpecie(mysqli $conn) {
         setError("Ya existe una especie con ese nombre.");
     }
 
-    $sql = "INSERT INTO especies (place, name, alt_name, scient_name, img, specie_order, family, description, ecology, distribution)
-            VALUES ('$place', '$name', '$alt_name', '$scient_name', '$img', '$specie_order', '$family', '$description', '$ecology', '$distribution')";
-
-    if (!mysqli_query($conn, $sql)) {
+    $stmt = $conn->prepare("INSERT INTO especies (place, name, alt_name, scient_name, img, specie_order, family, description, ecology, distribution)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("isssssssss", $place,$name,$alt_name,$scient_name,$img,$specie_order,$family,$description,$ecology,$distribution);
+    if (!$stmt->execute()) {
         if (!empty($img)) unlink('../' . $img);
-        setError("Error al agregar la especie: " . mysqli_error($conn));
+        setError("Error al agregar la especie: " . $stmt->error);
     }
+    $stmt->close();
+    /*$sql = "INSERT INTO especies (place, name, alt_name, scient_name, img, specie_order, family, description, ecology, distribution)
+            VALUES ('$place', '$name', '$alt_name', '$scient_name', '$img', '$specie_order', '$family', '$description', '$ecology', '$distribution')";*/
+
+    
     
     $id = $conn->insert_id;
+    echo $id;
     $url = generateURL($id);
     $qrApiUrl = generateQRCodeURL($url);
 
@@ -169,11 +149,16 @@ function addSpecie(mysqli $conn) {
     }
     file_put_contents($qrFullPath, $qrImage);
 
-    $updateQR = "UPDATE especies SET qr_url = '$url', qr_img = '$qrRelativePath' WHERE id = $id";
+    //$updateQR = "UPDATE especies SET qr_url = '$url', qr_img = '$qrRelativePath' WHERE id = $id";
+    //mysqli_query($conn, $updateQR);
+    /*$stmt = $conn->prepare("UPDATE especies SET qr_url = ?, qr_img = ? WHERE id = ?");
+    $stmt->bind_param("ssi", $url, $qrRelativePath, $id);
+    if(!$stmt->execute()){
+        setError("Error al guardar la url y qr en la base de datos " . $stmt->error);
+    }
+    $stmt->close();*/
 
-    mysqli_query($conn, $updateQR);
-
-    //writeFile($_SESSION['admin'],"agrego",$_POST['name'],intval($id));
+    writeFile($_SESSION['admin'],"agrego",$_POST['name'],intval($id));
 
     setSuccess("Especie agregada correctamente.");
 }
@@ -181,7 +166,6 @@ function addSpecie(mysqli $conn) {
 
 function updateSpecie(mysqli $conn) {
     $id = $_POST['list-species'];
-    $img = saveImage();
     
     $updates = [
         "place" => empty($_POST['place'])? NULL: $_POST['place'],
@@ -195,7 +179,8 @@ function updateSpecie(mysqli $conn) {
         "distribution" => $_POST['distribution']
     ];
     
-    if (!empty($img)) {
+    if (!empty($_POST['img'])) {
+        $img = saveImage();
         $updates["img"] = $img;
     }
     
@@ -222,7 +207,7 @@ function updateSpecie(mysqli $conn) {
         setError("Error al actualizar la especie: " . mysqli_error($conn));
     }
 
-    //writeFile($_SESSION['admin'],"modifico",$updates['name'],intval($id));
+    writeFile($_SESSION['admin'],"modifico",$updates['name'],intval($id));
 
     setSuccess("Especie modificada correctamente.");
 }
@@ -231,7 +216,7 @@ function deleteSpecie(mysqli $conn) {
     $id = $_POST['list-species'];
 
     // Obtener las rutas de imagen y QR de la especie
-    $res = mysqli_query($conn, "SELECT img, qr_img FROM especies WHERE id = '" . $conn->real_escape_string($id) . "'");
+    $res = mysqli_query($conn, "SELECT name,img, qr_img FROM especies WHERE id = '" . $conn->real_escape_string($id) . "'");
     
     if ($res && mysqli_num_rows($res) > 0) {
         $data = mysqli_fetch_assoc($res);
@@ -256,9 +241,12 @@ function deleteSpecie(mysqli $conn) {
     if (!mysqli_query($conn, $sql)) {
         setError("Error al eliminar la especie: " . mysqli_error($conn));
     }
+    echo $_SESSION['admin'];
+    echo $name;
+    echo $id;
 
     if(isset($id)) {
-        //writeFile($_SESSION['admin'],"agrego",$_POST['name'],intval($id));
+        writeFile($_SESSION['admin'],"elimino",$name,intval($id));
         setSuccess("La especie fue eliminada correctamente.");
     } else {
         setError("¡No seleccionaste ninguna especie!");

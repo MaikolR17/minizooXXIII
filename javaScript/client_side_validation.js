@@ -9,9 +9,9 @@ export function validateSpecie(func,speciesList,input){
     fetch(`get_all_animals.php?attribute=${input.id}&id=${speciesList.value}`)
       .then((response) => response.json())
       .then((data) => {
-        const result = data[0].map(item => item.toLowerCase());
+        const result = data[0].map(item => item? item.toLowerCase():"");
         const inputValue = input.value.trim().toLowerCase() || "";
-        if(input.value.trim().length === 0 && input.id !== 'scien_name' && input.id !== 'alt_name'){
+        if(input.value.trim().length === 0 && input.id !== 'scient_name' && input.id !== 'alt_name'){
           input.classList.remove("input_success");
           input.classList.remove("input_error");
           input.setAttribute('data-valid','false');
@@ -86,7 +86,7 @@ export function validateSpecie(func,speciesList,input){
               input.setAttribute("data-valid","true");
               input.classList.remove("input_error");
               input.classList.add("input_success"); 
-            }else if(result.includes(inputValue) && inputValue === data[1].name){
+            }else if(result.includes(inputValue) && inputValue == data[1].name.toLowerCase()){
               console.log("Nombre validado");
               input.setAttribute("data-valid","true");
               input.classList.remove("input_error");
@@ -98,16 +98,19 @@ export function validateSpecie(func,speciesList,input){
               input.classList.add("input_error");
             }
           }else if(input.id === 'scient_name'){
+            const existentScientName = data[1].scient_name? data[1].scient_name.toLowerCase() : "";
             if(input.value.length === 0){
               console.log("nombre cient validado");
-
+              input.setAttribute("data-valid","true");
+              input.classList.remove("input_error");
+              input.classList.add("input_success");
             }
-            else if(!result.includes(inputValue)){
+            else if(!result.includes(inputValue)){ 
               console.log("Nombre cient validado");
               input.setAttribute("data-valid","true");
               input.classList.remove("input_error");
               input.classList.add("input_success"); 
-            }else if(result.includes(inputValue) && inputValue === data[1].scient_name){
+            }else if(result.includes(inputValue) && inputValue === existentScientName){
               console.log("Nombre cient validado");
               input.setAttribute("data-valid","true");
               input.classList.remove("input_error");
@@ -119,6 +122,7 @@ export function validateSpecie(func,speciesList,input){
               input.classList.add("input_error");
             }
           }else if(input.id === 'alt_name'){
+            const existentAltName = data[1].alt_name ? data[1].alt_name.toLowerCase() : "";
             if(input.value.trim().length === 0){
               console.log("Nombre alt validado");
               input.setAttribute("data-valid","true");
@@ -130,7 +134,7 @@ export function validateSpecie(func,speciesList,input){
               input.setAttribute("data-valid","true");
               input.classList.remove("input_error");
               input.classList.add("input_success"); 
-            }else if(result.includes(inputValue) && inputValue === data[1].alt_name){
+            }else if(result.includes(inputValue) && inputValue === existentAltName){
               console.log("Nombre alt validado");
               input.setAttribute("data-valid","true");
               input.classList.remove("input_error");

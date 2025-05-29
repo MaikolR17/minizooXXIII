@@ -19,8 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function validateSpecieHandler(event){
     validateSpecie(funcSelect,animalList,event.target);
-    const start = Date.now();
-    while (Date.now() - start < 100) {}
+    // const start = Date.now();
+    // while (Date.now() - start < 50) {}
     let validate = true;
     inputsToValidate.forEach(input=>{
       if(input.dataset.valid === 'false'){
@@ -109,6 +109,12 @@ document.addEventListener("DOMContentLoaded", function () {
       submitButton.textContent = "Confirmar Eliminación";
     } else if (value === "update") {
       addValidationEvents();
+      submitButton.disabled = true;
+      inputsToValidate.forEach(input=>{
+        input.dataset.valid = "false";
+        input.classList.remove("input_success");
+        input.classList.remove("input_error");
+      })
       inputs.forEach((input) => {
         input.disabled = true;
         input.value = "";
@@ -125,6 +131,12 @@ document.addEventListener("DOMContentLoaded", function () {
       animalList.selectedIndex = 0;
       submitButton.textContent = "Confirmar Modificación";
     } else if (value === "add") {
+      submitButton.disabled = true;
+      inputsToValidate.forEach(input=>{
+        input.dataset.valid = "false";
+        input.classList.remove("input_success");
+        input.classList.remove("input_error");
+      })
       addValidationEvents();
       inputs.forEach((input) => {
         input.disabled = false;
@@ -149,6 +161,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const action = funcSelect.value;
   
     if (action === "update") {
+      submitButton.disabled = false;
+      inputsToValidate.forEach(input=>{
+        input.dataset.valid = "true";
+        input.classList.remove("input_error");
+        input.classList.add("input_success");
+      })
       inputs.forEach((input) => (input.disabled = false));
       inputLabels.forEach((label) => label.classList.remove("disabled-label"));
   
