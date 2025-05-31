@@ -64,7 +64,7 @@ function generateURL(string $id): string {
 }
 
 function generateQRCodeURL(string $url): string {
-    return "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url);
+    return "https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=" . urlencode($url);
 }
 
 function generateQRCodeImage(string $url, string $id): string {
