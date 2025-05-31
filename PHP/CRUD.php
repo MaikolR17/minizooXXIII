@@ -216,14 +216,14 @@ function deleteSpecie(mysqli $conn) {
     $id = $_POST['list-species'];
 
     // Obtener las rutas de imagen y QR de la especie
-    $res = mysqli_query($conn, "SELECT name,img, qr_img FROM especies WHERE id = '" . $conn->real_escape_string($id) . "'");
+    $res = mysqli_query($conn, "SELECT img,`name` FROM especies WHERE id = '" . $conn->real_escape_string($id) . "'");
     
     if ($res && mysqli_num_rows($res) > 0) {
         $data = mysqli_fetch_assoc($res);
 
         $img = $data['img'];
-        $qr = $data['qr_img'];
         $name = $data['name'];
+        $qr = 'img/qr_'.$id.".png";
 
         // Eliminar imagen si existe
         if (!empty($img) && file_exists('../' . $img)) {
@@ -241,9 +241,6 @@ function deleteSpecie(mysqli $conn) {
     if (!mysqli_query($conn, $sql)) {
         setError("Error al eliminar la especie: " . mysqli_error($conn));
     }
-    echo $_SESSION['admin'];
-    echo $name;
-    echo $id;
 
     if(isset($id)) {
         writeFile($_SESSION['admin'],"eliminó",$name,intval($id));
