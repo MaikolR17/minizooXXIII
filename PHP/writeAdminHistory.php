@@ -13,15 +13,17 @@ function writeFile(string $admName,string $action,string $specieName,int $id):vo
     $file = file_exists($regDir)? file_get_contents($regDir): [];   
     $decodedFile = json_decode($file,true)? : [];
     date_default_timezone_set('America/Asuncion');
-    $text = date("d/m/Y H:i")."- ".$admName." ".$action." la especie de nombre: \"".$specieName."\" y id ".$id;
     $history = [
-        'action' => $text
+        'date' => date("d/m/Y H:i"),
+        'admin' => $admName,
+        'action' => $action,
+        'specie' => $specieName,
+        'id' => $id
     ];
     $decodedFile[] = $history;
     if(file_exists($regDir)){
         file_put_contents($regDir, json_encode($decodedFile,JSON_PRETTY_PRINT));
-    }else{
-        setError("Error en la escritura del registro, ponte en contacto con los desarrolladores.");
     }
 }
+
 ?>

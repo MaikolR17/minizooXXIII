@@ -89,11 +89,11 @@ button[type="submit"]:disabled, button[type="button"]:disabled {
     border-radius: 6px;
 }
 
-form .input_success{
+body form input[type="text"] .input_success, body form input[type="number"] .input_success, body input[type="file"] .input_success, body form textarea .input_success{
     border: 1px solid rgb(16, 121, 16);
 }
 
-form .input_error{
+body form input[type="text"] .input_error, body form input[type="number"] .input_error, body input[type="file"] .input_error, body form textarea .input_error{
     border: 1px solid rgb(150, 7, 7);
 }
 
@@ -146,6 +146,14 @@ body.dark-mode #animal-form:hover {
 body.dark-mode {
     background-color: #121212;
     color: #e0e0e0;
+}
+
+body.dark-mode input .input_success, body.dark-mode textarea .input_success, body .dark-mode input[type="file"] .input_success{
+    border: 1px solid rgb(16, 121, 16);
+}
+
+body.dark-mode input .input_error, body.dark-mode textarea .input_error, body .dark-mode input[type="file"] .input_error{
+    border: 1px solid rgb(150, 7, 7);
 }
 
 body.dark-mode input, body.dark-mode textarea, body.dark-mode select {

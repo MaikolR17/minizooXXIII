@@ -158,7 +158,7 @@ function addSpecie(mysqli $conn) {
     }
     $stmt->close();*/
 
-    writeFile($_SESSION['admin'],"agrego",$_POST['name'],intval($id));
+    writeFile($_SESSION['admin'],"agregó",$_POST['name'],intval($id));
 
     setSuccess("Especie agregada correctamente.");
 }
@@ -207,7 +207,7 @@ function updateSpecie(mysqli $conn) {
         setError("Error al actualizar la especie: " . mysqli_error($conn));
     }
 
-    writeFile($_SESSION['admin'],"modifico",$updates['name'],intval($id));
+    writeFile($_SESSION['admin'],"modificó",$updates['name'],intval($id));
 
     setSuccess("Especie modificada correctamente.");
 }
@@ -246,7 +246,7 @@ function deleteSpecie(mysqli $conn) {
     echo $id;
 
     if(isset($id)) {
-        writeFile($_SESSION['admin'],"elimino",$name,intval($id));
+        writeFile($_SESSION['admin'],"eliminó",$name,intval($id));
         setSuccess("La especie fue eliminada correctamente.");
     } else {
         setError("¡No seleccionaste ninguna especie!");
