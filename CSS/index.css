@@ -6,6 +6,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 html, body {
   height: 98%;
   margin: 0;
@@ -46,8 +47,9 @@ body {
   font-size: 22px;
   font-weight: bold;
 }
+
 .logo span {
-  color: #009688;
+  color: #2e7d32;
   margin-left: 6px;
   font-weight: normal;
 }
@@ -56,14 +58,16 @@ body {
   display: flex;
   gap: 20px;
 }
+
 .nav-links a {
   text-decoration: none;
   color: #333;
   padding: 3px;
 }
+
 .nav-links a:hover,
 .nav-links a:focus {
-  color: #00796b;
+  color: #236126;
   outline: none;
 }
 
@@ -85,10 +89,12 @@ body {
   flex-grow: 1;
   margin: 10px;
 }
+
 .busqueda i {
   color: #888;
   margin-right: 6px;
 }
+
 .busqueda input {
   border: none;
   background: transparent;
@@ -209,9 +215,10 @@ body {
 
 .seccion-principal h1 {
   font-size: 32px;
-  color: #009688;
+  color: #2e7d32;
   margin-bottom: 10px;
 }
+
 .seccion-principal p {
   font-size: 16px;
   color: #444;
@@ -230,6 +237,7 @@ body {
   justify-content: center;
   gap: 30px;
 }
+
 .tarjeta-animal {
   background: white;
   border-radius: 15px;
@@ -239,31 +247,38 @@ body {
   text-align: center;
   transition: transform 0.3s ease;
 }
+
 .tarjeta-animal img {
   width: 100%;
-  border-radius: 8px;
+  height: 200px !important;
   object-fit: cover;
+  border-radius: 8px;
 }
+
 .tarjeta-animal h3 {
   margin: 12px 0 6px;
-  color: #009688;
+  color: #2e7d32;
 }
+
 .tarjeta-animal p {
   font-size: 14px;
   color: #555;
 }
+
 .tarjeta-animal:hover {
   transform: translateY(-5px);
 }
+
 .saber-mas {
   display: inline-block;
   margin-top: 10px;
   font-size: 18px;
-  color: #009688;
+  color: #2e7d32;
   transition: color 0.3s;
 }
+
 .saber-mas:hover {
-  color: #004d40;
+  color: #236126;
 }
 
 /* ------------------------ */
@@ -304,7 +319,7 @@ body.dark-mode .nav-links a {
 
 body.dark-mode .nav-links a:hover,
 body.dark-mode .nav-links a:focus {
-  color: #009688;
+  color: #2e7d32;
   border: #fff solid 1px;
   outline: none;
 }
@@ -318,7 +333,7 @@ body.dark-mode .menu-toggle {
 
 body.dark-mode .seccion-principal h1 {
   font-size: 32px;
-  color: #009688;
+  color: #2e7d32;
   margin-bottom: 10px;
 }
 
@@ -329,7 +344,7 @@ body.dark-mode .footer {
 }
 
 body.dark-mode .footer a {
-  color: #009688;
+  color: #2e7d32;
 }
 
 body.dark-mode .footer a:hover {
@@ -350,7 +365,7 @@ body.dark-mode .tarjeta-animal p {
   color: #f0f0f0;
 }
 body.dark-mode .tarjeta-animal h3 {
-  color: #009688;
+  color: #2e7d32;
 }
 
 body.dark-mode .seccion-principal {
