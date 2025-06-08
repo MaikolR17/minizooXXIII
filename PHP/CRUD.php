@@ -179,7 +179,13 @@ function updateSpecie(mysqli $conn) {
         "distribution" => $_POST['distribution']
     ];
     
-    if (!empty($_POST['img'])) {
+    if (!empty($_FILES['img'])) {
+        $imgQuery = "SELECT img from especies WHERE `name`='".$conn->real_escape_string($updates['name']) ."'";
+        $result = mysqli_query($conn, $imgQuery);
+        if(!$result) setError("No se pudo obtener la imagen de la base de datos");
+        $row = mysqli_fetch_assoc($result);
+        $old_img = $row['img'];
+        unlink("../".$old_img);
         $img = saveImage();
         $updates["img"] = $img;
     }
