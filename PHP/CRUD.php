@@ -179,7 +179,8 @@ function updateSpecie(mysqli $conn) {
         "distribution" => $_POST['distribution']
     ];
     
-    if (!empty($_FILES['img'])) {
+    $imgFile = $_FILES['img'] ?? null;
+    if ($imgFile && $imgFile['tmp_name'] && @getimagesize($imgFile['tmp_name'])) {
         $imgQuery = "SELECT img from especies WHERE `name`='".$conn->real_escape_string($updates['name']) ."'";
         $result = mysqli_query($conn, $imgQuery);
         if(!$result) setError("No se pudo obtener la imagen de la base de datos");
@@ -192,7 +193,7 @@ function updateSpecie(mysqli $conn) {
     
     foreach (['name', 'specie_order', 'family', 'description', 'ecology', 'distribution'] as $field) {
         if (empty($updates[$field])) {
-            if (!empty($img)) unlink('../' . $img);
+            if (@getimagesize($imgFile['tmp_name'])) unlink('../' . $img);
             setError("Todos los campos son obligatorios.");
         }
     } 
@@ -209,7 +210,7 @@ function updateSpecie(mysqli $conn) {
     $sql = "UPDATE especies SET " . implode(", ", $sql_parts) . " WHERE id = '" . $conn->real_escape_string($id) . "'";
     
     if (!mysqli_query($conn, $sql)) {
-        if (!empty($img)) unlink('../' . $img);
+        if (@getimagesize($imgFile['tmp_name'])) unlink('../' . $img);
         setError("Error al actualizar la especie: " . mysqli_error($conn));
     }
 
