@@ -68,7 +68,7 @@ function generateQRCodeURL(string $url): string {
 }
 
 function generateQRCodeImage(string $url, string $id): string {
-    $qrApiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($url);
+    $qrApiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=" . urlencode($url);
 
     $qrDir = '../img/';
     if (!is_dir($qrDir)) {
@@ -181,7 +181,7 @@ function updateSpecie(mysqli $conn) {
     
     $imgFile = $_FILES['img'] ?? null;
     if ($imgFile && $imgFile['tmp_name'] && @getimagesize($imgFile['tmp_name'])) {
-        $imgQuery = "SELECT img from especies WHERE `name`='".$conn->real_escape_string($updates['name']) ."'";
+        $imgQuery = "SELECT img from especies WHERE id='".$conn->real_escape_string($id) ."'";
         $result = mysqli_query($conn, $imgQuery);
         if(!$result) setError("No se pudo obtener la imagen de la base de datos");
         $row = mysqli_fetch_assoc($result);
@@ -222,9 +222,9 @@ function updateSpecie(mysqli $conn) {
 function deleteSpecie(mysqli $conn) {
     $id = $_POST['list-species'];
 
-    // Obtener las rutas de imagen y QR de la especie
     $res = mysqli_query($conn, "SELECT img,`name` FROM especies WHERE id = '" . $conn->real_escape_string($id) . "'");
     
+    // Obtener las rutas de imagen y QR de la especie
     if ($res && mysqli_num_rows($res) > 0) {
         $data = mysqli_fetch_assoc($res);
 
@@ -239,7 +239,7 @@ function deleteSpecie(mysqli $conn) {
 
         // Eliminar QR si existe
         if (!empty($qr) && file_exists('../' . $qr)) {
-            unlink('../' . $qr);
+             unlink('../' . $qr);
         }
     }
 

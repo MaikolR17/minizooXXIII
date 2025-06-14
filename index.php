@@ -21,41 +21,14 @@ $result = $conn->query($sql);
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MiniZoo Juan XXIII</title>
   <link rel="stylesheet" href="CSS/index.css" />
+  <link rel="stylesheet" href="CSS/header.css">
+  <link rel="stylesheet" href="CSS/footer.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
 <body>
 
   <!-- ENCABEZADO -->
-  <header class="encabezado" role="banner">
-    <div class="logo">
-      <strong>MiniZoo</strong><span>Juan XXIII</span>
-    </div>
-
-    <!-- Botón menú hamburguesa para móviles -->
-    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-links">
-      <i class="fas fa-bars"></i>
-    </button>
-
-    <!-- Navegación principal -->
-    <nav class="nav-links" id="nav-links" role="navigation" aria-label="Menú principal">
-      <a href="#contacto">Contacto</a>
-      <a href="#ubicacion">Ubicación</a>
-      <a href="#redes">Redes</a>
-      <a href="#acerca-de-nosotros">Acerca de nosotros</a>
-    </nav>
-
-    <!-- Barra de búsqueda -->
-    <form class="busqueda" role="search" aria-label="Buscar en el sitio">
-      <label for="buscar" class="sr-only">Buscar</label>
-      <i class="fas fa-search" aria-hidden="true"></i>
-      <input id="buscar" type="text" placeholder="Busca una especie, sección o evento" />
-    </form>
-
-    <!-- Botón de modo oscuro -->
-    <button id="modo-oscuro-toggle" class="btn-darkmode" aria-pressed="false">
-      <i class="fas fa-moon" aria-hidden="true"></i> 
-    </button>
-  </header>
+  <?php include "resources/header.php"; ?>
 
   <!-- SECCIÓN PRINCIPAL -->
   <main class="seccion-principal" role="main">
@@ -88,8 +61,9 @@ $result = $conn->query($sql);
               }
               
               $id = urlencode($animal['id']);
-              echo '<a href="specie_info.php?id=' . $id . '" aria-label="Más información sobre ' . $name . '">
+              echo '<a href="specie_info.php?id=' . $id . '" class="boton-info" aria-label="Más información sobre ' . $name . '">
                       <i class="fas fa-info-circle saber-mas" aria-hidden="true"></i>
+                      <span>Ver detalles</span>
                     </a>';
               echo '</article>';
           }
@@ -102,19 +76,7 @@ $result = $conn->query($sql);
   </main>
 
   <!-- PIE DE PÁGINA -->
-  <footer class="footer" role="contentinfo" id="contacto">
-    <div class="footer-info">
-      <p><strong>Contacto:</strong> <a href="tel:+1234567890">(123) 456-7890</a> | <a href="mailto:info@zoonaturallife.com">info@zoonaturallife.com</a></p>
-      <p id="ubicacion"><strong>Ubicación:</strong> Av. de los Animales 123, Ciudad Natural</p>
-      <p id="redes"><strong>Redes:</strong>
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-      </p>
-      <p id="acerca-de-nosotros"><strong>Acerca de nosotros:</strong> Somos un zoológico dedicado a la conservación, educación y el bienestar animal.</p>
-    </div>
-    <p class="copyright">&copy; 2025 Zoológico Natural Life. Todos los derechos reservados.</p>
-  </footer>
+  <?php include "resources/footer.php";?>
 
   <!-- JavaScript -->
   <script>
