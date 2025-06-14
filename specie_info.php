@@ -33,8 +33,16 @@ if (!$specie) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?=htmlspecialchars($specie[0]['name'])?></title>
     <link rel="stylesheet" href="CSS/specie_info.css">
+    <link rel="stylesheet" href="CSS/header.css">
+    <link rel="stylesheet" href="CSS/footer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
 </head>
 <body>
+    <!--Encabezado-->
+    <?php include "resources/header.php";?>
+
+    <!--Seccion principal-->
     <main>
         <h1><?=htmlspecialchars($specie[0]['name'])?></h1>
         <h2><?=htmlspecialchars($specie[0]['alt_name'])?></h2>
@@ -54,5 +62,9 @@ if (!$specie) {
             </div>
         </div>
     </main>
+
+    <!--Pie de pagina-->
+    <?php include "resources/footer.php";?>
+
 </body>
 </html>
