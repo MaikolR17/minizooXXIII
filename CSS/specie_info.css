@@ -86,6 +86,8 @@ a:focus, button:focus {
 
 .large_text {
     flex: 2 1 300px;
+    text-align: justify;
+    padding: 0 1rem;
 }
 
 #description, #ecology, #distribution {
@@ -106,5 +108,13 @@ a:focus, button:focus {
 
     h1, h2, h3 {
         text-align: center;
+    }
+
+    .large_text {
+        padding: 0 1.2rem;
+    }
+
+    .img_order_family {
+        margin-bottom: 1.5rem;   
     }
 }
