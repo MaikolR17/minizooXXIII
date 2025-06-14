@@ -1,17 +1,20 @@
-<html lang="es"><head>
+<html lang="es">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MiniZoo Juan XXIII</title>
-  <link rel="stylesheet" href="CSS/index.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="CSS/index.css">
 </head>
 <body>
 
   <!-- ENCABEZADO -->
   <header class="encabezado" role="banner">
-    <div class="logo">
-      <strong>MiniZoo</strong><span>Juan XXIII</span>
-    </div>
+    <a href="indexClon.php" class="logo-link">
+      <div class="logo">
+        <strong>MiniZoo</strong><span>Juan XXIII</span>
+      </div>
+    </a>
 
     <!-- Botón menú hamburguesa para móviles -->
     <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-links">
@@ -45,19 +48,68 @@
     <p>Explora la biodiversidad del planeta en un solo lugar. Más de 60 especies te esperan para descubrirlas.</p>
     
     <section class="galeria-animales" aria-label="Galería de animales del zoológico">
-                    </a></article><article class="tarjeta-animal" data-id="36" data-name="yacaré negro" data-scientific="caiman yacaré"><h3>Yacaré negro</h3><p>Es un reptil acuático. Los ojos y las fosas nasales están proyectadas hacia arriba sobre el dorso ...</p><img src="https://juanxxiiizoo.infinityfreeapp.com/img/yacare_negro.jpg" alt="Yacaré negro"><a href="specie_info.php?id=36" aria-label="Más información sobre Yacaré negro">
-                      <i class="fas fa-info-circle saber-mas" aria-hidden="true"></i>
-                    </a></article><article class="tarjeta-animal" data-id="37" data-name="koati" data-scientific="nasua"><h3>Koati</h3><p>El dorso es de color pardo amarillento a marrón oscuro, casi negro, mientras que la zona ventral pu...</p><img src="https://juanxxiiizoo.infinityfreeapp.com/img/coati.jpg" alt="Koati"><a href="specie_info.php?id=37" aria-label="Más información sobre Koati">
-                      <i class="fas fa-info-circle saber-mas" aria-hidden="true"></i>
-                    </a></article><article class="tarjeta-animal" data-id="38" data-name="anaconda" data-scientific="eunectes murinus"><h3>Anaconda</h3><p>Es la serpiente más grande del Chaco. Tiene una fila de manchas obscuras a lo largo del dorso, de c...</p><img src="https://juanxxiiizoo.infinityfreeapp.com/img/anaconda.jpg" alt="Anaconda"><a href="specie_info.php?id=38" aria-label="Más información sobre Anaconda">
-                      <i class="fas fa-info-circle saber-mas" aria-hidden="true"></i>
-                    </a></article><article class="tarjeta-animal" data-id="39" data-name="jaguar" data-scientific="panthera onca"><h3>Jaguar</h3><p>Es el felino más grande de América. Su pelaje es amarillo leonado con manchas negras en forma de r...</p><img src="https://juanxxiiizoo.infinityfreeapp.com/img/Jaguar.png" alt="Jaguar"><a href="specie_info.php?id=39" aria-label="Más información sobre Jaguar">
-                      <i class="fas fa-info-circle saber-mas" aria-hidden="true"></i>
-                    </a></article><article class="tarjeta-animal" data-id="40" data-name="lechuza de campanario" data-scientific="tyto alba"><h3>Lechuza de Campanario</h3><p>Se distingue por su característico disco facial blanco en forma de corazón, rodeado por un borde o...</p><img src="https://juanxxiiizoo.infinityfreeapp.com/img/Lechuza.png" alt="Lechuza de Campanario"><a href="specie_info.php?id=40" aria-label="Más información sobre Lechuza de Campanario">
-                      <i class="fas fa-info-circle saber-mas" aria-hidden="true"></i>
-                    </a></article><article class="tarjeta-animal" data-id="41" data-name="iguana negra" data-scientific="salvator merianae"><h3>Iguana Negra</h3><p>Es uno de los lagartos más grandes de su género. Los machos pueden alcanzar hasta 1,3 metros de lo...</p><img src="https://juanxxiiizoo.infinityfreeapp.com/img/Tejú Hu.jpg" alt="Iguana Negra"><a href="specie_info.php?id=41" aria-label="Más información sobre Iguana Negra">
-                      <i class="fas fa-info-circle saber-mas" aria-hidden="true"></i>
-                    </a></article><p id="noResults" style="text-align:center; color:#777; margin-top:20px; display:none;">No se encontraron coincidencias 🐾</p>    </section>
+      <article class="tarjeta-animal" data-id="36" data-name="yacaré negro" data-scientific="caiman yacaré">
+        <h3>Yacaré negro</h3>
+        <p>Es un reptil acuático. Los ojos y las fosas nasales están proyectadas hacia arriba sobre el dorso ...</p>
+        <img src="https://juanxxiiizoo.infinityfreeapp.com/img/yacare_negro.jpg" alt="Yacaré negro">
+        <a href="specie_info.php?id=36" class="boton-info" aria-label="Más información sobre Yacaré negro">
+          <i class="fas fa-info-circle"></i>
+          <span>Ver detalles</span>
+        </a>
+      </article>
+      
+      <article class="tarjeta-animal" data-id="37" data-name="koati" data-scientific="nasua">
+        <h3>Koati</h3>
+        <p>El dorso es de color pardo amarillento a marrón oscuro, casi negro, mientras que la zona ventral pu...</p>
+        <img src="https://juanxxiiizoo.infinityfreeapp.com/img/coati.jpg" alt="Koati">
+        <a href="specie_info.php?id=37" class="boton-info" aria-label="Más información sobre Koati">
+          <i class="fas fa-info-circle"></i>
+          <span>Ver detalles</span>
+        </a>
+      </article>
+      
+      <article class="tarjeta-animal" data-id="38" data-name="anaconda" data-scientific="eunectes murinus">
+        <h3>Anaconda</h3>
+        <p>Es la serpiente más grande del Chaco. Tiene una fila de manchas obscuras a lo largo del dorso, de c...</p>
+        <img src="https://juanxxiiizoo.infinityfreeapp.com/img/anaconda.jpg" alt="Anaconda">
+        <a href="specie_info.php?id=38" class="boton-info" aria-label="Más información sobre Anaconda">
+          <i class="fas fa-info-circle"></i>
+          <span>Ver detalles</span>
+        </a>
+      </article>
+      
+      <article class="tarjeta-animal" data-id="39" data-name="jaguar" data-scientific="panthera onca">
+        <h3>Jaguar</h3>
+        <p>Es el felino más grande de América. Su pelaje es amarillo leonado con manchas negras en forma de r...</p>
+        <img src="https://juanxxiiizoo.infinityfreeapp.com/img/Jaguar.png" alt="Jaguar">
+        <a href="specie_info.php?id=39" class="boton-info" aria-label="Más información sobre Jaguar">
+          <i class="fas fa-info-circle"></i>
+          <span>Ver detalles</span>
+        </a>
+      </article>
+      
+      <article class="tarjeta-animal" data-id="40" data-name="lechuza de campanario" data-scientific="tyto alba">
+        <h3>Lechuza de Campanario</h3>
+        <p>Se distingue por su característico disco facial blanco en forma de corazón, rodeado por un borde o...</p>
+        <img src="https://juanxxiiizoo.infinityfreeapp.com/img/Lechuza.png" alt="Lechuza de Campanario">
+        <a href="specie_info.php?id=40" class="boton-info" aria-label="Más información sobre Lechuza de Campanario">
+          <i class="fas fa-info-circle"></i>
+          <span>Ver detalles</span>
+        </a>
+      </article>
+      
+      <article class="tarjeta-animal" data-id="41" data-name="iguana negra" data-scientific="salvator merianae">
+        <h3>Iguana Negra</h3>
+        <p>Es uno de los lagartos más grandes de su género. Los machos pueden alcanzar hasta 1,3 metros de lo...</p>
+        <img src="https://juanxxiiizoo.infinityfreeapp.com/img/Tejú Hu.jpg" alt="Iguana Negra">
+        <a href="specie_info.php?id=41" class="boton-info" aria-label="Más información sobre Iguana Negra">
+          <i class="fas fa-info-circle"></i>
+          <span>Ver detalles</span>
+        </a>
+      </article>
+      
+      <p id="noResults" style="text-align:center; color:#777; margin-top:20px; display:none;">No se encontraron coincidencias 🐾</p>
+    </section>
   </main>
 
   <!-- PIE DE PÁGINA -->
@@ -118,10 +170,6 @@
     });
   </script>
 
-
-<script src="javaScript/mainpagejs.js"></script>
-
-
-
-
-</body></html>
+  <script src="javaScript/mainpagejs.js"></script>
+</body>
+</html>
