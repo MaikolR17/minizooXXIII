@@ -21,17 +21,17 @@ document.addEventListener("DOMContentLoaded", function () {
     validateSpecie(funcSelect,animalList,event.target);
     // const start = Date.now();
     // while (Date.now() - start < 50) {}
-    let validate = true;
-    inputsToValidate.forEach(input=>{
-      if(input.dataset.valid === 'false'){
-        validate = false;
-      }
-    });
-    if(validate){
-      submitButton.disabled = false;
-    }else{
-      submitButton.disabled = true;
-    } 
+    // let validate = true;
+    // inputsToValidate.forEach(input=>{
+    //   if(input.dataset.valid === 'false'){
+    //     validate = false;
+    //   }
+    // });
+    // if(validate){
+    //   submitButton.disabled = false;
+    // }else{
+    //   submitButton.disabled = true;
+    // } 
     
   }
 
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
       submitButton.textContent = "Confirmar Eliminación";
     } else if (value === "update") {
       addValidationEvents();
-      submitButton.disabled = true;
+      // submitButton.disabled = true;
       inputsToValidate.forEach(input=>{
         input.dataset.valid = "false";
         input.classList.remove("input_success");
@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
       animalList.selectedIndex = 0;
       submitButton.textContent = "Confirmar Modificación";
     } else if (value === "add") {
-      submitButton.disabled = true;
+      // submitButton.disabled = true;
       inputsToValidate.forEach(input=>{
         input.dataset.valid = "false";
         input.classList.remove("input_success");
