@@ -18,13 +18,36 @@ $result = $conn->query($sql);
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MiniZoo Juan XXIII</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mini Zoológico Juan XXIII - Encarnación</title>
+  <meta name="description" content="Explora el Mini Zoológico Juan XXIII en Encarnación. Información detallada y fotos de más de 60 especies de fauna sudamericana para educación y recreación familiar." />
+  <meta name="author" content="Mini Zoológico Juan XXIII" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- URL canónica -->
+  <link rel="canonical" href="https://juanxxiiizoo.infinityfreeapp.com/index.php" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://juanxxiiizoo.infinityfreeapp.com/index.php" />
+  <meta property="og:title" content="Mini Zoológico Juan XXIII - Encarnación" />
+  <meta property="og:description" content="Explora el Mini Zoológico Juan XXIII en Encarnación. Información detallada y fotos de más de 60 especies de fauna sudamericana para educación y recreación familiar." />
+  <meta property="og:image" content="https://juanxxiiizoo.infinityfreeapp.com/img/miniZoo-Logo.png" /> <!--verificar la url a la imagen-->
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://juanxxiiizoo.infinityfreeapp.com/index.php" />
+  <meta name="twitter:title" content="Mini Zoológico Juan XXIII - Encarnación" />
+  <meta name="twitter:description" content="Explora el Mini Zoológico Juan XXIII en Encarnación. Información detallada y fotos de más de 60 especies de fauna sudamericana para educación y recreación familiar." />
+  <meta name="twitter:image" content="https://juanxxiiizoo.infinityfreeapp.com/img/miniZoo-Logo.png" /> <!--verificar la url a la imagen-->
+
+  <!-- Estilos -->
   <link rel="stylesheet" href="CSS/index.css" />
-  <link rel="stylesheet" href="CSS/header.css">
-  <link rel="stylesheet" href="CSS/footer.css">
+  <link rel="stylesheet" href="CSS/header.css" />
+  <link rel="stylesheet" href="CSS/footer.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
+
 <body>
 
   <!-- ENCABEZADO -->
@@ -124,5 +147,11 @@ $result = $conn->query($sql);
 
 <script src="javaScript/mainpagejs.js"></script>
 
+<!-- script para mostrar página solo cuando todo se haya cargado (incluyendo imágenes) -->
+<script>
+    window.addEventListener('load', () => {
+      document.body.classList.add('visible');
+    });
+</script>
 </body>
 </html>

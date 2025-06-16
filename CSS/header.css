@@ -8,7 +8,7 @@
   color: #000;
   justify-content: space-between;
   background-color: #fff;
-  padding: 15px 25px;
+  padding: 5px 10px;
   border-bottom: 1px solid #ddd;
   position: relative;
   top: 0;
@@ -20,6 +20,15 @@
   display: inline-block;
   margin-right: auto;
 }
+
+.logo-img {
+  height: 115px;
+  width: auto;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
 
 .encabezado .logo-link .logo {
   font-size: 22px;
