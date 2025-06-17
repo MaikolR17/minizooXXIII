@@ -35,14 +35,14 @@ $result = $conn->query($sql);
   <meta property="og:url" content="https://juanxxiiizoo.infinityfreeapp.com" />
   <meta property="og:title" content="Mini Zoológico Juan XXIII - Encarnación" />
   <meta property="og:description" content="Explora el Mini Zoológico Juan XXIII en Encarnación. Información detallada y fotos de más de 60 especies de fauna sudamericana para educación y recreación familiar." />
-  <meta property="og:image" content="https://juanxxiiizoo.infinityfreeapp.com/img/miniZoo-Logo.png" /> <!--verificar la url a la imagen-->
+  <meta property="og:image" content="https://juanxxiiizoo.infinityfreeapp.com/img/Logo2.jpeg" /> <!--verificar la url a la imagen-->
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://juanxxiiizoo.infinityfreeapp.com" />
   <meta name="twitter:title" content="Mini Zoológico Juan XXIII - Encarnación" />
   <meta name="twitter:description" content="Explora el Mini Zoológico Juan XXIII en Encarnación. Información detallada y fotos de más de 60 especies de fauna sudamericana para educación y recreación familiar." />
-  <meta name="twitter:image" content="https://juanxxiiizoo.infinityfreeapp.com/img/miniZoo-Logo.png" /> <!--verificar la url a la imagen-->
+  <meta name="twitter:image" content="https://juanxxiiizoo.infinityfreeapp.com/img/Logo2.jpeg" /> <!--verificar la url a la imagen-->
 
   <!-- Estilos -->
   <link rel="stylesheet" href="CSS/index.css" />

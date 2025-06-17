@@ -17,18 +17,20 @@
 
 .encabezado .logo-link {
   text-decoration: none;
-  display: inline-block;
-  margin-right: auto;
+  display: flex;
+  align-items: center;
 }
 
 .logo-img {
-  height: 115px;
-  width: auto;
-  object-fit: contain;
-  vertical-align: middle;
   margin-right: 10px;
 }
 
+
+@media (max-width: 600px) {
+  .logo {
+    display: none;
+  }
+}
 
 .encabezado .logo-link .logo {
   font-size: 22px;
@@ -39,7 +41,8 @@
   border-radius: 8px;
 }
 
-.encabezado .logo-link:hover .logo, .encabezado .logo-link:focus .logo {
+.encabezado .logo-link:hover .logo,
+.encabezado .logo-link:focus .logo {
   color: #236126;
   background-color: rgba(46, 125, 50, 0.1);
   outline: none;
@@ -52,12 +55,12 @@
   transition: color 0.3s ease;
 }
 
-/*  */
 body.dark-mode .encabezado .logo-link .logo {
   color: #fff;
 }
 
-body.dark-mode .encabezado .logo-link:hover .logo, body.dark-mode .encabezado .logo-link:focus .logo {
+body.dark-mode .encabezado .logo-link:hover .logo,
+body.dark-mode .encabezado .logo-link:focus .logo {
   color: #4caf50;
   background-color: rgba(76, 175, 80, 0.1);
 }
@@ -77,7 +80,8 @@ body.dark-mode .encabezado .logo-link .logo span {
   padding: 3px;
 }
 
-.nav-links a:hover, .nav-links a:focus {
+.nav-links a:hover,
+.nav-links a:focus {
   color: #236126;
   outline: none;
 }
@@ -129,7 +133,6 @@ body.dark-mode .encabezado .logo-link .logo span {
 /* ------------------------ */
 /* MENÚ HAMBURGUESA         */
 /* ------------------------ */
-
 .menu-toggle {
   display: none;
   border: 2px solid #121212;
@@ -164,12 +167,9 @@ body.dark-mode .encabezado .logo-link .logo span {
   box-shadow: none;
 }
 
-.menu-toggle, .nav-links a {
-  -webkit-tap-highlight-color: transparent;
-}
-
 .menu-toggle,
 .nav-links a {
+  -webkit-tap-highlight-color: transparent;
   outline: none;
   user-select: none;
   -webkit-user-select: none;
@@ -178,7 +178,7 @@ body.dark-mode .encabezado .logo-link .logo span {
 
 .menu-toggle:active,
 .nav-links a:active {
-  background-color: rgba(0, 0, 0, 0.05); /* efecto suave */
+  background-color: rgba(0, 0, 0, 0.05);
   border-radius: 8px;
 }
 
@@ -192,19 +192,17 @@ body.dark-mode .encabezado .logo-link .logo span {
     background: #fff;
     position: absolute;
     top: 60px;
-    left: 0;
-    right: 0;
+    left: auto;
+    right: 15px;
+    width: 250px;
     overflow: hidden;
     max-height: 0;
     opacity: 0;
     padding: 0 20px;
     pointer-events: none;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
     transition: max-height 0.5s ease, opacity 0.4s ease;
-    right: 15px;
-      left: auto;
-      width: 250px;
-      border-radius: 8px;
   }
 
   .nav-links.active {
@@ -219,28 +217,28 @@ body.dark-mode .encabezado .logo-link .logo span {
   }
 
   .menu-toggle {
-      display: flex;
-      margin-left: auto;
-      order: 1;
+    display: flex;
+    margin-left: auto;
+    order: 1;
   }
-  
+
   .logo-link {
-      order: 0;
-      max-width: calc(100% - 60px);
+    order: 0;
+    max-width: calc(100% - 60px);
   }
 
   .busqueda {
-      margin-top: 10px;
-      width: 100%;
-      max-width: 200px;
-      padding: 4px 8px;
-      margin-left: auto;
-      margin-right: auto;
-      justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 200px;
+    padding: 4px 8px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
   }
-  
+
   .busqueda input {
-      font-size: 14px;
-      padding: 4px;
+    font-size: 14px;
+    padding: 4px;
   }
 }
