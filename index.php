@@ -167,11 +167,5 @@ $result = $conn->query($sql);
 
 <script src="javaScript/mainpagejs.js"></script>
 
-<!-- script para mostrar página solo cuando todo se haya cargado (incluyendo imágenes) -->
-<script>
-    window.addEventListener('load', () => {
-      document.body.classList.add('visible');
-    });
-</script>
 </body>
 </html>
