@@ -42,10 +42,11 @@ if (!$specie) {
     <link rel="stylesheet" href="CSS/header.css">
     <link rel="stylesheet" href="CSS/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
 </head>
+
 <body>
     <!--Encabezado-->
+    <?php $hideSearchBar = true; ?> <!--Variable auxiliar para ocultar la barra de busqueda-->
     <?php include "resources/header.php";?>
 
     <!--Seccion principal-->
@@ -86,6 +87,10 @@ if (!$specie) {
 
     <!--Pie de pagina-->
     <?php include "resources/footer.php";?>
-
+    <script>
+    window.addEventListener('load', () => {
+        document.body.classList.add('visible');
+    });
+    </script>
 </body>
 </html>
