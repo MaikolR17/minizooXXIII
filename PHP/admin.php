@@ -15,7 +15,7 @@ if (!isset($_SESSION["access"])) {
 // Leer las especies desde la base de datos
 $list_species = [];
 
-$sql = "SELECT id, name FROM especies"; 
+$sql = "SELECT id, name FROM especies ORDER BY name ASC"; 
 $result = mysqli_query($conn, $sql);
 
 if ($result && mysqli_num_rows($result) > 0) {
@@ -98,7 +98,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         <label for="img" class="input-label">Imagen de Referencia:</label>
         <input type="file" name="img" id="img" data-valid="false">
         
-        <button type="submit" id="submit-btn" disabled>Agregar Especie</button>
+        <button type="submit" id="submit-btn">Agregar Especie</button>
     </form>
 
     <script type="module" src="../javaScript/admin.js"></script>

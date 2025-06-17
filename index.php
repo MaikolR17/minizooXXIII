@@ -8,8 +8,11 @@ if (!$conex->conectar()) {
 }
 
 $conn = $conex->getConexion();
+//obtener klas 12 primeras imagenes en orden alfabetico
+$sql= "SELECT img FROM especies ORDER BY name ASC LIMIT 12";
+$resultImg = $conn->query($sql);
 
-$sql = "SELECT * FROM especies";
+$sql = "SELECT * FROM especies ORDER BY name ASC";
 $result = $conn->query($sql);
 
 ?>
@@ -25,18 +28,18 @@ $result = $conn->query($sql);
   <meta name="robots" content="index, follow" />
 
   <!-- URL canónica -->
-  <link rel="canonical" href="https://juanxxiiizoo.infinityfreeapp.com/index.php" />
+  <link rel="canonical" href="https://juanxxiiizoo.infinityfreeapp.com" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://juanxxiiizoo.infinityfreeapp.com/index.php" />
+  <meta property="og:url" content="https://juanxxiiizoo.infinityfreeapp.com" />
   <meta property="og:title" content="Mini Zoológico Juan XXIII - Encarnación" />
   <meta property="og:description" content="Explora el Mini Zoológico Juan XXIII en Encarnación. Información detallada y fotos de más de 60 especies de fauna sudamericana para educación y recreación familiar." />
   <meta property="og:image" content="https://juanxxiiizoo.infinityfreeapp.com/img/miniZoo-Logo.png" /> <!--verificar la url a la imagen-->
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://juanxxiiizoo.infinityfreeapp.com/index.php" />
+  <meta name="twitter:url" content="https://juanxxiiizoo.infinityfreeapp.com" />
   <meta name="twitter:title" content="Mini Zoológico Juan XXIII - Encarnación" />
   <meta name="twitter:description" content="Explora el Mini Zoológico Juan XXIII en Encarnación. Información detallada y fotos de más de 60 especies de fauna sudamericana para educación y recreación familiar." />
   <meta name="twitter:image" content="https://juanxxiiizoo.infinityfreeapp.com/img/miniZoo-Logo.png" /> <!--verificar la url a la imagen-->
@@ -46,6 +49,15 @@ $result = $conn->query($sql);
   <link rel="stylesheet" href="CSS/header.css" />
   <link rel="stylesheet" href="CSS/footer.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <?php
+    if($resultImg->num_rows > 0) {
+      while($animal = $resultImg->fetch_assoc()){
+        echo '<link rel="preload" href="'.$animal['img'].'" as="image">';
+      }
+    }
+  ?>
+
 </head>
 
 <body>
@@ -61,6 +73,7 @@ $result = $conn->query($sql);
     <section class="galeria-animales" aria-label="Galería de animales del zoológico">
       <?php
       if ($result->num_rows > 0) {
+        $count = 0;
           while ($animal = $result->fetch_assoc()) {
               $id = htmlspecialchars($animal["id"]);
               $name = htmlspecialchars($animal["name"]);
@@ -80,7 +93,14 @@ $result = $conn->query($sql);
               echo '<p>' . $shortDescription . '</p>';
       
               if (!empty($animal["img"])) {
-                echo '<img src="' . $animal['img'] . '" alt="' . $name . '">';
+                echo '<img ';
+                if($count < 12){
+                  echo 'fetchpriority="high" ';
+                  $count++;
+                }else{
+                  echo 'fetchpriority="low" ';
+                } 
+                echo 'src="' . $animal['img'] . '" alt="' . $name . '">';
               }
               
               $id = urlencode($animal['id']);

@@ -19,6 +19,12 @@ $stmt->execute();
 $result = $stmt->get_result();
 $specie = $result->fetch_all(MYSQLI_ASSOC);
 
+$place = $specie[0]['place'];
+
+$stmt = $conn->prepare("SELECT id,name FROM especies WHERE place = ?");
+$stmt->bind_param("i",$place);
+$stmt->execute();
+$result = $stmt->get_result();
 
 // Validar que exista la especie
 if (!$specie) {
@@ -53,6 +59,21 @@ if (!$specie) {
                 <img src="<?=htmlspecialchars($specie[0]['img'])?>" alt="<?=htmlspecialchars($specie[0]['name'])?>">
                 <p><strong>ORDEN: </strong><?=htmlspecialchars(mb_strtoupper($specie[0]['specie_order']))?></p>
                 <p><strong>FAMILIA: </strong><?=htmlspecialchars(mb_strtoupper($specie[0]['family']))?></p>
+                <p><strong>RECINTO: </strong>
+                    <?php
+                        if($result->num_rows > 1) {
+                            echo "Esta especie habita en su jaula junto con las siguientes especies:</p>";
+                            echo "<ul>";
+                            while($animal = $result->fetch_assoc()){
+                                if($animal['name'] !== $specie[0]['name']){
+                                    echo '<li><a href="' . "https://juanxxiiizoo.infinityfreeapp.com/specie_info.php?id=".$animal['id']. '" >'.$animal['name'].'</a></li>';
+                                }
+                            }
+                            echo "</ul>";
+                        }else{
+                            echo "Esta especie solo habita con animales de su misma especie en su jaula</p>";
+                        } 
+                    ?>
             </div>
             <div class="large_text">
                 <p id="description"><?=htmlspecialchars($specie[0]['description'])?></p>
