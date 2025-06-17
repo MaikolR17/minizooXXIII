@@ -41,18 +41,43 @@ if ($result && $result->num_rows > 0) {
     <link rel="stylesheet" href="../CSS/admlogin.css">
 </head>
 <body>
-    <h2>Ingrese la clave para acceder al panel de administración:</h2>
-
-    <form method="POST" action="rol_db_manage.php">
+    
+    <!--Incluir alerta de error/acierto-->
+    <?php include "../resources/cont_alert.php";?>
+    
+    <form method="POST" action="rol_db_manage.php?action=add">
+        <h2>Crear nuevo usuario</h2>
         <input type="text" name="username" placeholder="Usuario nuevo" required>
         <input type="text" name="key" placeholder="Contraseña" required>
         <select name="id_role" required>
             <option value="">Seleccione un rol</option>
             <option value="1">Supervisor</option>
             <option value="2">Administrador</option>
+            <option value="3">Moderador</option>
         </select>
 
         <button type="submit">Crear usuario</button>
+    </form>
+    
+    <form method="POST" action="rol_db_manage.php?action=change">
+        <h2>Modificar rol</h2>
+        <h3>Seleccione un rol</h3>
+        <select name="user_rol" id="rol">
+            <option value="">--Selecciona una opcion--</option>
+            <option value="">Supervisor</option>
+            <option value="">Administrador</option>
+            <option value="">Moderador</option>
+        </select>
+        <h3>Seleccione el usuario</h3>
+        <select name="user" id="user">
+            <option value="">--Seleccione una opcion--</option>
+        </select>
+        <h3>Seleccione nuevo rol para el usuario</h3>
+        <select name="new_rol" id="new_rol">
+            <option value="">--Seleccione una opcion</option>
+        </select>
+
+        <button type="submit">Modificar rol</button>
     </form>
 </body>
 </html>

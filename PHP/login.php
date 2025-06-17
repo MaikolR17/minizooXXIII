@@ -55,6 +55,8 @@ if ($is_valid) {
             header("Location: manage_rol.php"); break;
         case 2:
             header("Location: admin.php"); break;
+        case 3:
+            header("Location: admin.php"); break;
         default:
             header("Location: login_panel.php");
     }

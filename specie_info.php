@@ -84,13 +84,25 @@ if (!$specie) {
             </div>
         </div>
     </main>
+    
+    <!--Boton de compartir exclusivo para usuarios del programa Mini-Zoo-JAVA-->
+    <div class="share-buton-container">
+        <?php
+            if (isset($_GET['ref'])){
+                echo '<button type="button" id="share-button"><i class="fa fa-share"></i><span>Compartir<span></button>';
+            }
+        ?>
+    </div>
 
     <!--Pie de pagina-->
     <?php include "resources/footer.php";?>
+    <!--Cargar imagenes y luego mostra pagina-->
     <script>
-    window.addEventListener('load', () => {
-        document.body.classList.add('visible');
-    });
+        window.addEventListener('load', () => {
+            document.body.classList.add('visible');
+        });
     </script>
+    <!--Script del boton de compartir-->
+    <script src="javaScript/specie_info.js"></script>
 </body>
 </html>

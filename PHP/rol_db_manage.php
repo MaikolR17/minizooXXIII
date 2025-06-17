@@ -9,6 +9,7 @@ $conn = $conex->conex;
 $username = $_POST['username'];
 $password = $_POST['key']; // Asegurate de cifrar esto en el futuro con password_hash
 
+//modificar este archivo, que es que esta fallando en logica
 $sql = "SELECT * FROM users WHERE username = ? AND `key` = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ss", $username, $password);

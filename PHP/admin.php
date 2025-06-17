@@ -43,20 +43,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     <!-- Formulario para agregar, modificar o eliminar especie -->
     <form action="CRUD.php" method="POST" enctype="multipart/form-data" id="animal-form">
         <!-- Contenedor de la caja de alertas, donde se informan errores y acciones completadas correctamente -->
-        <div class="cont-alert">
-            <?php
-            // Mostrar mensajes de estado (éxito/error)
-            if (isset($_SESSION['status'])) {
-                if ($_SESSION['status'] === "error") {
-                    echo "<p class=\"error\">".$_SESSION['message'].'</p>';
-                } else {
-                    echo "<p class=\"success\">".$_SESSION['message'].'</p>';
-                }
-                unset($_SESSION['status']);
-                unset($_SESSION['message']);
-            }
-            ?>
-        </div>
+        <?php include "../resources/cont_alert.php";?>
         
         <!-- Selección de la lista de acción a realizar -->
         <label for="functionality">¿Qué acción quieres realizar?</label>
@@ -98,6 +85,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         <label for="img" class="input-label">Imagen de Referencia:</label>
         <input type="file" name="img" id="img" data-valid="false">
         
+        <!--Agregar textarea exclusivo para moderadores-->
         <button type="submit" id="submit-btn">Agregar Especie</button>
     </form>
 
