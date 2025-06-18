@@ -42,5 +42,22 @@
     icon.classList.toggle('fa-sun', isDark);
   });
 
+  /*Cargar pagina cuando las imagenes esenciales esten cargadas */
+  const images = document.querySelectorAll(".high-priority");
+  const imagePromises = Array.from(images).map(img => {
+      return new Promise(resolve => {
+        //creacion de imagen temporal para evitar errrores al recargar la pagina
+          const tempImg = new Image();
+          tempImg.src = img.src;
+
+          tempImg.onload = resolve;
+          tempImg.onerror = resolve; // Para manejar errores
+      });
+  });
+  //mostrar pagina cuando se carguen las imagenes esenciales
+  Promise.all(imagePromises).then(() => {
+      document.body.classList.add("visible");
+  });
+
 
 

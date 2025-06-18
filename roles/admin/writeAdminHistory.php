@@ -9,7 +9,7 @@
  * @return void No devuelve ningun valor
  */
 function writeFile(string $admName,string $action,string $specieName,int $id):void{
-    $regDir = '../reg/AdminHistory.json';
+    $regDir = '../../reg/AdminHistory.json';
     $file = file_exists($regDir)? file_get_contents($regDir): [];   
     $decodedFile = json_decode($file,true)? : [];
     date_default_timezone_set('America/Asuncion');

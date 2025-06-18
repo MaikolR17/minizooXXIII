@@ -1,5 +1,5 @@
 <?php
-require_once 'PHP/conex.php'; // Asegúrate de que esta ruta sea correcta
+require_once 'login/conex.php'; // Asegúrate de que esta ruta sea correcta
 
 $conex = new ConexionDB();
 
@@ -8,7 +8,7 @@ if (!$conex->conectar()) {
 }
 
 $conn = $conex->getConexion();
-//obtener klas 12 primeras imagenes en orden alfabetico
+//obtener las 12 primeras imagenes en orden alfabetico
 $sql= "SELECT img FROM especies ORDER BY name ASC LIMIT 12";
 $resultImg = $conn->query($sql);
 
@@ -20,13 +20,36 @@ $result = $conn->query($sql);
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MiniZoo Juan XXIII</title>
-  <link rel="stylesheet" href="CSS/index.css">
-  <link rel="stylesheet" href="CSS/header.css">
-  <link rel="stylesheet" href="CSS/footer.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mini Zoológico Juan XXIII - Encarnación</title>
+  <meta name="description" content="Explora el Mini Zoológico Juan XXIII en Encarnación. Información detallada y fotos de más de 60 especies de fauna sudamericana para educación y recreación familiar." />
+  <meta name="author" content="Mini Zoológico Juan XXIII" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- URL canónica -->
+  <link rel="canonical" href="https://juanxxiiizoo.infinityfreeapp.com" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://juanxxiiizoo.infinityfreeapp.com" />
+  <meta property="og:title" content="Mini Zoológico Juan XXIII - Encarnación" />
+  <meta property="og:description" content="Explora el Mini Zoológico Juan XXIII en Encarnación. Información detallada y fotos de más de 60 especies de fauna sudamericana para educación y recreación familiar." />
+  <meta property="og:image" content="https://juanxxiiizoo.infinityfreeapp.com/img/miniZoo-Logo.png" /> <!--verificar la url a la imagen-->
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://juanxxiiizoo.infinityfreeapp.com" />
+  <meta name="twitter:title" content="Mini Zoológico Juan XXIII - Encarnación" />
+  <meta name="twitter:description" content="Explora el Mini Zoológico Juan XXIII en Encarnación. Información detallada y fotos de más de 60 especies de fauna sudamericana para educación y recreación familiar." />
+  <meta name="twitter:image" content="https://juanxxiiizoo.infinityfreeapp.com/img/miniZoo-Logo.png" /> <!--verificar la url a la imagen-->
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="CSS/index.css" />
+  <link rel="stylesheet" href="CSS/header.css" />
+  <link rel="stylesheet" href="CSS/footer.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
   <?php
     if($resultImg->num_rows > 0) {
       while($animal = $resultImg->fetch_assoc()){
@@ -34,7 +57,9 @@ $result = $conn->query($sql);
       }
     }
   ?>
+
 </head>
+
 <body>
 
   <?php include "resources/header.php"; ?>
@@ -66,12 +91,12 @@ $result = $conn->query($sql);
               echo '<p>' . $shortDescription . '</p>';
       
               if (!empty($animal["img"])) {
-                echo '<img ';
+                echo '<img class"';
                 if($count < 12){
-                  echo 'fetchpriority="high" ';
+                  echo 'high-priority" fetchpriority="high" ';
                   $count++;
                 }else{
-                  echo 'fetchpriority="low" ';
+                  echo 'low-priority" fetchpriority="low" ';
                 } 
                 echo 'src="' . $animal['img'] . '" alt="' . $name . '">';
               }

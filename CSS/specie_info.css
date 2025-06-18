@@ -13,6 +13,16 @@
 }
 
 body {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+} 
+
+body.visible {
+    visibility: visible;
+    opacity: 1;
+}
+body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -93,6 +103,36 @@ a:focus, button:focus {
 #description, #ecology, #distribution {
     font-size: 1rem;
     color: var(--gris-texto);
+}
+
+/*Estilos para el boton de compartir*/
+#share-button {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  gap: 6px;
+  padding: 6px 12px;
+  background-color: #2e7d32;
+  color: white !important;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 20px;
+  transition: all 0.3s ease;
+}
+
+#share-button:hover {
+  background-color: #236126;
+  transform: scale(1.05);
+}
+
+#share-button i {
+  font-size: 20px;
+}
+
+.share-buton-container{
+    display: flex;
+    justify-content: center;
+    padding: 30px 0;
 }
 
 /* Responsividad para móviles */

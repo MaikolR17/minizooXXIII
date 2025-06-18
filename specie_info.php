@@ -1,5 +1,5 @@
 <?php
-require_once 'PHP/conex.php';
+require_once 'login/conex.php';
 $conex = new ConexionDB();
 $conex->conectar();
 $conn = $conex->conex;
@@ -42,10 +42,11 @@ if (!$specie) {
     <link rel="stylesheet" href="CSS/header.css">
     <link rel="stylesheet" href="CSS/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
 </head>
+
 <body>
     <!--Encabezado-->
+    <?php $hideSearchBar = true; ?> <!--Variable auxiliar para ocultar la barra de busqueda-->
     <?php include "resources/header.php";?>
 
     <!--Seccion principal-->
@@ -83,9 +84,25 @@ if (!$specie) {
             </div>
         </div>
     </main>
+    
+    <!--Boton de compartir exclusivo para usuarios del programa Mini-Zoo-JAVA-->
+    <div class="share-buton-container">
+        <?php
+            if (isset($_GET['ref'])){
+                echo '<button type="button" id="share-button"><i class="fa fa-share"></i><span>Compartir<span></button>';
+            }
+        ?>
+    </div>
 
     <!--Pie de pagina-->
     <?php include "resources/footer.php";?>
-
+    <!--Cargar imagenes y luego mostra pagina-->
+    <script>
+        window.addEventListener('load', () => {
+            document.body.classList.add('visible');
+        });
+    </script>
+    <!--Script del boton de compartir-->
+    <script src="javaScript/specie_info.js"></script>
 </body>
 </html>

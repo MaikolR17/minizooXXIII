@@ -45,6 +45,15 @@
   margin-right: auto;
 }
 
+.logo-img {
+  height: 115px;
+  width: auto;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+
 .encabezado .logo-link .logo {
   font-size: 22px;
   font-weight: bold;
