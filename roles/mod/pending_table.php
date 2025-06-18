@@ -1,3 +1,4 @@
+<form action="">
 <div class="pending-reports-container">
         <?php
             if($rs->num_rows > 0):
@@ -36,9 +37,8 @@
                     <tr>
                         <td><?=is_null($report['img'])? "No" : "Si"?></td>
                     </tr>
-                    <!--Implementar action para enviar por post con js-->
                     <tr>
-                        <td><button type="button" id="show_report">Ver reporte</button></td>
+                        <td><a href="report_info.php?id=<?=htmlspecialchars($report['id'])?>" ><i class="fas fa-info-circle"></i><span>Ver reporte</span></a></td>
                     </tr>
                     <?php if($_SESSION['id_role'] == 2): ?>
                     <tr>
@@ -58,3 +58,4 @@
             endif;
         ?>
     </div>
+</form>

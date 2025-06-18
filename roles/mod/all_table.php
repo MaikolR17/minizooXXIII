@@ -39,11 +39,11 @@
                     </tr>
                     <?php if($_SESSION['completed'] == 0): ?>
                     <tr>
-                        <td><img src="" alt="imagenroja"></td>
+                        <td><i class="fa-solid fa-square-xmark" style="color: #d91717;"></i></td>
                     </tr>
                     <?php else: ?>
                     <tr>
-                        <td><img src="" alt="imagenverde"></td>
+                        <td><i class="fa-solid fa-square-check" style="color: #25a70c;"></i></td>
                     </tr>
                     <?php 
                     endif;
