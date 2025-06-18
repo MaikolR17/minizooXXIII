@@ -1,33 +1,19 @@
 <?php
 session_start();
-require_once 'conex.php';
+require_once '../../login/conex.php';
 include 'writeAdminHistory.php';
 
 $db = new ConexionDB();
 
 if (!$db->conectar()) {
-    setError("No se pudo conectar a la base de datos: " . $db->getError());
+    setError("No se pudo conectar a la base de datos: " . $db->getError(),"admin.php");
 }
 
 $conn = $db->getConexion();
 
-function setError(string $msg) {
-    $_SESSION['status'] = "error";
-    $_SESSION['message'] = $msg;
-    header("Location: admin.php");
-    exit;
-}
-
-function setSuccess(string $msg) {
-    $_SESSION['status'] = "success";
-    $_SESSION['message'] = $msg;
-    header("Location: admin.php");
-    exit;
-}
-
 function saveImage() {
     if (!isset($_FILES['img']) || $_FILES['img']['error'] !== 0) {
-        setError("No se recibió ninguna imagen válida.");
+        setError("No se recibió ninguna imagen válida.","admin.php");
     }
 
     $temp = $_FILES['img']['tmp_name'];
@@ -35,25 +21,25 @@ function saveImage() {
     $uniqueName = $name;
 
     $relativePath = 'img/' . $uniqueName;
-    $fullPath = '../' . $relativePath;
+    $fullPath = '../../' . $relativePath;
 
     $allowed = ['image/jpeg', 'image/png', 'image/gif'];
     $max = 5 * 1024 * 1024;
 
     if (!in_array($_FILES['img']['type'], $allowed)) {
-        setError("Formato de imagen no permitido. Solo JPG, PNG y GIF.");
+        setError("Formato de imagen no permitido. Solo JPG, PNG y GIF.","admin.php");
     }
 
     if ($_FILES['img']['size'] > $max) {
-        setError("La imagen excede el tamaño máximo de 5MB.");
+        setError("La imagen excede el tamaño máximo de 5MB.","admin.php");
     }
 
-    if (!is_dir('../img')) {
-        mkdir('../img', 0777, true);
+    if (!is_dir('../../img')) {
+        mkdir('../../img', 0777, true);
     }
 
     if (!move_uploaded_file($temp, $fullPath)) {
-        setError("Error al guardar la imagen.");
+        setError("Error al guardar la imagen.","admin.php");
     }
 
     return $relativePath;
@@ -70,7 +56,7 @@ function generateQRCodeURL(string $url): string {
 function generateQRCodeImage(string $url, string $id): string {
     $qrApiUrl = "https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=" . urlencode($url);
 
-    $qrDir = '../img/';
+    $qrDir = '../../img/';
     if (!is_dir($qrDir)) {
         mkdir($qrDir, 0777, true);
     }
@@ -92,12 +78,12 @@ function addSpecie(mysqli $conn) {
     $requiredFields = ['name', 'specie_order', 'family', 'description', 'ecology', 'distribution'];
     foreach ($requiredFields as $field) {
         if (empty($_POST[$field])) {
-            if (!empty($img)) { unlink('../' . $img); }
-            setError("Todos los campos son obligatorios.");
+            if (!empty($img)) { unlink('../../' . $img); }
+            setError("Todos los campos son obligatorios.","admin.php");
         }
     }
     if (empty($img)) {
-        setError("La imagen es obligatoria.");
+        setError("La imagen es obligatoria.","admin.php");
     }
 
     $place = empty($_POST['place'])? NULL: $conn->real_escape_string($_POST['place']);
@@ -114,16 +100,16 @@ function addSpecie(mysqli $conn) {
     $check = "SELECT id FROM especies WHERE name = '$name' OR COALESCE(alt_name) = '$alt_name' OR COALESCE(scient_name) = '$scient_name' LIMIT 1";
     $res = mysqli_query($conn, $check);
     if ($res && mysqli_num_rows($res) > 0) {
-        if (!empty($img)) { unlink('../' . $img); }
-        setError("Ya existe una especie con ese nombre.");
+        if (!empty($img)) { unlink('../../' . $img); }
+        setError("Ya existe una especie con ese nombre.","admin.php");
     }
 
     $stmt = $conn->prepare("INSERT INTO especies (place, name, alt_name, scient_name, img, specie_order, family, description, ecology, distribution)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("isssssssss", $place,$name,$alt_name,$scient_name,$img,$specie_order,$family,$description,$ecology,$distribution);
     if (!$stmt->execute()) {
-        if (!empty($img)) unlink('../' . $img);
-        setError("Error al agregar la especie: " . $stmt->error);
+        if (!empty($img)) unlink('../../' . $img);
+        setError("Error al agregar la especie: " . $stmt->error,"admin.php");
     }
     $stmt->close();
     /*$sql = "INSERT INTO especies (place, name, alt_name, scient_name, img, specie_order, family, description, ecology, distribution)
@@ -139,13 +125,13 @@ function addSpecie(mysqli $conn) {
     // Ruta donde se guardará localmente
     $qrFilename = 'qr_' . $id . '.png';
     $qrRelativePath = 'img/' . $qrFilename;
-    $qrFullPath = '../' . $qrRelativePath;
+    $qrFullPath = '../../' . $qrRelativePath;
 
     // Descargar la imagen QR y guardarla localmente
     $qrImage = file_get_contents($qrApiUrl);
     if ($qrImage === false) {
-        if (!empty($img)) unlink('../' . $img);
-        setError("Error al generar o guardar el código QR.");
+        if (!empty($img)) unlink('../../' . $img);
+        setError("Error al generar o guardar el código QR.","admin.php");
     }
     file_put_contents($qrFullPath, $qrImage);
 
@@ -158,9 +144,9 @@ function addSpecie(mysqli $conn) {
     }
     $stmt->close();*/
 
-    writeFile($_SESSION['admin'],"agregó",$_POST['name'],intval($id));
+    writeFile($_SESSION['username'],"agregó",$_POST['name'],intval($id));
 
-    setSuccess("Especie agregada correctamente.");
+    setSuccess("Especie agregada correctamente.","admin.php");
 }
 
 
@@ -183,18 +169,18 @@ function updateSpecie(mysqli $conn) {
     if ($imgFile && $imgFile['tmp_name'] && @getimagesize($imgFile['tmp_name'])) {
         $imgQuery = "SELECT img from especies WHERE id='".$conn->real_escape_string($id) ."'";
         $result = mysqli_query($conn, $imgQuery);
-        if(!$result) setError("No se pudo obtener la imagen de la base de datos");
+        if(!$result) setError("No se pudo obtener la imagen de la base de datos","admin.php");
         $row = mysqli_fetch_assoc($result);
         $old_img = $row['img'];
-        unlink("../".$old_img);
+        unlink("../../".$old_img);
         $img = saveImage();
         $updates["img"] = $img;
     }
     
     foreach (['name', 'specie_order', 'family', 'description', 'ecology', 'distribution'] as $field) {
         if (empty($updates[$field])) {
-            if (@getimagesize($imgFile['tmp_name'])) unlink('../' . $img);
-            setError("Todos los campos son obligatorios.");
+            if (@getimagesize($imgFile['tmp_name'])) unlink('../../' . $img);
+            setError("Todos los campos son obligatorios.","admin.php");
         }
     } 
     
@@ -210,13 +196,13 @@ function updateSpecie(mysqli $conn) {
     $sql = "UPDATE especies SET " . implode(", ", $sql_parts) . " WHERE id = '" . $conn->real_escape_string($id) . "'";
     
     if (!mysqli_query($conn, $sql)) {
-        if (@getimagesize($imgFile['tmp_name'])) unlink('../' . $img);
-        setError("Error al actualizar la especie: " . mysqli_error($conn));
+        if (@getimagesize($imgFile['tmp_name'])) unlink('../../' . $img);
+        setError("Error al actualizar la especie: " . mysqli_error($conn),"admin.php");
     }
 
-    writeFile($_SESSION['admin'],"modificó",$updates['name'],intval($id));
+    writeFile($_SESSION['username'],"modificó",$updates['name'],intval($id));
 
-    setSuccess("Especie modificada correctamente.");
+    setSuccess("Especie modificada correctamente.","admin.php");
 }
 
 function deleteSpecie(mysqli $conn) {
@@ -233,27 +219,27 @@ function deleteSpecie(mysqli $conn) {
         $qr = 'img/qr_'.$id.".png";
 
         // Eliminar imagen si existe
-        if (!empty($img) && file_exists('../' . $img)) {
-            unlink('../' . $img);
+        if (!empty($img) && file_exists('../../' . $img)) {
+            unlink('../../' . $img);
         }
 
         // Eliminar QR si existe
-        if (!empty($qr) && file_exists('../' . $qr)) {
-             unlink('../' . $qr);
+        if (!empty($qr) && file_exists('../../' . $qr)) {
+             unlink('../../' . $qr);
         }
     }
 
     // Eliminar la especie de la base de datos
     $sql = "DELETE FROM especies WHERE id = '" . $conn->real_escape_string($id) . "'";
     if (!mysqli_query($conn, $sql)) {
-        setError("Error al eliminar la especie: " . mysqli_error($conn));
+        setError("Error al eliminar la especie: " . mysqli_error($conn),"admin.php");
     }
 
     if(isset($id)) {
-        writeFile($_SESSION['admin'],"eliminó",$name,intval($id));
-        setSuccess("La especie fue eliminada correctamente.");
+        writeFile($_SESSION['username'],"eliminó",$name,intval($id));
+        setSuccess("La especie fue eliminada correctamente.","admin.php");
     } else {
-        setError("¡No seleccionaste ninguna especie!");
+        setError("¡No seleccionaste ninguna especie!","admin.php");
     }
 }
 

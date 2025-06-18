@@ -1,0 +1,102 @@
+<!-- admin.php -->
+<?php 
+    require_once "../manager/manage_user.php";
+    require_once "../login/conex.php";
+
+    session_start();
+
+    $conex = new ConexionDB();
+    $conex->conectar();
+    $conn = $conex->conex;
+
+    if(isset($_SESSION['access'])){
+        if(!UserManagement::checkActive($_SESSION['user_id'],$conn)){
+            header("Location: ../login/login_panel.php");
+            exit;
+        }
+    }
+
+    if(!isset($_SESSION['access']) || $_SESSION['id_role'] !=3 ){
+        header("Location: ../login/login_panel.php");
+    }
+
+// Leer las especies desde la base de datos
+$list_species = [];
+
+$conex = new ConexionDB();
+$conex->conectar();
+$conn = $conex->conex;
+
+$sql = "SELECT id, name FROM especies ORDER BY name ASC"; 
+$result = mysqli_query($conn, $sql);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $list_species[] = $row;
+    }
+} else {
+    $list_species = [];
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revision de especies</title>
+    <link rel="stylesheet" href="../CSS/admin.css">
+</head>
+<body>
+    <!-- Botón para alternar modo oscuro -->
+    <button id="btn-darkmode">Modo Oscuro</button>
+    <h1 id="titleForm">Formulario de Revision</h1>
+    
+    <!-- Formulario para agregar, modificar o eliminar especie -->
+    <form action="../PHP/CRUD.php" method="POST" enctype="multipart/form-data" id="animal-form">
+        <!-- Contenedor de la caja de alertas, donde se informan errores y acciones completadas correctamente -->
+        <?php include "../resources/server-resources/cont_alert.php";?>
+        
+        
+        <label for="list-species" id="species-label">Elija un animal registrado:</label>
+        <select name="list-species" id="list-species" onchange="loadAnimal(this.value)"disabled>
+            <option value="" disabled selected> --Seleccione una especie-- </option>
+            <?php foreach ($list_species as $specie): ?>
+                <option value="<?= htmlspecialchars($specie['id']) ?>">
+                    <?= htmlspecialchars($specie['name']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
+        <label for="place" class="input-label">Recinto:</label>
+        <input type="number" name = "place" id="place" readonly>
+        <label for="name" class="input-label">Nombre Común:</label>
+        <input type="text" name="name" id="name" readonly>
+        <label for="alt_name" class="input-label">Nombre Alternativo:</label> 
+        <input type="text" name="alt_name" id="alt_name" readonly>
+        <label for="scient_name" class="input-label">Nombre científico:</label>
+        <input type="text" name="scient_name" id="scient_name" readonly>
+        <label for="specie_order" class="input-label">Orden:</label>
+        <input type="text" name="specie_order" id="specie_order" readonly>
+        <label for="family" class="input-label">Familia:</label>
+        <input type="text" name="family" id="family" readonly>
+        <label for="description" class="input-label">Descripción:</label>
+        <textarea name="description" id="description" rows="4" cols="50" readonly></textarea>
+        <label for="ecology" class="input-label">Ecología:</label>
+        <textarea name="ecology" id="ecology" rows="4" cols="50" readonly></textarea>
+        <label for="distribution" class="input-label">Distribución:</label>
+        <textarea name="distribution" id="distribution" rows="4" cols="50" readonly></textarea>
+        <h2>Ingrese su reporte:</h2>
+        <label for="subject">Asunto:</label>
+        <input type="text" id="subject" required>
+        <label for="report">Escriba aqui su reporte completo:</label>
+        <textarea name="report" id="report" rows="4" cols="50"></textarea>
+        <label for="img" class="input-label">Adjuntar imagen(Opcional):</label>
+        <input type="file" name="img" id="img">
+        
+        <button type="submit" id="submit-btn">Agregar Especie</button>
+    </form>
+
+    
+</body>
+</html>
