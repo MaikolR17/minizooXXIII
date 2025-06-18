@@ -1,5 +1,5 @@
 <?php
-require_once 'PHP/conex.php'; // Asegúrate de que esta ruta sea correcta
+require_once 'login/conex.php'; // Asegúrate de que esta ruta sea correcta
 
 $conex = new ConexionDB();
 
@@ -8,7 +8,7 @@ if (!$conex->conectar()) {
 }
 
 $conn = $conex->getConexion();
-//obtener klas 12 primeras imagenes en orden alfabetico
+//obtener las 12 primeras imagenes en orden alfabetico
 $sql= "SELECT img FROM especies ORDER BY name ASC LIMIT 12";
 $resultImg = $conn->query($sql);
 
@@ -93,12 +93,12 @@ $result = $conn->query($sql);
               echo '<p>' . $shortDescription . '</p>';
       
               if (!empty($animal["img"])) {
-                echo '<img ';
+                echo '<img class"';
                 if($count < 12){
-                  echo 'fetchpriority="high" ';
+                  echo 'high-priority" fetchpriority="high" ';
                   $count++;
                 }else{
-                  echo 'fetchpriority="low" ';
+                  echo 'low-priority" fetchpriority="low" ';
                 } 
                 echo 'src="' . $animal['img'] . '" alt="' . $name . '">';
               }

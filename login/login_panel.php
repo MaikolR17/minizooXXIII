@@ -1,5 +1,29 @@
 <?php
-session_start();
+  require_once "../roles/manager/manage_user.php";
+  require_once "conex.php";
+
+  session_start();
+
+  $conex = new ConexionDB();
+  $conex->conectar();
+  $conn = $conex->conex;
+
+  if(isset($_SESSION['access'])){
+    UserManagement::checkActive($_SESSION['user_id'],$conn);  
+  }
+
+if(isset($_SESSION['access'])){
+  // Redirigir según rol
+  switch ($_SESSION['id_role']) {
+      case 1:
+          header("Location: ../roles/manager/manage_rol.php"); break;
+      case 2:
+          header("Location: ../roles/admin/admin.php"); break;
+      case 3:
+          header("Location: ..roles/mod/mod.php"); break;
+  }
+  exit;
+}
 
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -18,7 +42,7 @@ unset($_SESSION['error']);
 <body>
   <h2>Iniciar sesión</h2>
 
-  <?php if ($error): ?>
+  <?php if (!empty($error)): ?>
     <p style="color:red;"><?php echo htmlspecialchars($error); ?></p>
   <?php endif; ?>
 

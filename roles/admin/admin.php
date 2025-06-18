@@ -1,19 +1,31 @@
 <!-- admin.php -->
 <?php 
-session_start();
-require_once 'conex.php';
-$conex = new ConexionDB();
-$conex->conectar();
-$conn = $conex->conex;
+    require_once "../manager/manage_user.php";
+    require_once "../../login/conex.php";
 
-// Verificar si el usuario tiene acceso, si no redirigir al login
-if (!isset($_SESSION["access"])) {
-    header("Location: admlogin.php");
-    exit;
-}
+    session_start();
+
+    $conex = new ConexionDB();
+    $conex->conectar();
+    $conn = $conex->conex;
+
+    if(isset($_SESSION['access'])){
+        if(!UserManagement::checkActive($_SESSION['user_id'],$conn)){
+            header("Location: ../../login/login_panel.php");
+            exit;
+        }
+    }
+
+    if(!isset($_SESSION['access']) || $_SESSION['id_role'] !=2 ){
+        header("Location: ../../login/login_panel.php");
+    }
 
 // Leer las especies desde la base de datos
 $list_species = [];
+
+$conex = new ConexionDB();
+$conex->conectar();
+$conn = $conex->conex;
 
 $sql = "SELECT id, name FROM especies ORDER BY name ASC"; 
 $result = mysqli_query($conn, $sql);
@@ -32,8 +44,8 @@ if ($result && mysqli_num_rows($result) > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page</title>
-    <link rel="stylesheet" href="../CSS/admin.css">
+    <title>Gestion de especies</title>
+    <link rel="stylesheet" href="../../CSS/admin.css">
 </head>
 <body>
     <!-- Botón para alternar modo oscuro -->
@@ -41,9 +53,9 @@ if ($result && mysqli_num_rows($result) > 0) {
     <h1 id="titleForm">Formulario de Especies</h1>
     
     <!-- Formulario para agregar, modificar o eliminar especie -->
-    <form action="CRUD.php" method="POST" enctype="multipart/form-data" id="animal-form">
+    <form action="../PHP/CRUD.php" method="POST" enctype="multipart/form-data" id="animal-form">
         <!-- Contenedor de la caja de alertas, donde se informan errores y acciones completadas correctamente -->
-        <?php include "../resources/cont_alert.php";?>
+        <?php include "../../resources/cont_alert.php";?>
         
         <!-- Selección de la lista de acción a realizar -->
         <label for="functionality">¿Qué acción quieres realizar?</label>
@@ -89,7 +101,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         <button type="submit" id="submit-btn">Agregar Especie</button>
     </form>
 
-    <script type="module" src="../javaScript/admin.js"></script>
-    <script type="module" src="../javaScript/client_side_validation.js"></script>
+    <script type="module" src="../../javaScript/admin.js"></script>
+    <script type="module" src="../../javaScript/client_side_validation.js"></script>
 </body>
 </html>
