@@ -65,6 +65,11 @@ button[type="submit"]:hover, button[type="button"]:hover {
     background-color: #1b5e20;
 }
 
+button[type="submit"]:disabled, button[type="button"]:disabled {
+    background-color: #2e7d3270;
+    cursor: default;
+}
+
 .cont-alert {
     padding: 16px;
     margin-bottom: 16px;
@@ -82,6 +87,14 @@ button[type="submit"]:hover, button[type="button"]:hover {
     color: #006c07;
     padding: 10px;
     border-radius: 6px;
+}
+
+form .input_success{
+    border: 1px solid rgb(16, 121, 16);
+}
+
+form .input_error{
+    border: 1px solid rgb(150, 7, 7);
 }
 
 #btn-darkmode {
@@ -133,6 +146,14 @@ body.dark-mode #animal-form:hover {
 body.dark-mode {
     background-color: #121212;
     color: #e0e0e0;
+}
+
+body.dark-mode form .input_success{
+    border: 1px solid rgb(29, 216, 29);
+}
+
+body.dark-mode form .input_error{
+    border: 1px solid rgb(214, 34, 34);
 }
 
 body.dark-mode input, body.dark-mode textarea, body.dark-mode select {

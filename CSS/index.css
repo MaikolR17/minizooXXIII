@@ -6,6 +6,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 html, body {
   height: 98%;
   margin: 0;
@@ -26,179 +27,6 @@ body {
 }
 
 /* ------------------------ */
-/* ENCABEZADO Y MENÚ        */
-/* ------------------------ */
-.encabezado {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  color: #000;
-  justify-content: space-between;
-  background-color: #fff;
-  padding: 15px 25px;
-  border-bottom: 1px solid #ddd;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.logo {
-  font-size: 22px;
-  font-weight: bold;
-}
-.logo span {
-  color: #009688;
-  margin-left: 6px;
-  font-weight: normal;
-}
-
-.nav-links {
-  display: flex;
-  gap: 20px;
-}
-.nav-links a {
-  text-decoration: none;
-  color: #333;
-  padding: 3px;
-}
-.nav-links a:hover,
-.nav-links a:focus {
-  color: #00796b;
-  outline: none;
-}
-
-.nav-links.active {
-  display: flex;
-}
-
-/* ------------------------ */
-/* BÚSQUEDA                 */
-/* ------------------------ */
-.busqueda {
-  display: flex;
-  align-items: center;
-  background: #f5f5f5;
-  border-radius: 20px;
-  padding: 6px 12px;
-  border: 1px solid #ddd;
-  max-width: 300px;
-  flex-grow: 1;
-  margin: 10px;
-}
-.busqueda i {
-  color: #888;
-  margin-right: 6px;
-}
-.busqueda input {
-  border: none;
-  background: transparent;
-  outline: none;
-  flex: 1;
-}
-
-/* ------------------------ */
-/* BOTÓN MODO OSCURO        */
-/* ------------------------ */
-.btn-darkmode {
-  background-color: transparent;
-  border: 1px solid #ccc;
-  color: #333;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-/* ------------------------ */
-/* MENÚ HAMBURGUESA         */
-/* ------------------------ */
-
-.menu-toggle {
-  display: none;
-  border: 2px solid #121212;
-  border-radius: 50%;
-  font-size: 20px;
-  padding: 8px;
-  background: #fff;
-  cursor: pointer;
-}
-
-.menu-toggle:focus {
-  outline: none;
-  box-shadow: none;
-  border: 2px solid #656565;
-  color: #656565;
-  padding: 8px;
-  background: #fff;
-}
-
-.menu-toggle i:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-.menu-toggle, .nav-links a {
-  -webkit-tap-highlight-color: transparent;
-}
-
-.menu-toggle,
-.nav-links a {
-  outline: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-focus-ring-color: transparent;
-}
-
-.menu-toggle:active,
-.nav-links a:active {
-  background-color: rgba(0, 0, 0, 0.05); /* efecto suave */
-  border-radius: 8px;
-}
-
-/* ------------------------ */
-/* RESPONSIVE NAV           */
-/* ------------------------ */
-@media screen and (max-width: 768px) {
-  .nav-links {
-    flex-direction: column;
-    gap: 15px;
-    background: #fff;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    right: 0;
-    overflow: hidden;
-    max-height: 0;
-    opacity: 0;
-    padding: 0 20px;
-    pointer-events: none;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: max-height 0.5s ease, opacity 0.4s ease;
-  }
-
-  .nav-links.active {
-    max-height: 300px;
-    opacity: 1;
-    padding: 20px;
-    pointer-events: auto;
-  }
-
-  body.dark-mode .nav-links {
-    background: #121212;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-  .busqueda {
-    margin-top: 10px;
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-/* ------------------------ */
 /* SECCIÓN PRINCIPAL        */
 /* ------------------------ */
 .seccion-principal {
@@ -209,9 +37,10 @@ body {
 
 .seccion-principal h1 {
   font-size: 32px;
-  color: #009688;
+  color: #2e7d32;
   margin-bottom: 10px;
 }
+
 .seccion-principal p {
   font-size: 16px;
   color: #444;
@@ -230,6 +59,7 @@ body {
   justify-content: center;
   gap: 30px;
 }
+
 .tarjeta-animal {
   background: white;
   border-radius: 15px;
@@ -239,50 +69,59 @@ body {
   text-align: center;
   transition: transform 0.3s ease;
 }
+
 .tarjeta-animal img {
   width: 100%;
-  border-radius: 8px;
+  height: 200px !important;
   object-fit: cover;
+  border-radius: 8px;
 }
+
 .tarjeta-animal h3 {
   margin: 12px 0 6px;
-  color: #009688;
+  color: #2e7d32;
 }
+
 .tarjeta-animal p {
   font-size: 14px;
   color: #555;
 }
+
 .tarjeta-animal:hover {
   transform: translateY(-5px);
 }
-.saber-mas {
-  display: inline-block;
-  margin-top: 10px;
-  font-size: 18px;
-  color: #009688;
-  transition: color 0.3s;
-}
-.saber-mas:hover {
-  color: #004d40;
-}
 
-/* ------------------------ */
-/* PIE DE PÁGINA            */
-/* ------------------------ */
-.footer {
-  background-color: #f1f1f1;
-  text-align: center;
-  padding: 20px;
-  font-size: 14px;
-}
-
-.footer a {
+.boton-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 6px 12px;
+  background-color: #2e7d32;
+  color: white !important;
+  border-radius: 20px;
   text-decoration: none;
-  color:#2e7d32;
+  font-size: 14px;
+  transition: all 0.3s ease;
 }
 
-.footer-info p {
-  margin-bottom: 10px;
+.boton-info:hover {
+  background-color: #236126;
+  transform: scale(1.05);
+}
+
+.boton-info i {
+  font-size: 16px;
+}
+
+/* Estilos por si dejamos el modo oscuro */
+body.dark-mode .boton-info {
+  background-color: #4caf50;
+  color: white !important;
+}
+
+body.dark-mode .boton-info:hover {
+  background-color: #3d8b40;
 }
 
 /* ------------------------ */
@@ -304,7 +143,7 @@ body.dark-mode .nav-links a {
 
 body.dark-mode .nav-links a:hover,
 body.dark-mode .nav-links a:focus {
-  color: #009688;
+  color: #2e7d32;
   border: #fff solid 1px;
   outline: none;
 }
@@ -318,7 +157,7 @@ body.dark-mode .menu-toggle {
 
 body.dark-mode .seccion-principal h1 {
   font-size: 32px;
-  color: #009688;
+  color: #2e7d32;
   margin-bottom: 10px;
 }
 
@@ -329,7 +168,7 @@ body.dark-mode .footer {
 }
 
 body.dark-mode .footer a {
-  color: #009688;
+  color: #2e7d32;
 }
 
 body.dark-mode .footer a:hover {
@@ -350,7 +189,7 @@ body.dark-mode .tarjeta-animal p {
   color: #f0f0f0;
 }
 body.dark-mode .tarjeta-animal h3 {
-  color: #009688;
+  color: #2e7d32;
 }
 
 body.dark-mode .seccion-principal {

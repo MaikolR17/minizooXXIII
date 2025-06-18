@@ -1,18 +1,28 @@
 <?php
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $file = '../species.json';
-    if (file_exists($file)) {
-        $species = json_decode(file_get_contents($file), true);
-        foreach ($species as $specie) {
-            if ($specie['id'] === $id) {
-                header('Content-Type: application/json');
-                echo json_encode($specie);
-                exit;
-            }
-        }
-    }
+require_once 'conex.php';
+$conex = new ConexionDB();
+$conex->conectar();
+$conn = $conex->conex;
+
+header('Content-Type: application/json');
+
+if (!isset($_GET['id'])) {
+    echo json_encode(['error' => 'ID no especificado']);
+    exit;
 }
-http_response_code(404);
-echo json_encode(null);
+
+$id = intval($_GET['id']);
+
+$query = "SELECT * FROM especies WHERE id = ?";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result && $result->num_rows > 0) {
+    $data = $result->fetch_assoc();
+    echo json_encode($data);
+} else {
+    echo json_encode(['error' => 'Especie no encontrada']);
+}
 ?>

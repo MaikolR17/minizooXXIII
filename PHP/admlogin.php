@@ -1,14 +1,39 @@
 <?php 
 session_start();
 
-$right_key = "Made-By-LASI-2025";
+function admlogin($adminName){
+    $_SESSION['access'] = true;
+    $_SESSION['admin'] = $adminName;
+    header("Location: admin.php");
+    exit;
+}
 
 if($_SERVER["REQUEST_METHOD"] === "POST") {
-    if($_POST["key"] === $right_key) {
-        $_SESSION["access"] = true;
+    if($_POST["key"] === "0405_Oscar") {
+        admlogin("Oscar Fretes");
+    }else if($_POST["key"] === "5456_Yosy"){
+        admlogin("Yoselyn Fretes");
+    }else if($_POST["key"] === "1289_Ceraso"){
+        admlogin("Jonathan Ceraso");
+    }else if($_POST["key"] === "2037_Jazmin"){
+        admlogin("Jazmin Fernandez");
+    }else if($_POST["key"] === "5868_Emanuel"){
+        admlogin("Emanuel Castelvi");
+    }else if($_POST["key"] === "4235_Alexix"){
+        admlogin("Alexis Franco");
+    }else if($_POST["key"] === "8821_Fernando"){
+        admlogin("Fernando Salcedo");
+    }else if($_POST["key"] === "6697_Adrihan"){
+        admlogin("Adrihan Sandoval");
+    }else if($_POST["key"] === "7275_Stumpfs"){
+        admlogin("Sebastian Stumpfs");
+    }else if($_POST['key'] === "Made-By-LASI-2025"){
+        $_SESSION['access'] = true;
+        $_SESSION['admin'] = "Anonimo";
         header("Location: admin.php");
         exit;
-    } else {
+    }
+    else {
         $wrongkey = "Clave Incorrecta";
     }
 }
