@@ -49,6 +49,8 @@
             color: #222;
         }               
     </style>
+    <!-- Logo de pestaña -->
+    <link rel="icon" type="image/png" href="img/LogoPNG.png">
 </head>
 <body>
     <div class="search-container">

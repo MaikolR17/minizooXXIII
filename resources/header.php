@@ -1,6 +1,9 @@
 <header class="encabezado" role="banner">
   <a href="index.php" class="logo-link" aria-label="Ir a la página de inicio">
-    <img src="img/miniZoo-Logo.png" alt="Logo del Zoológico Juan XXIII" class="logo-img">
+    <img src="img/LogoPNG.png" alt="Logo del Zoológico Juan XXIII" class="logo-img">
+    <div class="logo" bis_skin_checked="1">
+        <strong>MiniZoo</strong><span>Juan XXIII</span>
+    </div>
   </a>
 
     <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-links">

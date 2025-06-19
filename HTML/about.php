@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Acerca del Curso</title>
   <link rel="stylesheet" href="aboutphp.css">
+  <!-- Logo de pestaña -->
+  <link rel="icon" type="image/png" href="img/LogoPNG.png">
 </head>
 <body>
   <header>

@@ -20,7 +20,7 @@ if(isset($_SESSION['access'])){
       case 2:
           header("Location: ../roles/admin/admin.php"); break;
       case 3:
-          header("Location: ..roles/mod/mod.php"); break;
+          header("Location: ../roles/mod/mod.php"); break;
   }
   exit;
 }
@@ -38,6 +38,8 @@ unset($_SESSION['error']);
 <head>
   <meta charset="UTF-8">
   <title>Iniciar Sesión</title>
+  <!-- Logo de pestaña -->
+  <link rel="icon" type="image/png" href="img/LogoPNG.png">
 </head>
 <body>
   <h2>Iniciar sesión</h2>

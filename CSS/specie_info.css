@@ -55,6 +55,7 @@ body {
 main {
     max-width: 960px;
     margin: auto;
+    margin-top: 20px;
     padding: 2rem;
     background-color: var(--blanco);
     border: 1px solid var(--border-color); /* Usa la variable */
@@ -65,17 +66,23 @@ main {
 h1 {
     font-size: 2.2rem;
     color: var(--verde-oliva);
+    text-align: center;
 }
 
 h2 {
+    margin: 0;
     font-size: 1.6rem;
-    color: var(--verde-oliva);
+    color: var(--verde-oliva);   
 }
 
 h3 {
     font-size: 1.2rem;
     color: var(--marron-tierra);
-    margin-top: 1.5rem;
+    margin-top: 10px;
+}
+
+.name2, .name3 {
+    padding-left: 40px
 }
 
 a {
@@ -111,7 +118,53 @@ a:focus, button:focus {
 .img_order_family p {
     margin: 0.5rem 0;
     font-weight: bold;
+    color: var(--marron-tierra);
+    margin-bottom: 20px;
+}
+
+.img_order_family p strong {
+    /* display: inline-block; */
+    /* border-bottom: 2px solid var(--verde-oliva); */
     color: var(--verde-oliva);
+    margin-bottom: 4px;
+    padding-bottom: 2px;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.img_order_family p strong:hover {
+    border-bottom: 2px solid var(--verde-oliva);
+} 
+
+.img_order_family ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.img_order_family li {
+    margin: 8px 0;
+}
+
+.img_order_family li::before {
+    content: "🐾";
+    margin-right: 8px;
+    color: var(--marron-tierra);
+}
+
+.img_order_family a {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background-color: #f4f1e6;
+    color: var(--gris-texto);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.img_order_family a:hover {
+    background-color: var(--naranja-oxido);
+    color: white;
 }
 
 .large_text {
@@ -177,4 +230,15 @@ a:focus, button:focus {
     .img_order_family {
         margin-bottom: 1.5rem;   
     }
+
+    .img_order_family p strong {
+        /* display: inline-block; */
+        border-bottom: 2px solid var(--verde-oliva);
+        color: var(--verde-oliva);
+        margin-bottom: 4px;
+        padding-bottom: 2px;
+        font-size: 1rem;
+        text-transform: uppercase;
+    }
 }
+

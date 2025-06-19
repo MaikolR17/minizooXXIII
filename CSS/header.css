@@ -41,12 +41,13 @@
 
 .encabezado .logo-link {
   text-decoration: none;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   margin-right: auto;
 }
 
 .logo-img {
-  height: 115px;
+  height: 75px;
   width: auto;
   object-fit: contain;
   vertical-align: middle;
@@ -66,6 +67,10 @@
 .encabezado .logo-link:hover .logo, .encabezado .logo-link:focus .logo {
   color: #2e7d32; /* Aseguramos el color principal del logo */
   background-color: rgba(46, 125, 50, 0.1);
+  outline: none;
+}
+
+.logo-link:focus {
   outline: none;
 }
 
@@ -291,6 +296,10 @@ body.dark-mode .nav-links a.btn-admin:focus {
     margin-top: 10px;
     text-align: center;
   }
+  
+  .logo {
+    display: none;
+  }
 }
 
 /* Reglas CSS de MODO OSCURO ESPECÍFICAS DEL ENCABEZADO */
@@ -339,4 +348,5 @@ body.dark-mode .busqueda i {
 
 body.dark-mode .busqueda input {
   color: #e0e0e0;
+
 }

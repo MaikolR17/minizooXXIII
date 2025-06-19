@@ -1,5 +1,5 @@
 <?php
-require_once '../../login/conex.php';
+require_once '../login/conex.php';
 $conex = new ConexionDB();
 $conex->conectar();
 $conn = $conex->conex;

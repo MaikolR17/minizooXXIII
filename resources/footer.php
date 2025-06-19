@@ -3,7 +3,7 @@
       <p><strong>Contacto:</strong> <a href="tel:+595985758690">+595 985 758690</a> </p>
       <p id="ubicacion"><strong>Ubicación:</strong> Residencia entre Ruta PY 01 y calle Las Palmeras. Encarnación Paraguay.</p>
       <p id="redes"><strong>Redes:</strong>
-        <a href="https://www.facebook.com/minizoojuanxxiii?mibextid=ZbWKwL" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.facebook.com/minizoojuanxxiii?mibextid=ZbWKwL" aria-label="Facebook" target="_BLANK"><i class="fab fa-facebook"></i></a>
       </p>
       <p id="acerca-de-nosotros"><strong>Acerca de nosotros:</strong>  El mini zoologico privado tiene como misión contribuir a la proteccion del ambiente, promoviendo el conocimiento y sensibilización sobre la biodiversidad,
          la ejecución de programas de investigación científica, educación, manejo y crianza de fauna y flora aplicados a la conservación de especies animales, vegetales, ecosistemas y las etnias nativas del Paraguay.

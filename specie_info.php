@@ -42,6 +42,8 @@ if (!$specie) {
     <link rel="stylesheet" href="CSS/header.css">.
     <link rel="stylesheet" href="CSS/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Logo de pestaña -->
+    <link rel="icon" type="image/png" href="img/LogoPNG.png">
 </head>
 
 <body>
@@ -52,14 +54,15 @@ if (!$specie) {
     <!--Seccion principal-->
     <main>
         <h1><?=htmlspecialchars($specie[0]['name'])?></h1>
-        <h2><?=htmlspecialchars($specie[0]['alt_name'])?></h2>
-        <h3><?=htmlspecialchars($specie[0]['scient_name'])?></h3>
+        <h2 class="name2"><?=htmlspecialchars($specie[0]['alt_name'])?></h2>
+        <h3 class="name3"><?=htmlspecialchars($specie[0]['scient_name'])?></h3>
         <div class="info_container">
             <div class="img_order_family">
-                <img src="<?=htmlspecialchars($specie[0]['img'])?>" alt="<?=htmlspecialchars($specie[0]['name'])?>">
-                <p><strong>ORDEN: </strong><?=htmlspecialchars(mb_strtoupper($specie[0]['specie_order']))?></p>
-                <p><strong>FAMILIA: </strong><?=htmlspecialchars(mb_strtoupper($specie[0]['family']))?></p>
-                <p><strong>RECINTO: </strong>
+                <img src="<?="https://juanxxiiizoo.infinityfreeapp.com/".htmlspecialchars($specie[0]['img'])?>" alt="<?=htmlspecialchars($specie[0]['name'])?>">
+                <p><strong>ORDEN:</strong> <?=htmlspecialchars(mb_strtoupper($specie[0]['specie_order']))?></p>
+                <p><strong>FAMILIA:</strong> <?=htmlspecialchars(mb_strtoupper($specie[0]['family']))?></p>
+                <p><strong>RECINTO:</strong> <br>
+
                     <?php
                         if($result->num_rows > 1) {
                             echo "Esta especie habita en su jaula junto con las siguientes especies:</p>";
@@ -104,5 +107,6 @@ if (!$specie) {
     </script>
     <!--Script del boton de compartir-->
     <script src="javaScript/specie_info.js"></script>
+    <script src="javaScript/mainpagejs.js"></script>
 </body>
 </html>

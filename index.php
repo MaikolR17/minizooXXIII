@@ -27,6 +27,9 @@ $result = $conn->query($sql);
   <meta name="author" content="Mini Zoológico Juan XXIII" />
   <meta name="robots" content="index, follow" />
 
+  <!-- Logo de pestaña -->
+  <link rel="icon" type="image/png" href="img/LogoPNG.png">
+
   <!-- URL canónica -->
   <link rel="canonical" href="https://juanxxiiizoo.infinityfreeapp.com" />
 
@@ -98,7 +101,7 @@ $result = $conn->query($sql);
                 }else{
                   echo 'low-priority" fetchpriority="low" ';
                 } 
-                echo 'src="' . $animal['img'] . '" alt="' . $name . '">';
+                echo 'src="' ."https://juanxxiiizoo.infinityfreeapp.com/". $animal['img'] . '" alt="' . $name . '">';
               }
               
               $id = urlencode($animal['id']);
