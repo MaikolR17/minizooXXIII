@@ -1,12 +1,32 @@
 /* Paleta basada en el cartel: verde oliva, marrón tierra, beige claro, gris oscuro */
 :root {
+    /* Colores para Modo Claro */
     --verde-oliva: #4d6d36;
     --marron-tierra: #8b5e3c;
     --beige-fondo: #f4f1e6;
     --gris-texto: #333333;
     --naranja-oxido: #b56428;
     --blanco: #ffffff;
+    --border-color: #ccc; /* Variable añadida para el color del borde */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* Variable añadida para el color de la sombra */
+    --image-border-color: #ddd; /* Variable añadida para el color del borde de la imagen */
 }
+
+/* Colores para Modo Oscuro */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --verde-oliva: #7cb342; /* Un verde más brillante para modo oscuro */
+        --marron-tierra: #d8875b; /* Un marrón más brillante para modo oscuro */
+        --beige-fondo: #212121; /* Fondo oscuro */
+        --gris-texto: #e0e0e0; /* Texto claro */
+        --naranja-oxido: #ffab40; /* Un naranja más brillante para modo oscuro */
+        --blanco: #333333; /* "Blanco" más oscuro para elementos */
+        --border-color: #555; /* Color del borde para modo oscuro */
+        --shadow-color: rgba(255, 255, 255, 0.1); /* Color de la sombra para modo oscuro */
+        --image-border-color: #555; /* Color del borde de la imagen para modo oscuro */
+    }
+}
+
 
 * {
     box-sizing: border-box;
@@ -37,9 +57,9 @@ main {
     margin: auto;
     padding: 2rem;
     background-color: var(--blanco);
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color); /* Usa la variable */
     border-radius: 12px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 8px var(--shadow-color); /* Usa la variable */
 }
 
 h1 {
@@ -85,7 +105,7 @@ a:focus, button:focus {
     max-width: 300px;
     height: auto;
     border-radius: 10px;
-    border: 2px solid #ddd;
+    border: 2px solid var(--image-border-color); /* Usa la variable */
 }
 
 .img_order_family p {
