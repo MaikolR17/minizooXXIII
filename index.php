@@ -65,10 +65,8 @@ $result = $conn->query($sql);
 
 <body>
 
-  <!-- ENCABEZADO -->
   <?php include "resources/header.php"; ?>
 
-  <!-- SECCIÓN PRINCIPAL -->
   <main class="seccion-principal" role="main">
     <h1>Bienvenido al MiniZoo Juan XXIII</h1>
     <p>Explora la biodiversidad del planeta en un solo lugar. Más de 60 especies te esperan para descubrirlas.</p>
@@ -121,31 +119,36 @@ $result = $conn->query($sql);
     </section>
   </main>
 
-  <!-- PIE DE PÁGINA -->
   <?php include "resources/footer.php";?>
 
-  <!-- JavaScript -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.querySelector(".busqueda input");
     const animalCards = document.querySelectorAll(".tarjeta-animal");
     const noResultsMessage = document.getElementById("noResults");
-    const darkModeToggle = document.getElementById("modo-oscuro-toggle");
     const body = document.body;
 
-    // Aplicar preferencias guardadas al cargar la página
-    const darkMode = localStorage.getItem("modoOscuro");
-    if (darkMode === "true") {
-      body.classList.add("modo-oscuro");
-      darkModeToggle.setAttribute("aria-pressed", "true");
+    // --- LÓGICA DE MODO OSCURO AUTOMÁTICO ---
+    // Función simplificada para aplicar o quitar la clase 'dark-mode'
+    function setDarkMode(isDark) {
+      if (isDark) {
+        body.classList.add("dark-mode");
+      } else {
+        body.classList.remove("dark-mode");
+      }
     }
 
-    // Guardar preferencia cuando el usuario activa o desactiva modo oscuro
-    darkModeToggle.addEventListener("click", () => {
-      const isDark = body.classList.toggle("modo-oscuro");
-      localStorage.setItem("modoOscuro", isDark);
-      darkModeToggle.setAttribute("aria-pressed", isDark.toString());
+    // Detectar la preferencia del sistema
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // Aplicar el tema inicial basado en la preferencia del sistema
+    setDarkMode(prefersDarkMode.matches);
+
+    // Escuchar cambios en la preferencia del sistema para actualizar el tema dinámicamente
+    prefersDarkMode.addEventListener('change', (e) => {
+      setDarkMode(e.matches);
     });
+    // --- FIN DE LA LÓGICA DE MODO OSCURO ---
 
     searchInput.addEventListener("input", () => {
       const searchTerm = searchInput.value.trim().toLowerCase();
@@ -164,9 +167,8 @@ $result = $conn->query($sql);
 
       noResultsMessage.style.display = hasMatch ? "none" : "block";
     });
-    });
-  </script>
-
+  });
+</script>
 
 <script src="javaScript/mainpagejs.js"></script>
 

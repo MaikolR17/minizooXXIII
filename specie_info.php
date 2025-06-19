@@ -62,6 +62,7 @@ if (!$specie) {
                 <p><strong>ORDEN:</strong> <?=htmlspecialchars(mb_strtoupper($specie[0]['specie_order']))?></p>
                 <p><strong>FAMILIA:</strong> <?=htmlspecialchars(mb_strtoupper($specie[0]['family']))?></p>
                 <p><strong>RECINTO:</strong> <br>
+
                     <?php
                         if($result->num_rows > 1) {
                             echo "Esta especie habita en su jaula junto con las siguientes especies:</p>";

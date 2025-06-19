@@ -8,7 +8,6 @@
             $stmt->execute();
             $rs = $stmt->get_result();
             if($rs && $rs->num_rows > 0){
-                $conn->close(); 
                 return false;
             }
             //ingresar los datos a la base de datos
@@ -17,11 +16,9 @@
             $stmt->bind_param("ssi",$username,$key,$role);
             if(!$stmt->execute()){
                 $stmt->close();
-                $conn->close();
                 return false;
             }
             $stmt->close();
-            $conn->close();
             return true;
         }
 
@@ -30,10 +27,8 @@
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ii",$newRoleId,$userId);
             if(!$stmt->execute()){
-                $conn->close();
                 return false;
             }
-            $conn->close();
             return true;
         }
 
@@ -42,10 +37,8 @@
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("i",$userId);
             if(!$stmt->execute()){
-                $conn->close();
                 return false;
             }
-            $conn->close();
             return true;
         }
 
@@ -71,7 +64,6 @@
                     return false;
                 }
             }       
-            $conn->close();
             return true;
         }
     }
