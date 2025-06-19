@@ -15,15 +15,15 @@
       <a href="#ubicacion">Ubicación</a>
       <a href="#redes">Redes</a>
       <a href="#acerca-de-nosotros">Acerca de nosotros</a>
-      <a href="admin.php" class="btn-admin">Administrador</a>
+      <a href="login/login_panel.php" class="btn-admin">Administrador</a>
     </nav>
 
-    <?php if (empty($hideSearchBar)): ?>
-  <form class="busqueda" role="search" aria-label="Buscar en el sitio">
-    <label for="buscar" class="sr-only">Buscar</label>
-    <i class="fas fa-search" aria-hidden="true"></i>
-    <input id="buscar" type="text" placeholder="Busca una especie...">
-  </form>
-<?php endif; ?>
+      <?php if (empty($hideSearchBar)): ?>
+    <form class="busqueda" role="search" aria-label="Buscar en el sitio">
+      <label for="buscar" class="sr-only">Buscar</label>
+      <i class="fas fa-search" aria-hidden="true"></i>
+      <input id="buscar" type="text" placeholder="Busca una especie...">
+    </form>
+  <?php endif; ?>
 
   </header>

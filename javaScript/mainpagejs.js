@@ -1,7 +1,7 @@
   // Selección de elementos del DOM
   const menuToggle = document.getElementById('menu-toggle');
   const navLinks = document.getElementById('nav-links');
-  const darkModeToggle = document.getElementById('modo-oscuro-toggle');
+  // const darkModeToggle = document.getElementById('modo-oscuro-toggle');
 
   // Alternar visibilidad del menú hamburguesa
   menuToggle.addEventListener('click', () => {
@@ -30,17 +30,17 @@
   });
 
   // Alternar modo oscuro
-  darkModeToggle.addEventListener('click', () => {
-    const isDark = document.body.classList.toggle('dark-mode');
+  // darkModeToggle.addEventListener('click', () => {
+  //   const isDark = document.body.classList.toggle('dark-mode');
 
-    // Actualizar atributo aria-pressed
-    darkModeToggle.setAttribute('aria-pressed', isDark.toString());
+  //   // Actualizar atributo aria-pressed
+  //   darkModeToggle.setAttribute('aria-pressed', isDark.toString());
 
-    // Cambiar icono opcionalmente
-    const icon = darkModeToggle.querySelector('i');
-    icon.classList.toggle('fa-moon', !isDark);
-    icon.classList.toggle('fa-sun', isDark);
-  });
+  //   // Cambiar icono opcionalmente
+  //   const icon = darkModeToggle.querySelector('i');
+  //   icon.classList.toggle('fa-moon', !isDark);
+  //   icon.classList.toggle('fa-sun', isDark);
+  // });
 
   /*Cargar pagina cuando las imagenes esenciales esten cargadas */
   const images = document.querySelectorAll(".high-priority");

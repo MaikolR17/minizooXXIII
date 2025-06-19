@@ -10,6 +10,7 @@
     $conex->conectar();
     $conn = $conex->conex;
 
+    //consultar todas las peticiones
     $sql = "SELECT * FROM peticiones";
     $rs = $conn->query($sql);
     if($rs && $rs->num_rows > 0){
@@ -17,6 +18,9 @@
             $reports[] = $row;
         }
     }
+
+    //consultar solo peticiones pendientes
+    $pending = $conn->query("SELECT * FROM peticiones WHERE completed = 0");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -26,6 +30,7 @@
     <title>Reportes</title>
     <!-- Logo de pestaña -->
     <link rel="icon" type="image/png" href="img/LogoPNG.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         /* CSS para las tablas */
         table {
@@ -73,16 +78,16 @@
         .button-container button:hover {
             background-color: #2980b9;
         }
+        .visible{
+            display: block;
+        }
+        .hidden{
+            display: none;
+        }
     </style>
 </head>
 <body>
     <h1>Aqui puedes ver todos los reportes de los moderadores</h1>
-    <div><a href="#" id="show-pending">Ver reportes pendientes</a><a href="#" id="show-all">Ver todos los reportes</a></div>
-
-    <!--Tabla de reportes pendientes-->
-    <?php include "pendingTable.php";?>
-    <!--Tabla de todos los reportes-->
-    <?php include "all_table.php";?>
 
     <div class="button-container">
         <button id="btn-pending">Ver reportes pendientes</button>
@@ -90,24 +95,30 @@
     </div>
 
     <!-- Tabla de reportes pendientes -->
-    <div id="pendingTable">
+    <div id="pending_table" class="visible">
         <?php include "pending_table.php"; ?>
     </div>
 
     <!-- Tabla de todos los reportes -->
-    <div id="allTable" style="display: none;">
+    <div id="all_table" class="hidden">
         <?php include "all_table.php"; ?>
     </div>
 
     <script>
         document.getElementById('btn-pending').addEventListener('click', function() {
-            document.getElementById('pendingTable').style.display = 'block';
-            document.getElementById('allTable').style.display = 'none';
+            document.getElementById('pending_table').classList.remove("hidden");
+            document.getElementById('all_table').classList.remove("visible");
+
+            document.getElementById('pending_table').classList.add("visible");
+            document.getElementById('all_table').classList.add("hidden");
         });
 
         document.getElementById('btn-all').addEventListener('click', function() {
-            document.getElementById('pendingTable').style.display = 'none';
-            document.getElementById('allTable').style.display = 'block';
+            document.getElementById('all_table').classList.remove("hidden");
+            document.getElementById('pending_table').classList.remove("visible");
+
+            document.getElementById('all_table').classList.add("visible");
+            document.getElementById('pending_table').classList.add("hidden");
         });
     </script>
 </body>
