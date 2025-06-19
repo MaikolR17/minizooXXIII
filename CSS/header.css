@@ -187,6 +187,8 @@ body.dark-mode .nav-links a.btn-admin:focus {
   color: #555; /* Color del icono más oscuro */
   box-shadow: 0 1px 4px rgba(0,0,0,0.05); /* Sombra sutil */
   transition: all 0.2s ease;
+  position: relative;
+  z-index: 1100;
 }
 
 .menu-toggle i {
@@ -225,6 +227,18 @@ body.dark-mode .nav-links a.btn-admin:focus {
 .nav-links a:active {
   background-color: rgba(46, 125, 50, 0.08); /* Efecto al presionar */
   border-radius: 8px;
+}
+
+.menu-toggle .close-icon {
+  display: none;
+}
+
+.menu-open .menu-toggle .fa-bars {
+  display: none;
+}
+
+.menu-open .menu-toggle .close-icon {
+  display: flex;
 }
 
 /* ------------------------ */
@@ -299,6 +313,26 @@ body.dark-mode .nav-links a.btn-admin:focus {
   
   .logo {
     display: none;
+  }
+
+  .encabezado {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .logo-link {
+    margin: 0 auto;
+    justify-content: center;
+  }
+
+  .logo-img {
+    margin: 0 auto;
+  }
+
+  .menu-toggle {
+    margin-top: 10px;
+    margin-left: 0;
   }
 }
 

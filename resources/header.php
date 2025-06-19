@@ -8,6 +8,7 @@
 
     <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="nav-links">
       <i class="fas fa-bars"></i>
+      <i class="fas fa-times close-icon"></i>
     </button>
 
     <nav class="nav-links" id="nav-links" role="navigation" aria-label="Menú principal">
@@ -24,6 +25,6 @@
     <i class="fas fa-search" aria-hidden="true"></i>
     <input id="buscar" type="text" placeholder="Busca una especie...">
   </form>
-<?php endif; ?>
+  <?php endif; ?>
 
-  </header>
+</header>
