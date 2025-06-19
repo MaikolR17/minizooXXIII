@@ -20,7 +20,7 @@ if(isset($_SESSION['access'])){
       case 2:
           header("Location: ../roles/admin/admin.php"); break;
       case 3:
-          header("Location: ..roles/mod/mod.php"); break;
+          header("Location: ../roles/mod/mod.php"); break;
   }
   exit;
 }

@@ -56,7 +56,7 @@ if (!$specie) {
         <h3><?=htmlspecialchars($specie[0]['scient_name'])?></h3>
         <div class="info_container">
             <div class="img_order_family">
-                <img src="<?=htmlspecialchars($specie[0]['img'])?>" alt="<?=htmlspecialchars($specie[0]['name'])?>">
+                <img src="<?="https://juanxxiiizoo.infinityfreeapp.com/".htmlspecialchars($specie[0]['img'])?>" alt="<?=htmlspecialchars($specie[0]['name'])?>">
                 <p><strong>ORDEN: </strong><?=htmlspecialchars(mb_strtoupper($specie[0]['specie_order']))?></p>
                 <p><strong>FAMILIA: </strong><?=htmlspecialchars(mb_strtoupper($specie[0]['family']))?></p>
                 <p><strong>RECINTO: </strong>

@@ -75,6 +75,12 @@
 </head>
 <body>
     <h1>Aqui puedes ver todos los reportes de los moderadores</h1>
+    <div><a href="#" id="show-pending">Ver reportes pendientes</a><a href="#" id="show-all">Ver todos los reportes</a></div>
+
+    <!--Tabla de reportes pendientes-->
+    <?php include "pendingTable.php";?>
+    <!--Tabla de todos los reportes-->
+    <?php include "all_table.php";?>
 
     <div class="button-container">
         <button id="btn-pending">Ver reportes pendientes</button>

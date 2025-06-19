@@ -98,7 +98,7 @@ $result = $conn->query($sql);
                 }else{
                   echo 'low-priority" fetchpriority="low" ';
                 } 
-                echo 'src="' . $animal['img'] . '" alt="' . $name . '">';
+                echo 'src="' ."https://juanxxiiizoo.infinityfreeapp.com/". $animal['img'] . '" alt="' . $name . '">';
               }
               
               $id = urlencode($animal['id']);
