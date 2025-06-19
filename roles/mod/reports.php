@@ -35,5 +35,8 @@
     <!--Tabla de reportes pendientes-->
     <?php include "pendingTable.php";?>
     <!--Tabla de todos los reportes-->
+    <?php include "all_table.php";?>
+
+
 </body>
 </html>

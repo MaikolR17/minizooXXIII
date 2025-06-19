@@ -1,9 +1,8 @@
-<form action="">
+<form action="report_process.php" method="POST" style="display: block;">
 <div class="pending-reports-container">
         <?php
             if($rs->num_rows > 0):
         ?>
-
         <table>
             <thead>
                 <th>
@@ -25,6 +24,7 @@
                         if($report['completed']==0):
                             $shortDescription = strlen($report['description']) > 50? substr($report['description'],0,50)."..." : $report['description'];
                 ?>
+                <input type="hidden" name="id" type="hidden" value="<?=$report['id'];?>">
                     <tr>
                         <td><?=htmlspecialchars($report['username'])?></td>
                     </tr>
@@ -42,7 +42,7 @@
                     </tr>
                     <?php if($_SESSION['id_role'] == 2): ?>
                     <tr>
-                        <td><button type="button" id = "completed">Marcar completado</button></td>
+                        <td><button type="submit" id ="completed">Marcar completado</button></td>
                     </tr>
                     <?php 
                     endif;

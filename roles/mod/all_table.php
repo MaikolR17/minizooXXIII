@@ -1,4 +1,4 @@
-<div class="all-reports-container">
+<div class="all-reports-container" style="display: none;">
         <?php
             if($rs->num_rows > 0):
         ?>
