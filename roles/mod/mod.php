@@ -45,11 +45,21 @@ if ($result && mysqli_num_rows($result) > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revision de especies</title>
-    <link rel="stylesheet" href="../CSS/admin.css">
+    
+    <link rel="stylesheet" href="../../CSS/admin.css">
+    
+    <link rel="stylesheet" href="../../CSS/footer.css" />   
+    <link rel="stylesheet" href="../../CSS/header_role.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Logo de pestaña -->
-    <link rel="icon" type="image/png" href="img/LogoPNG.png">
+    <link rel="icon" type="image/png" href="https://juanxxiiizoo.infinityfreepp.com/img/LogoPNG.png">
+    
 </head>
 <body>
+    <!--Encabezado-->
+    <?php include "../../resources/header.php"; ?>
+
+    <div class="container">
     <!-- Botón para alternar modo oscuro -->
     <button id="btn-darkmode">Modo Oscuro</button>
     <h1 id="titleForm">Formulario de Revision</h1>
@@ -91,7 +101,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         <label for="distribution" class="input-label">Distribución:</label>
         <textarea name="distribution" id="distribution" rows="4" cols="50" readonly></textarea>
         <!--Formulario de reporte-->
-        <h2>Ingrese su reporte:</h2>
+        <h2 id="titleForm">Ingrese su reporte:</h2>
         <label for="subject">Asunto:</label>
         <input type="text" id="subject" name="subject" required>
         <label for="report">Escriba aqui su reporte completo:</label>
@@ -99,8 +109,14 @@ if ($result && mysqli_num_rows($result) > 0) {
         <label for="img" class="input-label">Adjuntar imagen(Opcional):</label>
         <input type="file" name="img" id="img">
         
-        <button type="submit" id="submit-btn">Agregar Especie</button>
+        <button type="submit" id="submit-btn">Enviar reporte</button>
     </form>
+    </div>
+
+    <!--Pie de pagina-->
+    <?php include "../../resources/footer.php";?>
+
+    <script src="../../javaScript/role.js"></script>
 
     <script type="module" src="../../javaScript/admin.js"></script>
 </body>

@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de Administradores</title>
+    <link rel="stylesheet" href="../../CSS/footer.css" />   
+    <link rel="stylesheet" href="../../CSS/header_role.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Logo de pestaña -->
+    <link rel="icon" type="image/png" href="https://juanxxiiizoo.infinityfreepp.com/img/LogoPNG.png">
     <style>
         .search-container {
             display: flex;
@@ -47,12 +52,23 @@
         }
         h1{
             color: #222;
+        }
+        .container{
+            margin: 30px 0;
         }               
     </style>
+    <link rel="stylesheet" href="../../CSS/admin.css">
+    <link rel="stylesheet" href="../../CSS/header.css" />
+    <link rel="stylesheet" href="../../CSS/footer.css" />   
+    <link rel="stylesheet" href="../../CSS/header_role.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Logo de pestaña -->
-    <link rel="icon" type="image/png" href="img/LogoPNG.png">
+    <link rel="icon" type="image/png" href="https://juanxxiiizoo.infinityfreepp.com/img/LogoPNG.png">
 </head>
 <body>
+
+    <?php include "../../resources/header.php";?>
+
     <div class="search-container">
         <input type="text" class="search-box" placeholder="Buscar..." />
     </div>
@@ -76,6 +92,11 @@
             ?>
         </ol>
     </div>
+
+    <?php include "../../resources/footer.php";?>
+
+
+    <script src="../../javaScript/role.js"></script>
     <script>
         const elements = document.querySelectorAll(".history-list");
         const input = document.querySelector("input");

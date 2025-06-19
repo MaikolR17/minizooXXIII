@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Acerca del Curso</title>
-  <link rel="stylesheet" href="aboutphp.css">
+  <link rel="stylesheet" href="../CSS/aboutphp.css">
   <!-- Logo de pestaña -->
   <link rel="icon" type="image/png" href="img/LogoPNG.png">
 </head>
 <body>
-  <header>
-    <h1>Acerca de Nosotros</h1>
-  </header>
+  <?php include "../resources/header.php";?>
+
   <section class="contenido">
     <article class="seccion">
       <h2>Su Historia</h2>
@@ -38,8 +37,13 @@
     </article>
   </section>
 
-  <footer>
-    <p>&copy; 2025 Análisis de Sistemas Informáticos. Segundo año, tercer semestre. Todos los derechos reservados.</p>
-  </footer>
+  <?php include "../resources/footer.php";?>
+  <script>
+    document.addEventListener("DOMContentLoaded",()=>{ 
+      document.getElementById("menu-toggle").style.display = "none";
+      document.getElementById("search").style.display = "none";
+    });
+  </script>
+  <script src="../javaScript/role.js"></script>
 </body>
 </html>

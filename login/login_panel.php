@@ -39,16 +39,26 @@ unset($_SESSION['error']);
   <meta charset="UTF-8">
   <title>Iniciar Sesión</title>
   <!-- Logo de pestaña -->
-  <link rel="icon" type="image/png" href="img/LogoPNG.png">
+  <link rel="icon" type="image/png" href="../img/LogoPNG.png">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../CSS/admlogin.css" />
+  <link rel="stylesheet" href="../CSS/header_role.css" />
+  <link rel="stylesheet" href="../CSS/footer.css" />
 </head>
 <body>
-  <h2>Iniciar sesión</h2>
+  <!--Encabezado-->
+  <?php include "../resources/header.php"; ?>
 
-  <?php if (!empty($error)): ?>
-    <p style="color:red;"><?php echo htmlspecialchars($error); ?></p>
-  <?php endif; ?>
+  
 
+  
+    <div class="container">
   <form action="login.php" method="POST">
+      <?php if (!empty($error)): ?>
+      <p style="color:red;"><?php echo htmlspecialchars($error); ?></p>
+    <?php endif; ?>
+    <h2>Iniciar sesión</h2>
     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
     
     <label>Usuario:</label>
@@ -59,5 +69,10 @@ unset($_SESSION['error']);
     
     <button type="submit">Entrar</button>
   </form>
+  </div>
+
+  <!--Pie de pagina-->
+  <?php include "../resources/footer.php";?>
+  <script src="../javaScript/panel_login.js"></script>
 </body>
 </html>

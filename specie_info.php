@@ -39,7 +39,7 @@ if (!$specie) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?=htmlspecialchars($specie[0]['name'])?></title>
     <link rel="stylesheet" href="CSS/specie_info.css">
-    <link rel="stylesheet" href="CSS/header.css">.
+    <link rel="stylesheet" href="CSS/header.css">
     <link rel="stylesheet" href="CSS/footer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Logo de pestaña -->
@@ -104,6 +104,8 @@ if (!$specie) {
         window.addEventListener('load', () => {
             document.body.classList.add('visible');
         });
+        document.getElementsByName("header").style.position = "absolute";
+
     </script>
     <!--Script del boton de compartir-->
     <script src="javaScript/specie_info.js"></script>

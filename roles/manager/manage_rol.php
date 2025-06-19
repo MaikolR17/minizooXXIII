@@ -27,12 +27,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Usuarios</title>
-    <link rel="stylesheet" href="../../CSS/admlogin.css">
+    <link rel="stylesheet" href="../../CSS/admlogin.css" />   
+    <link rel="stylesheet" href="../../CSS/footer.css" />   
+    <link rel="stylesheet" href="../../CSS/header_role.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Logo de pestaña -->
-    <link rel="icon" type="image/png" href="img/LogoPNG.png">
+    <link rel="icon" type="image/png" href="https://juanxxiiizoo.infinityfreepp.com/img/LogoPNG.png">
 </head>
 <body>
-
+    <!--Encabezado-->
+    <?php include "../../resources/header.php"; ?>
+<div class="container">
     <form method="POST" action="rol_db_manage.php">
         <h1>Gestión de Roles de Usuario</h1>
 
@@ -92,6 +97,12 @@
 
         <button type="submit" id="submit-btn">Crear usuario</button>
     </form>
+    </div>
+
+    <!--Pie de pagina-->
+    <?php include "../../resources/footer.php";?>
+
+    <script src="../../javaScript/role.js"></script>
 
     <script src="../../javaScript/manage_rol.js"></script>
 </body>

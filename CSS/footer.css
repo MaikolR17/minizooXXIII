@@ -4,8 +4,10 @@
 .footer {
   background-color: #f1f1f1;
   text-align: center;
-  padding: 20px;
+  padding: 20px 0;
   font-size: 14px;
+  position: absolute;
+  bottom: 0;
 }
 
 .footer a {
