@@ -17,12 +17,13 @@
 
 .encabezado .logo-link {
   text-decoration: none;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   margin-right: auto;
 }
 
 .logo-img {
-  height: 115px;
+  height: 75px;
   width: auto;
   object-fit: contain;
   vertical-align: middle;
@@ -42,6 +43,10 @@
 .encabezado .logo-link:hover .logo, .encabezado .logo-link:focus .logo {
   color: #236126;
   background-color: rgba(46, 125, 50, 0.1);
+  outline: none;
+}
+
+.logo-link:focus {
   outline: none;
 }
 
@@ -242,5 +247,9 @@ body.dark-mode .encabezado .logo-link .logo span {
   .busqueda input {
       font-size: 14px;
       padding: 4px;
+  }
+
+  .logo {
+    display: none;
   }
 }

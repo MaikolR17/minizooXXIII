@@ -46,6 +46,8 @@ if ($result && mysqli_num_rows($result) > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion de especies</title>
     <link rel="stylesheet" href="../../CSS/admin.css">
+    <!-- Logo de pestaña -->
+    <link rel="icon" type="image/png" href="img/LogoPNG.png">
 </head>
 <body>
     <!-- Botón para alternar modo oscuro -->

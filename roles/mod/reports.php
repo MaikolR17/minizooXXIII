@@ -27,6 +27,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes</title>
+    <!-- Logo de pestaña -->
+    <link rel="icon" type="image/png" href="img/LogoPNG.png">
 </head>
 <body>
     <h1>Aqui puedes ver todos los reportes de los moderadores</h1>

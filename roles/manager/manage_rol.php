@@ -43,6 +43,8 @@ Clave | Nombre de usuario
     <meta charset="UTF-8">
     <title>Gestion de usuarios</title>
     <link rel="stylesheet" href="../../CSS/admlogin.css">
+    <!-- Logo de pestaña -->
+    <link rel="icon" type="image/png" href="img/LogoPNG.png">
 </head>
 <body>
 
