@@ -29,6 +29,7 @@
     });
   });
 
+  /*
   // Alternar modo oscuro
   darkModeToggle.addEventListener('click', () => {
     const isDark = document.body.classList.toggle('dark-mode');
@@ -40,7 +41,7 @@
     const icon = darkModeToggle.querySelector('i');
     icon.classList.toggle('fa-moon', !isDark);
     icon.classList.toggle('fa-sun', isDark);
-  });
+  }); */
 
   /*Cargar pagina cuando las imagenes esenciales esten cargadas */
   const images = document.querySelectorAll(".high-priority");
