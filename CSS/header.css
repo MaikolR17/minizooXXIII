@@ -8,11 +8,35 @@
   color: #000;
   justify-content: space-between;
   background-color: #fff;
-  padding: 5px 10px;
-  border-bottom: 1px solid #ddd;
+  padding: 15px 25px;
+  /* La siguiente sombra reemplaza el 'border-bottom' */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06); /* Sombra ligeramente más suave y difusa */
+  border-bottom: 1px solid #f0f0f0; /* Un borde inferior muy sutil para definición */
   position: relative;
   top: 0;
   z-index: 1000;
+  transition: box-shadow 0.3s ease; /* Añadimos transición para la sombra */
+}
+
+/* ... (otros estilos) ... */
+
+.busqueda {
+  display: flex;
+  align-items: center;
+  background: #f8f8f8; /* Un gris muy claro, casi blanco */
+  border-radius: 25px; /* Más redondeado para un look moderno */
+  padding: 8px 15px; /* Un poco más de padding */
+  border: 1px solid #e0e0e0; /* Borde más claro */
+  max-width: 300px;
+  flex-grow: 1;
+  margin: 10px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto de foco para la barra de búsqueda */
+.busqueda:focus-within {
+  border-color: #2e7d32; /* Verde al enfocar */
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15); /* Sombra de enfoque más prominente */
 }
 
 .encabezado .logo-link {
@@ -40,7 +64,7 @@
 }
 
 .encabezado .logo-link:hover .logo, .encabezado .logo-link:focus .logo {
-  color: #236126;
+  color: #2e7d32; /* Aseguramos el color principal del logo */
   background-color: rgba(46, 125, 50, 0.1);
   outline: none;
 }
@@ -52,18 +76,18 @@
   transition: color 0.3s ease;
 }
 
-/*  */
+/* Modo oscuro para el logo en el encabezado */
 body.dark-mode .encabezado .logo-link .logo {
-  color: #fff;
+  color: #e0e0e0;
 }
 
 body.dark-mode .encabezado .logo-link:hover .logo, body.dark-mode .encabezado .logo-link:focus .logo {
-  color: #4caf50;
-  background-color: rgba(76, 175, 80, 0.1);
+  color: #66bb6a;
+  background-color: rgba(76, 175, 80, 0.15);
 }
 
 body.dark-mode .encabezado .logo-link .logo span {
-  color: #4caf50;
+  color: #66bb6a;
 }
 
 .nav-links {
@@ -73,12 +97,17 @@ body.dark-mode .encabezado .logo-link .logo span {
 
 .nav-links a {
   text-decoration: none;
-  color: #333;
-  padding: 3px;
+  color: #555; /* Un gris un poco más oscuro para los enlaces */
+  padding: 5px 10px; /* Más padding para un área de clic más grande */
+  border-radius: 8px; /* Bordes redondeados */
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+  border: 1px solid transparent; /* Para evitar saltos en hover/focus */
 }
 
 .nav-links a:hover, .nav-links a:focus {
-  color: #236126;
+  color: #236126; /* Verde oscuro al pasar el ratón */
+  background-color: rgba(46, 125, 50, 0.08); /* Fondo verde traslúcido suave */
+  border-color: rgba(46, 125, 50, 0.2); /* Un borde sutil que aparece */
   outline: none;
 }
 
@@ -86,24 +115,44 @@ body.dark-mode .encabezado .logo-link .logo span {
   display: flex;
 }
 
+/* Estilos para el botón Administrador */
+.nav-links a.btn-admin {
+  background-color: #2e7d32;
+  color: #fff;
+  padding: 9px 18px; /* Un poco más de padding */
+  border-radius: 20px; /* Más redondeado */
+  margin-left: 15px; /* Más separación del resto de enlaces */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Sombra sutil para el botón */
+}
+
+.nav-links a.btn-admin:hover,
+.nav-links a.btn-admin:focus {
+  background-color: #236126;
+  color: #fff;
+  outline: none;
+  transform: translateY(-1px); /* Ligero levantamiento */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Sombra más pronunciada */
+}
+
+body.dark-mode .nav-links a.btn-admin {
+  background-color: #4caf50;
+  color: #121212;
+}
+
+body.dark-mode .nav-links a.btn-admin:hover,
+body.dark-mode .nav-links a.btn-admin:focus {
+  background-color: #66bb6a;
+  color: #121212;
+}
+
 /* ------------------------ */
 /* BÚSQUEDA                 */
 /* ------------------------ */
-.busqueda {
-  display: flex;
-  align-items: center;
-  background: #f5f5f5;
-  border-radius: 20px;
-  padding: 6px 12px;
-  border: 1px solid #ddd;
-  max-width: 300px;
-  flex-grow: 1;
-  margin: 10px;
-}
-
 .busqueda i {
-  color: #888;
-  margin-right: 6px;
+  color: #666; /* Icono un poco más oscuro */
+  margin-right: 8px; /* Más espacio */
 }
 
 .busqueda input {
@@ -111,37 +160,28 @@ body.dark-mode .encabezado .logo-link .logo span {
   background: transparent;
   outline: none;
   flex: 1;
-}
-
-/* ------------------------ */
-/* BOTÓN MODO OSCURO        */
-/* ------------------------ */
-.btn-darkmode {
-  background-color: transparent;
-  border: 1px solid #ccc;
-  color: #333;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
+  color: #333; /* Color de texto del input más oscuro */
+  padding: 0; /* Aseguramos que no haya padding extra aquí */
 }
 
 /* ------------------------ */
 /* MENÚ HAMBURGUESA         */
 /* ------------------------ */
-
 .menu-toggle {
   display: none;
-  border: 2px solid #121212;
+  border: 1px solid #ccc; /* Un borde más suave */
   border-radius: 6px;
   font-size: 20px;
   padding: 8px 10px;
-  background: #fff;
+  background: #f9f9f9; /* Fondo muy claro */
   cursor: pointer;
   width: 40px;
   height: 40px;
   justify-content: center;
   align-items: center;
+  color: #555; /* Color del icono más oscuro */
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05); /* Sombra sutil */
+  transition: all 0.2s ease;
 }
 
 .menu-toggle i {
@@ -152,11 +192,11 @@ body.dark-mode .encabezado .logo-link .logo span {
 
 .menu-toggle:focus {
   outline: none;
-  box-shadow: none;
-  border: 2px solid #656565;
-  color: #656565;
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1); /* Sombra de enfoque */
+  border: 1px solid #2e7d32; /* Borde verde al enfocar */
+  color: #2e7d32;
   padding: 8px;
-  background: #fff;
+  background: #f9f9f9;
 }
 
 .menu-toggle i:focus {
@@ -178,7 +218,7 @@ body.dark-mode .encabezado .logo-link .logo span {
 
 .menu-toggle:active,
 .nav-links a:active {
-  background-color: rgba(0, 0, 0, 0.05); /* efecto suave */
+  background-color: rgba(46, 125, 50, 0.08); /* Efecto al presionar */
   border-radius: 8px;
 }
 
@@ -202,9 +242,9 @@ body.dark-mode .encabezado .logo-link .logo span {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: max-height 0.5s ease, opacity 0.4s ease;
     right: 15px;
-      left: auto;
-      width: 250px;
-      border-radius: 8px;
+    left: auto;
+    width: 250px;
+    border-radius: 8px;
   }
 
   .nav-links.active {
@@ -215,32 +255,88 @@ body.dark-mode .encabezado .logo-link .logo span {
   }
 
   body.dark-mode .nav-links {
-    background: #121212;
+    background: #1e1e1e;
+    box-shadow: 0 4px 8px rgba(255,255,255,0.1);
   }
 
   .menu-toggle {
-      display: flex;
-      margin-left: auto;
-      order: 1;
+    display: flex;
+    margin-left: auto;
+    order: 1;
   }
   
   .logo-link {
-      order: 0;
-      max-width: calc(100% - 60px);
+    order: 0;
+    max-width: calc(100% - 60px);
   }
 
   .busqueda {
-      margin-top: 10px;
-      width: 100%;
-      max-width: 200px;
-      padding: 4px 8px;
-      margin-left: auto;
-      margin-right: auto;
-      justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 200px;
+    padding: 4px 8px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
   }
   
   .busqueda input {
-      font-size: 14px;
-      padding: 4px;
+    font-size: 14px;
+    padding: 4px;
   }
+
+  /* Ajustes responsivos para el botón Administrador */
+  .nav-links a.btn-admin {
+    margin-left: 0;
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+/* Reglas CSS de MODO OSCURO ESPECÍFICAS DEL ENCABEZADO */
+body.dark-mode .encabezado {
+  background-color: #1e1e1e;
+  border-bottom: 1px solid #444;
+}
+
+/* NUEVOS ESTILOS - Más elegantes */
+body.dark-mode .nav-links a {
+  color: #d0d0d0;
+  padding: 5px 10px; /* Un poco más de espacio interno */
+  border-radius: 8px; /* Bordes redondeados suaves */
+  transition: color 0.3s ease, background-color 0.3s ease; /* Transición suave */
+  border: 1px solid transparent; /* Mantenemos el espacio para que no haya saltos */
+}
+
+body.dark-mode .nav-links a:hover,
+body.dark-mode .nav-links a:focus {
+  color: #ffffff; /* Texto más brillante al seleccionar */
+  background-color: rgba(102, 187, 106, 0.25); /* Fondo verde traslúcido y sutil */
+  outline: none;
+  border-color: rgba(102, 187, 106, 0.4); /* Borde muy tenue a juego */
+}
+
+/* Efecto al hacer clic para dar feedback */
+body.dark-mode .nav-links a:active {
+    background-color: rgba(102, 187, 106, 0.4);
+}
+
+body.dark-mode .menu-toggle {
+  font-size: 20px;
+  color: #d0d0d0;
+  background: #282828;
+  border: #555 solid 2px;
+}
+
+body.dark-mode .busqueda {
+  background: #282828;
+  border: 1px solid #555;
+}
+
+body.dark-mode .busqueda i {
+  color: #b0b0b0;
+}
+
+body.dark-mode .busqueda input {
+  color: #e0e0e0;
 }

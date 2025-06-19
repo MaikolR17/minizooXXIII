@@ -35,6 +35,8 @@ body {
   line-height: 1.6;
   background-color: #fff;
   color: #000;
+  /* Transición para un cambio de modo oscuro suave */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ------------------------ */
@@ -44,12 +46,14 @@ body {
   text-align: center;
   padding: 60px 20px;
   background-color: #fafafa;
+  transition: background-color 0.3s ease; /* Transición para el fondo */
 }
 
 .seccion-principal h1 {
   font-size: 32px;
   color: #2e7d32;
   margin-bottom: 10px;
+  transition: color 0.3s ease; /* Transición para el color del texto */
 }
 
 .seccion-principal p {
@@ -59,6 +63,7 @@ body {
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+  transition: color 0.3s ease; /* Transición para el color del texto */
 }
 
 /* ------------------------ */
@@ -74,11 +79,15 @@ body {
 .tarjeta-animal {
   background: white;
   border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  /* Sombra más suave y extendida para un efecto más flotante */
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08); /* Suavizada y más difusa */
   width: 280px;
   padding: 15px;
   text-align: center;
-  transition: transform 0.3s ease;
+  /* Ajusta las transiciones para los nuevos efectos */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  /* Añadir un borde sutil para definirla mejor */
+  border: 1px solid #e0e0e0; /* Un gris muy claro para el borde */
 }
 
 .tarjeta-animal img {
@@ -91,134 +100,114 @@ body {
 .tarjeta-animal h3 {
   margin: 12px 0 6px;
   color: #2e7d32;
+  font-size: 20px; /* Un poco más grande para el nombre */
+  transition: color 0.3s ease;
 }
 
 .tarjeta-animal p {
-  font-size: 14px;
-  color: #555;
+  font-size: 15px; /* Un poco más grande para mejor legibilidad */
+  color: #666; /* Un gris un poco más suave */
+  margin-bottom: 15px; /* Más espacio debajo del párrafo */
+  transition: color 0.3s ease;
 }
 
 .tarjeta-animal:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px); /* Ligeramente más elevado al pasar el ratón */
+  /* Sombra más pronunciada y un toque de color sutil */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15), 0 0 15px rgba(46, 125, 50, 0.08);
+  border-color: #2e7d32; /* Borde se vuelve verde al pasar el ratón */
 }
 
 .boton-info {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 12px;
-  padding: 6px 12px;
-  background-color: #2e7d32;
+  gap: 8px; /* Más espacio entre el icono y el texto */
+  margin-top: 15px; /* Más margen superior */
+  padding: 8px 16px; /* Más padding para un botón más robusto */
+  background-color: #388e3c; /* Un verde un poco más oscuro y vibrante */
   color: white !important;
-  border-radius: 20px;
+  border-radius: 25px; /* Bordes más redondeados (pill-like) */
   text-decoration: none;
-  font-size: 14px;
+  font-size: 15px; /* Tamaño de fuente ligeramente mayor */
+  font-weight: 500; /* Un poco más de grosor */
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Sombra para el botón */
 }
 
 .boton-info:hover {
-  background-color: #236126;
-  transform: scale(1.05);
+  background-color: #2e7d32; /* Un verde aún más oscuro al pasar el ratón */
+  transform: translateY(-2px); /* Un pequeño levantamiento */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* Sombra más pronunciada */
 }
 
 .boton-info i {
   font-size: 16px;
 }
 
-/* Estilos por si dejamos el modo oscuro */
-body.dark-mode .boton-info {
-  background-color: #4caf50;
-  color: white !important;
-}
-
-body.dark-mode .boton-info:hover {
-  background-color: #3d8b40;
-}
-
 /* ------------------------ */
-/* MODO OSCURO              */
+/* MODO OSCURO (General y Contenido Principal) */
 /* ------------------------ */
 body.dark-mode {
-  background-color: #121212;
-}
-
-body.dark-mode .encabezado {
-  background-color: #121212;
-}
-
-body.dark-mode .nav-links a {
-  padding: 2px;
-  border: transparent solid 1px;
-  border-radius: 10px;
-}
-
-body.dark-mode .nav-links a:hover,
-body.dark-mode .nav-links a:focus {
-  color: #2e7d32;
-  border: #fff solid 1px;
-  outline: none;
-}
-
-body.dark-mode .menu-toggle {
-  font-size: 20px;
-  color: #fff;
-  background: #121212;
-  border: #ddd solid 2px;
-}
-
-body.dark-mode .seccion-principal h1 {
-  font-size: 32px;
-  color: #2e7d32;
-  margin-bottom: 10px;
-}
-
-body.dark-mode .footer {
-  background: #121212;
-  border-top: #ccc 1px solid;
-  color: white;
-}
-
-body.dark-mode .footer a {
-  color: #2e7d32;
-}
-
-body.dark-mode .footer a:hover {
-  color: #004d40;
-}
-
-body.dark-mode .btn-darkmode {
-  color: #fff;
-}
-
-body.dark-mode .tarjeta-animal {
-  background: #121212;
-  border: 1px solid #505050;
-  box-shadow: 0px 0px 10px 0 #fff;
-}
-
-body.dark-mode .tarjeta-animal p {
-  color: #f0f0f0;
-}
-body.dark-mode .tarjeta-animal h3 {
-  color: #2e7d32;
+  background-color: #1a1a1a; /* Color de fondo general para el modo oscuro */
+  color: #e0e0e0; /* Color de texto general más claro */
 }
 
 body.dark-mode .seccion-principal {
-  background: linear-gradient(160deg, #121212, #333);
+  background: linear-gradient(160deg, #1e1e1e, #3a3a3a); /* Gradiente más suave para la sección principal */
 }
 
-body.dark-mode .logo {
-  color: #fff;
+body.dark-mode .seccion-principal h1 {
+  color: #66bb6a; /* Verde más brillante para el título principal */
 }
 
 body.dark-mode .seccion-principal p {
-  color: #fff;
+  color: #d0d0d0; /* Color de párrafo más claro */
 }
 
-body.dark-mode .nav-links a {
-  color: #fff;
+/* NUEVOS ESTILOS - Más elegantes */
+body.dark-mode .tarjeta-animal {
+  background: #2c2c2c; /* Un gris oscuro ligeramente más claro que el fondo */
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Borde casi invisible que añade profundidad */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); /* Sombra más suave y difusa */
+  border-radius: 15px; /* Mantenemos el borde redondeado */
 }
 
-body.dark-mode .busqueda input {
-  color: #333;
-} 
+/* Efecto sutil de "brillo" al pasar el ratón por encima */
+body.dark-mode .tarjeta-animal:hover {
+  border-color: rgba(102, 187, 106, 0.5);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(102, 187, 106, 0.2); /* Sombra que se levanta y un leve brillo verde */
+}
+
+body.dark-mode .tarjeta-animal h3 {
+  color: #81c784; /* Un tono de verde un poco más suave y legible */
+}
+
+body.dark-mode .tarjeta-animal p {
+  color: #bdbdbd; /* Gris claro para el texto, buen contraste */
+}
+
+body.dark-mode .boton-info {
+  background-color: #388e3c; /* Verde más oscuro y sobrio */
+  color: #ffffff !important; /* Texto blanco para máxima legibilidad */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .boton-info:hover {
+  background-color: #4caf50; /* Verde más brillante al pasar el ratón */
+  transform: scale(1.05) translateY(-2px); /* Efecto de elevación */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .footer {
+  background: #1e1e1e; /* Fondo del pie de página oscuro */
+  border-top: #444 1px solid;
+  color: #d0d0d0;
+}
+
+body.dark-mode .footer a {
+  color: #66bb6a;
+}
+
+body.dark-mode .footer a:hover {
+  color: #4caf50;
+}
