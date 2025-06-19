@@ -6,7 +6,7 @@
  * @returns {void} 
  */
 export function validateSpecie(func,speciesList,input){
-    fetch(`get_all_animals.php?attribute=${input.id}&id=${speciesList.value}`)
+    fetch(`APIS/get_all_animals.php?attribute=${input.id}&id=${speciesList.value}`)
       .then((response) => response.json())
       .then((data) => {
         const result = data[0].map(item => item? item.toLowerCase():"");

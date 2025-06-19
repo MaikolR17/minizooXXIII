@@ -1,7 +1,7 @@
 <!-- admin.php -->
 <?php 
     require_once "../manager/manage_user.php";
-    require_once "../login/conex.php";
+    require_once "../../login/conex.php";
 
     session_start();
 
@@ -45,7 +45,7 @@ if ($result && mysqli_num_rows($result) > 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revision de especies</title>
-    <link rel="stylesheet" href="../CSS/admin.css">
+    <link rel="stylesheet" href="../../CSS/admin.css">
 </head>
 <body>
     <!-- Botón para alternar modo oscuro -->
@@ -55,11 +55,13 @@ if ($result && mysqli_num_rows($result) > 0) {
     <!-- Formulario para agregar, modificar o eliminar especie -->
     <form action="report_process.php" method="POST" enctype="multipart/form-data" id="animal-form">
         <!-- Contenedor de la caja de alertas, donde se informan errores y acciones completadas correctamente -->
-        <?php include "../resources/server-resources/cont_alert.php";?>
+        <?php include "../../resources/cont_alert.php";?>
         
-        
+        <select name="" id="func" style="display: none;">
+            <option value="update" selected>Update</option>
+        </select>
         <label for="list-species" id="species-label">Elija un animal registrado:</label>
-        <select name="list-species" id="list-species" onchange="loadAnimal(this.value)"disabled>
+        <select name="list-species" id="list-species">
             <option value="" disabled selected> --Seleccione una especie-- </option>
             <?php foreach ($list_species as $specie): ?>
                 <option value="<?= htmlspecialchars($specie['id']) ?>">
@@ -98,6 +100,6 @@ if ($result && mysqli_num_rows($result) > 0) {
         <button type="submit" id="submit-btn">Agregar Especie</button>
     </form>
 
-    
+    <script type="module" src="../../javaScript/admin.js"></script>
 </body>
 </html>
