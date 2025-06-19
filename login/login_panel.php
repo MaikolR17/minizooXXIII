@@ -38,6 +38,8 @@ unset($_SESSION['error']);
 <head>
   <meta charset="UTF-8">
   <title>Iniciar Sesión</title>
+  <!-- Logo de pestaña -->
+  <link rel="icon" type="image/png" href="img/LogoPNG.png">
 </head>
 <body>
   <h2>Iniciar sesión</h2>
