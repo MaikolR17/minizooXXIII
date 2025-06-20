@@ -6,13 +6,6 @@ body {
   color: #333;
 }
 
-header {
-  background-color: #2e7d32;
-  color: white;
-  padding: 2rem;
-  text-align: center;
-}
-
 .contenido {
   max-width: 900px;
   margin: 2rem auto;
@@ -32,10 +25,4 @@ header {
   margin-bottom: 1rem;
 }
 
-footer {
-  background-color: #c8e6c9;
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.9rem;
-  color: #2e7d32;
-}
+

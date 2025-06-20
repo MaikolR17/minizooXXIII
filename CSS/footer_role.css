@@ -1,0 +1,16 @@
+/*! CSS Used from: https://juanxxiiizoo.infinityfreeapp.com/CSS/footer.css */
+.footer{background-color:#f1f1f1;text-align:center;padding:20px 0;font-size:14px;position:absolute;bottom:0;}
+.footer a{text-decoration:none;color:#2e7d32;}
+.footer-info p{margin-bottom:10px;}
+/*! CSS Used from: https://juanxxiiizoo.infinityfreeapp.com/CSS/index.css */
+*{margin:0;padding:0;box-sizing:border-box;}
+body.dark-mode .footer{background:#1e1e1e;border-top:#444 1px solid;color:#d0d0d0;}
+body.dark-mode .footer a{color:#66bb6a;}
+body.dark-mode .footer a:hover{color:#4caf50;}
+/*! CSS Used from: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css */
+.fab{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:var(--fa-display,inline-block);font-style:normal;font-variant:normal;line-height:1;text-rendering:auto;}
+.fab{font-family:"Font Awesome 6 Brands";}
+.fab{font-weight:400;}
+.fa-facebook:before{content:"\f09a";}
+/*! CSS Used fontfaces */
+@font-face{font-family:"Font Awesome 6 Brands";font-style:normal;font-weight:400;font-display:block;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-brands-400.woff2) format("woff2"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-brands-400.ttf) format("truetype");}

@@ -63,7 +63,7 @@
     <link rel="stylesheet" href="../../CSS/header_role.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Logo de pestaña -->
-    <link rel="icon" type="image/png" href="https://juanxxiiizoo.infinityfreepp.com/img/LogoPNG.png">
+    <link rel="icon" type="image/png" href="https://juanxxiiizoo.infinityfreeapp.com/img/LogoPNG.png">
 </head>
 <body>
 
@@ -76,7 +76,7 @@
         <h1>Historial de administradores</h1>
         <ol>
             <?php
-                $file = "../reg/AdminHistory.json";
+                $file = "../../reg/AdminHistory.json";
                 $content = file_exists($file) ? file_get_contents($file) : [];
                 $data = json_decode($content, true)? : [];
                 foreach($data as $d){

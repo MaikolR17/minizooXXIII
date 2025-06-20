@@ -47,9 +47,10 @@ if ($result && mysqli_num_rows($result) > 0) {
     <title>Revision de especies</title>
     
     <link rel="stylesheet" href="../../CSS/admin.css">
-    
-    <link rel="stylesheet" href="../../CSS/footer.css" />   
+    <link rel="stylesheet" href="../../CSS/header.css" />
+    <link rel="stylesheet" href="../../CSS/footer.css" /> 
     <link rel="stylesheet" href="../../CSS/header_role.css" />
+    <link rel="stylesheet" href="../../CSS/footer_role.css" /> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Logo de pestaña -->
     <link rel="icon" type="image/png" href="https://juanxxiiizoo.infinityfreepp.com/img/LogoPNG.png">

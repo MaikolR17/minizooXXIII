@@ -26,14 +26,15 @@
 
     <article class="seccion">
       <h2>El Objetivo con este trabajo </h2>
-      <p>
-        Crear una aplicación móvil y/o web interactiva y educativa que permita a los visitantes y entusiastas del zoológico explorar y aprender sobre la vida silvestre de manera divertida y accesible.
-        1. Proporcionar una experiencia de visitante más informativa y atractiva.
-        2. Fomentar la educación y la conciencia sobre la conservación de la vida silvestre.
-        3. Incrementar la participación y la interacción de los visitantes con el zoológico.
-        4. Ofrecer una plataforma para que los visitantes compartan y promuevan el zoológico.
-
-      </p>
+      <ol>
+        <li>Crear una aplicación móvil y/o web interactiva y educativa que permita a los visitantes y entusiastas del zoológico explorar y aprender sobre la vida silvestre de manera divertida y accesible</li>
+        
+          <li>Proporcionar una experiencia de visitante más informativa y atractiva.</li>
+          <li>Fomentar la educación y la conciencia sobre la conservación de la vida silvestre.</li>
+          <li>Incrementar la participación y la interacción de los visitantes con el zoológico.</li>
+          <li>Ofrecer una plataforma para que los visitantes compartan y promuevan el zoológico</li>
+        
+</ol>
     </article>
   </section>
 
