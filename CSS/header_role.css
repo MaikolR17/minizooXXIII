@@ -1,0 +1,64 @@
+/*! CSS Used from: http://localhost/minizooXXII/CSS/index.css */
+*{margin:0;padding:0;box-sizing:border-box;}
+/*! CSS Used from: http://localhost/minizooXXII/CSS/header.css */
+.encabezado{display:flex;flex-wrap:wrap;align-items:center;color:#000;justify-content:space-between;background-color:#fff;padding:15px 25px;box-shadow:0 3px 8px rgba(0, 0, 0, 0.06);border-bottom:1px solid #f0f0f0;position:relative;top:0;z-index:1000;transition:box-shadow 0.3s ease;}
+.busqueda{display:flex;align-items:center;background:#f8f8f8;border-radius:25px;padding:8px 15px;border:1px solid #e0e0e0;max-width:300px;flex-grow:1;margin:10px;transition:border-color 0.3s ease, box-shadow 0.3s ease;}
+.encabezado .logo-link{text-decoration:none;display:flex;align-items:center;margin-right:auto;}
+.logo-img{height:75px;width:auto;object-fit:contain;vertical-align:middle;margin-right:10px;}
+.encabezado .logo-link .logo{font-size:22px;font-weight:bold;color:#000;transition:all 0.3s ease;padding:5px 10px;border-radius:8px;}
+.encabezado .logo-link:hover .logo,.encabezado .logo-link:focus .logo{color:#2e7d32;background-color:rgba(46, 125, 50, 0.1);outline:none;}
+.logo-link:focus{outline:none;}
+.encabezado .logo-link .logo span{color:#2e7d32;margin-left:6px;font-weight:normal;transition:color 0.3s ease;}
+.nav-links{display:flex;gap:20px;}
+.nav-links a{text-decoration:none;color:#555;padding:5px 10px;border-radius:8px;transition:color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;border:1px solid transparent;}
+.nav-links a:hover,.nav-links a:focus{color:#236126;background-color:rgba(46, 125, 50, 0.08);border-color:rgba(46, 125, 50, 0.2);outline:none;}
+.nav-links a.btn-admin{background-color:#2e7d32;color:#fff;padding:9px 18px;border-radius:20px;margin-left:15px;transition:background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,0.1);}
+.nav-links a.btn-admin:hover,.nav-links a.btn-admin:focus{background-color:#236126;color:#fff;outline:none;transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,0.15);}
+.busqueda i{color:#666;margin-right:8px;}
+.busqueda input{border:none;background:transparent;outline:none;flex:1;color:#333;padding:0;}
+.menu-toggle{display:none;border:1px solid #ccc;border-radius:6px;font-size:20px;padding:8px 10px;background:#f9f9f9;cursor:pointer;width:40px;height:40px;justify-content:center;align-items:center;color:#555;box-shadow:0 1px 4px rgba(0,0,0,0.05);transition:all 0.2s ease;position:relative;z-index:1100;}
+.menu-toggle i{display:flex;justify-content:center;width:100%;}
+.menu-toggle:focus{outline:none;box-shadow:0 0 0 3px rgba(46, 125, 50, 0.1);border:1px solid #2e7d32;color:#2e7d32;padding:8px;background:#f9f9f9;}
+.menu-toggle i:focus{outline:none;box-shadow:none;}
+.menu-toggle,.nav-links a{-webkit-tap-highlight-color:transparent;}
+.menu-toggle,.nav-links a{outline:none;user-select:none;-webkit-user-select:none;-webkit-focus-ring-color:transparent;}
+.menu-toggle:active,.nav-links a:active{background-color:rgba(46, 125, 50, 0.08);border-radius:8px;}
+.menu-toggle .close-icon{display:none;}
+@media screen and (max-width: 768px){
+.nav-links{flex-direction:column;gap:15px;background:#fff;position:absolute;top:60px;left:0;right:0;overflow:hidden;max-height:0;opacity:0;padding:0 20px;pointer-events:none;box-shadow:0 4px 8px rgba(0,0,0,0.1);transition:max-height 0.5s ease, opacity 0.4s ease;right:15px;left:auto;width:250px;border-radius:8px;}
+.menu-toggle{display:flex;margin-left:auto;order:1;}
+.logo-link{order:0;max-width:calc(100% - 60px);}
+.busqueda{margin-top:10px;width:100%;max-width:200px;padding:4px 8px;margin-left:auto;margin-right:auto;justify-content:center;}
+.busqueda input{font-size:14px;padding:4px;}
+.nav-links a.btn-admin{margin-left:0;margin-top:10px;text-align:center;}
+.logo{display:none;}
+.encabezado{align-items:center;justify-content:center;text-align:center;}
+.logo-link{margin:0 auto;justify-content:center;}
+.logo-img{margin:0 auto;}
+.menu-toggle{margin-top:10px;margin-left:0;}
+}
+/*! CSS Used from: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css */
+.fas{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:var(--fa-display,inline-block);font-style:normal;font-variant:normal;line-height:1;text-rendering:auto;}
+.fas{font-family:"Font Awesome 6 Free";}
+.fa-bars:before{content:"\f0c9";}
+.fa-search:before{content:"\f002";}
+.fa-times:before{content:"\f00d";}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0;}
+.fas{font-weight:900;}
+/*! CSS Used fontfaces */
+@font-face{font-family:"Font Awesome 6 Free";font-style:normal;font-weight:400;font-display:block;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-regular-400.woff2) format("woff2"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-regular-400.ttf) format("truetype");}
+@font-face{font-family:"Font Awesome 6 Free";font-style:normal;font-weight:900;font-display:block;src:url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-solid-900.woff2) format("woff2"),url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-solid-900.ttf) format("truetype");}
+body.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    scroll-behavior: smooth;
+    line-height: 1.6;
+    background-color: #fff;
+    color: #000;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 0;
+}

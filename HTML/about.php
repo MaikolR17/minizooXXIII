@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Acerca del Curso</title>
-  <link rel="stylesheet" href="aboutphp.css">
+  <link rel="stylesheet" href="../CSS/aboutphp.css">
   <!-- Logo de pestaña -->
   <link rel="icon" type="image/png" href="img/LogoPNG.png">
 </head>
 <body>
-  <header>
-    <h1>Acerca de Nosotros</h1>
-  </header>
+  <?php include "../resources/header.php";?>
+
   <section class="contenido">
     <article class="seccion">
       <h2>Su Historia</h2>
@@ -27,19 +26,25 @@
 
     <article class="seccion">
       <h2>El Objetivo con este trabajo </h2>
-      <p>
-        Crear una aplicación móvil y/o web interactiva y educativa que permita a los visitantes y entusiastas del zoológico explorar y aprender sobre la vida silvestre de manera divertida y accesible.
-        1. Proporcionar una experiencia de visitante más informativa y atractiva.
-        2. Fomentar la educación y la conciencia sobre la conservación de la vida silvestre.
-        3. Incrementar la participación y la interacción de los visitantes con el zoológico.
-        4. Ofrecer una plataforma para que los visitantes compartan y promuevan el zoológico.
-
-      </p>
+      <ol>
+        <li>Crear una aplicación móvil y/o web interactiva y educativa que permita a los visitantes y entusiastas del zoológico explorar y aprender sobre la vida silvestre de manera divertida y accesible</li>
+        
+          <li>Proporcionar una experiencia de visitante más informativa y atractiva.</li>
+          <li>Fomentar la educación y la conciencia sobre la conservación de la vida silvestre.</li>
+          <li>Incrementar la participación y la interacción de los visitantes con el zoológico.</li>
+          <li>Ofrecer una plataforma para que los visitantes compartan y promuevan el zoológico</li>
+        
+</ol>
     </article>
   </section>
 
-  <footer>
-    <p>&copy; 2025 Análisis de Sistemas Informáticos. Segundo año, tercer semestre. Todos los derechos reservados.</p>
-  </footer>
+  <?php include "../resources/footer.php";?>
+  <script>
+    document.addEventListener("DOMContentLoaded",()=>{ 
+      document.getElementById("menu-toggle").style.display = "none";
+      document.getElementById("search").style.display = "none";
+    });
+  </script>
+  <script src="../javaScript/role.js"></script>
 </body>
 </html>

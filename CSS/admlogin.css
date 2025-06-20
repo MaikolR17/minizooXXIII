@@ -13,7 +13,6 @@
 
 * {
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -22,11 +21,6 @@ body {
     background: url('../img/tigresito_fondo.jpg') no-repeat center center fixed;
     background-size: cover;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    animation: fadeIn 1.5s ease-in-out;
 }
 
 form {
@@ -36,7 +30,7 @@ form {
     box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 5px;
     width: 100%;
     max-width: 420px;
     animation: slideUp 1s ease;
@@ -64,6 +58,13 @@ select {
     transition: border 0.3s, box-shadow 0.3s;
     font-size: 1em;
 }
+
+input:disabled{
+    opacity: 0.5;
+}
+ label :has(input:disabled){
+    opacity: 0.5;
+ }
 
 input:focus,
 select:focus {
@@ -112,6 +113,15 @@ button:active {
     background: #ffe6e6;
     color: var(--error-red);
     border: 1px solid #f0b2b2;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    animation: fadeIn 1.5s ease-in-out;
+    font-family: 'Poppins', sans-serif;
 }
 
 /* Animaciones */

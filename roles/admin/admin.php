@@ -46,16 +46,25 @@ if ($result && mysqli_num_rows($result) > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion de especies</title>
     <link rel="stylesheet" href="../../CSS/admin.css">
+    <link rel="stylesheet" href="../../CSS/header.css" />
+    <link rel="stylesheet" href="../../CSS/footer.css" /> 
+    <link rel="stylesheet" href="../../CSS/header_role.css" />
+    <link rel="stylesheet" href="../../CSS/footer_role.css" /> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Logo de pestaña -->
-    <link rel="icon" type="image/png" href="img/LogoPNG.png">
+    <link rel="icon" type="image/png" href="https://juanxxiiizoo.infinityfreepp.com/img/LogoPNG.png">
 </head>
 <body>
+    <!--Enabezado-->
+    <?php include "../../resources/header.php"; ?>
+
     <!-- Botón para alternar modo oscuro -->
+     <div class="container">
     <button id="btn-darkmode">Modo Oscuro</button>
     <h1 id="titleForm">Formulario de Especies</h1>
     
     <!-- Formulario para agregar, modificar o eliminar especie -->
-    <form action="../PHP/CRUD.php" method="POST" enctype="multipart/form-data" id="animal-form">
+    <form action="CRUD.php" method="POST" enctype="multipart/form-data" id="animal-form">
         <!-- Contenedor de la caja de alertas, donde se informan errores y acciones completadas correctamente -->
         <?php include "../../resources/cont_alert.php";?>
         
@@ -102,7 +111,12 @@ if ($result && mysqli_num_rows($result) > 0) {
         <!--Agregar textarea exclusivo para moderadores-->
         <button type="submit" id="submit-btn">Agregar Especie</button>
     </form>
+    </div>
+    
+    <!--Pie de pagina-->
+    <?php include "../../resources/footer.php";?>
 
+    <script src="../../javaScript/role.js"></script>
     <script type="module" src="../../javaScript/admin.js"></script>
     <script type="module" src="../../javaScript/client_side_validation.js"></script>
 </body>

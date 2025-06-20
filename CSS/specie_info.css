@@ -50,6 +50,7 @@ body {
     color: var(--gris-texto);
     font-size: 16px;
     line-height: 1.6;
+    position: relative;
 }
 
 main {

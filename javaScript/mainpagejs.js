@@ -43,6 +43,16 @@
     icon.classList.toggle('fa-sun', isDark);
   }); */
 
+  const body = document.querySelector("body");
+    const footer = document.querySelector("footer");
+    if(body.offsetHeight > window.innerHeight){
+            footer.style.position = "relative";
+            footer.style.bottom = "";
+    }else{
+      footer.style.position = "relative";
+    }
+        
+
   /*Cargar pagina cuando las imagenes esenciales esten cargadas */
   const images = document.querySelectorAll(".high-priority");
   const imagePromises = Array.from(images).map(img => {

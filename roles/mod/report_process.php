@@ -1,6 +1,6 @@
 <?php
     require_once "../../login/conex.php";
-
+    require_once "../../resources/server_alert.php";
     session_start();
 
     $conex = new ConexionDB();
@@ -32,17 +32,17 @@
     ];
     
     
-    if(isset($_FILES['img'])){
+    if(isset($_FILES['img']) && $_FILES['ims']['size'] > 0){
         $img = saveImage();
         $report['img'] = $img;
     }
 
-    foreach($report as $key => $value){
-        $keys[] = $key;
-        $values[] = $value;
-    }
+    $keys = array_keys($report);
+    $escaped_values = array_map(function($value) use ($conn) {
+        return "'" . mysqli_real_escape_string($conn, $value) . "'";
+    }, array_values($report));
 
-    $sql = "INSERT INTO peticiones (".implode(",",$keys).") VALUES (".implode(",",$values).")";
+    $sql = "INSERT INTO peticiones (".implode(",",$keys).") VALUES (".implode(",",$escaped_values).")";
     $rs = mysqli_query($conn, $sql);
 
     if($rs){

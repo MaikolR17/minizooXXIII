@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Cargar datos de especie
   function loadSpecie(id) {
-    fetch(`APIS/get_animal.php?id=${id}`)
+    fetch(`https://juanxxiiizoo.infinityfreepp.com/APIS/get_animal.php?id=${id}`)
       .then((response) => response.json())
       .then((data) => {
         if (data && !data.error) {

@@ -8,7 +8,7 @@
 body {
     background-color: #fff;
     color: #212121;
-    padding: 32px;
+    position: relative;
 }
 
 #titleForm {
@@ -187,4 +187,8 @@ body.dark-mode .success {
 body.dark-mode input:disabled, body.dark-mode textarea:disabled, body.dark-mode select:disabled {
     background-color: #444;
     color: #999;
+}
+
+.container{
+    padding: 40px 0;
 }

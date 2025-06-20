@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", ()=>{
-    const inputs = document.querySelectorAll("input[type=text]");
+    const inputs = document.querySelectorAll("input[type=text],input[type=password]");
     const action = document.querySelector("#func");
     const roleList = document.querySelector("#role_list");
     const userList = document.querySelector("#user_list");
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             userList.disabled = false;
         }
         userList.innerHTML = `<option value="" selected disabled>--Seleccione una opcion--</option>`;
-        fetch(`api_rol.php?id_role=${roleList.value}`)
+        fetch(`https://juanxxiiizoo.infinityfreepp.com/APIS/api_rol.php?id_role=${roleList.value}`)
         .then(response => response.json())
         .then(data =>{
             if(data.error){
