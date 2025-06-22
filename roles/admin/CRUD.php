@@ -2,6 +2,7 @@
 session_start();
 require_once '../../login/conex.php';
 include 'writeAdminHistory.php';
+include '../../resources/server_alert.php';
 
 $db = new ConexionDB();
 
