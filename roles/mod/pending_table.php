@@ -1,7 +1,6 @@
-<form action="report_process.php" method="POST">
-    <div class="pending-reports-container">
-        <?php if ($pending->num_rows > 0): ?>
-
+<div class="pending-reports-container">
+    <?php if ($pending->num_rows > 0): ?>
+        <form action="report_process.php" method="POST">
             <table>
                 <thead>
                     <tr>
@@ -29,24 +28,20 @@
                                 <td><?= htmlspecialchars($shortDescription) ?></td>
                                 <td><?= is_null($report['img']) ? "No" : "Sí" ?></td>
                                 <td>
-                                    <!-- Implementar acción para ver reporte -->
-                                    <a href="<?="report_info.php?id=".$report['id'];?>" id="show_report">Ver reporte</a>
+                                    <a href="<?="report_info.php?id=".$report['id'];?>" class="table-action-button">Ver reporte</a>
                                 </td>
                                 <?php if ($_SESSION['id_role'] == 2): ?>
                                     <td>
-                                        <button type="submit" id="completed">Marcar completado</button>
+                                        <button type="submit" name="completed_id" value="<?= $report['id'] ?>" class="complete-button">Marcar completado</button>
                                     </td>
                                 <?php endif; ?>
                             </tr>
                         <?php endif; ?>
                     <?php endforeach; ?>
-                    
                 </tbody>
             </table>
-            <?php
-                else:
-                    echo "<p>No hay reportes pendientes por revisar<p>";
-                endif;
-            ?>
-        </div>
-</form>
+        </form>
+    <?php else: ?>
+        <p>No hay reportes pendientes por revisar.</p>
+    <?php endif; ?>
+</div>
