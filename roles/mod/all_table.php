@@ -12,19 +12,19 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($reports as $report):            
-                    $shortDescription = strlen($report['description']) > 50
-                        ? substr($report['description'], 0, 50) . "..."
-                        : $report['description'];
-                ?>
+                <?php foreach ($reports as $report): ?>
+                    <?php
+                        $shortDescription = strlen($report['description']) > 50
+                            ? substr($report['description'], 0, 50) . "..."
+                            : $report['description'];
+                    ?>
                     <tr>
                         <td><?= htmlspecialchars($report['username']) ?></td>
                         <td><?= htmlspecialchars($report['subject']) ?></td>
                         <td><?= htmlspecialchars($shortDescription) ?></td>
                         <td><?= is_null($report['img']) ? "No" : "Sí" ?></td>
                         <td>
-                            <!-- Implementar acción para ver reporte -->
-                            <a href="<?="report_info.php?id=".$report['id'];?>" id="show_report">Ver reporte</a>
+                            <a href="<?="report_info.php?id=".$report['id'];?>" class="table-action-button">Ver reporte</a>
                         </td>
                         <td>
                             <?php if ($report['completed'] == 0): ?>
@@ -37,8 +37,7 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-
     <?php else: ?>
-        <p>No hay reportes pendientes por revisar</p>
+        <p>No hay reportes registrados.</p>
     <?php endif; ?>
 </div>

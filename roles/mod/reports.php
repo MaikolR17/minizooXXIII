@@ -28,14 +28,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Reportes</title>
-    <!-- Logo de pestaña -->
     <link rel="stylesheet" href="../../CSS/footer.css" />   
     <link rel="stylesheet" href="../../CSS/header_role.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <!-- Logo de pestaña -->
     <link rel="icon" type="image/png" href="https://juanxxiiizoo.infinityfreepp.com/img/LogoPNG.png">
+
     <style>
-        /* CSS para las tablas */
+        /* Tablas */
         table {
             border-collapse: collapse;
             width: 100%;
@@ -58,49 +57,108 @@
             background-color: #f9f9f9;
         }
 
-        .all-reports-container, .pending-reports-container {
-            margin-top: 20px;
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
         }
 
-        /* CSS para los botones */
+        /* Botones de navegación */
         .button-container {
-            margin-bottom: 20px;
+            margin: 30px 0;
+            text-align: center;
         }
 
         .button-container button {
-            margin-right: 10px;
-            padding: 10px 15px;
+            margin: 0 10px;
+            padding: 12px 25px;
             border: none;
-            background-color: #3498db;
-            color: white;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: 600;
+            color: white;
+            transition: background-color 0.3s ease;
         }
 
-        .button-container button:hover {
-            background-color: #2980b9;
+        .button-active {
+            background-color: #2e7d32; /* verde oscuro activo */
         }
-        .visible{
+
+        .button-inactive {
+            background-color: #66bb6a; /* verde claro inactivo */
+        }
+
+        .button-container button:hover:not(.button-active) {
+            background-color: #388e3c;
+        }
+
+        .visible {
             display: block;
+            width: 100%;
         }
-        .hidden{
+
+        .hidden {
             display: none;
+        }
+
+        /* Botón "Ver reporte" */
+        .table-action-button {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #4caf50;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .table-action-button:hover {
+            background-color: #388e3c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Botón "Marcar completado" */
+        .complete-button {
+            padding: 8px 16px;
+            background-color: #2e7d32;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .complete-button:hover {
+            background-color: #1b5e20;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
-<body>
 
-    <!--Encabezado-->
+<body>
+    <!-- Encabezado -->
     <?php include "../../resources/header.php"; ?>
 
     <div class="container">
-        <h1>Aqui puedes ver todos los reportes de los moderadores</h1>
-    
+        <h1>Aquí puedes ver todos los reportes de los moderadores</h1>
 
         <div class="button-container">
-            <button id="btn-pending">Ver reportes pendientes</button>
-            <button id="btn-all">Ver todos los reportes</button>
+            <button id="btn-pending" class="button-active">Ver reportes pendientes</button>
+            <button id="btn-all" class="button-inactive">Ver todos los reportes</button>
         </div>
 
         <!-- Tabla de reportes pendientes -->
@@ -114,26 +172,42 @@
         </div>
     </div>
 
-    <!--Pie de pagina-->
-    <?php include "../../resources/footer.php";?>
+    <!-- Pie de página -->
+    <?php include "../../resources/footer.php"; ?>
 
     <script>
-        document.getElementById('btn-pending').addEventListener('click', function() {
-            document.getElementById('pending_table').classList.remove("hidden");
-            document.getElementById('all_table').classList.remove("visible");
+        const btnPending = document.getElementById('btn-pending');
+        const btnAll = document.getElementById('btn-all');
+        const pendingTable = document.getElementById('pending_table');
+        const allTable = document.getElementById('all_table');
 
-            document.getElementById('pending_table').classList.add("visible");
-            document.getElementById('all_table').classList.add("hidden");
+        btnPending.addEventListener('click', () => {
+            pendingTable.classList.remove("hidden");
+            pendingTable.classList.add("visible");
+            allTable.classList.remove("visible");
+            allTable.classList.add("hidden");
+
+            btnPending.classList.add("button-active");
+            btnPending.classList.remove("button-inactive");
+
+            btnAll.classList.add("button-inactive");
+            btnAll.classList.remove("button-active");
         });
 
-        document.getElementById('btn-all').addEventListener('click', function() {
-            document.getElementById('all_table').classList.remove("hidden");
-            document.getElementById('pending_table').classList.remove("visible");
+        btnAll.addEventListener('click', () => {
+            allTable.classList.remove("hidden");
+            allTable.classList.add("visible");
+            pendingTable.classList.remove("visible");
+            pendingTable.classList.add("hidden");
 
-            document.getElementById('all_table').classList.add("visible");
-            document.getElementById('pending_table').classList.add("hidden");
+            btnAll.classList.add("button-active");
+            btnAll.classList.remove("button-inactive");
+
+            btnPending.classList.add("button-inactive");
+            btnPending.classList.remove("button-active");
         });
     </script>
+
     <script src="../../javaScript/role.js"></script>
 </body>
 </html>
