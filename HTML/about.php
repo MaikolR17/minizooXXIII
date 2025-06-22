@@ -12,6 +12,7 @@
   <?php include "../resources/header.php";?>
 
   <section class="contenido">
+    <h1 class="title">Sitio web desarrollado por estudiantes de Analisis de Sistemas de la UNAE</h1>
     <article class="seccion">
       <h2>Su Historia</h2>
       <p>
@@ -39,12 +40,14 @@
   </section>
 
   <?php include "../resources/footer.php";?>
+
+  <script src="../javaScript/role.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded",()=>{ 
       document.getElementById("menu-toggle").style.display = "none";
       document.getElementById("search").style.display = "none";
+      document.getElementById("link_5").style.display = "none";
     });
   </script>
-  <script src="../javaScript/role.js"></script>
 </body>
 </html>
