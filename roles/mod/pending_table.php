@@ -34,6 +34,7 @@
                                 </td>
                                 <?php if ($_SESSION['id_role'] == 2): ?>
                                     <td>
+                                        <input type="hidden" name="id" value="<?=htmlspecialchars($report['id'])?>">
                                         <button type="submit" id="completed">Marcar completado</button>
                                     </td>
                                 <?php endif; ?>
