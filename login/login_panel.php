@@ -51,8 +51,6 @@ unset($_SESSION['error']);
   <?php include "../resources/header.php"; ?>
 
   
-
-  
     <div class="container">
   <form action="login.php" method="POST">
       <?php if (!empty($error)): ?>

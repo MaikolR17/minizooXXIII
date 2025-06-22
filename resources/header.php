@@ -1,6 +1,6 @@
 <header class="encabezado" role="banner">
-  <a href="https://juanxxiiizoo.infinityfreepp.com" class="logo-link" aria-label="Ir a la página de inicio">
-    <img src="https://juanxxiiizoo.infinityfreepp.com/img/LogoPNG.png" alt="Logo del Zoológico Juan XXIII" class="logo-img">
+  <a href="https://juanxxiiizoo.infinityfreeapp.com" class="logo-link" aria-label="Ir a la página de inicio">
+    <img src="https://juanxxiiizoo.infinityfreeapp.com/img/LogoPNG.png" alt="Logo del Zoológico Juan XXIII" class="logo-img">
     <div class="logo" bis_skin_checked="1">
         <strong>MiniZoo</strong><span>Juan XXIII</span>
     </div>

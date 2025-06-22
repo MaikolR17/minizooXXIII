@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             userList.disabled = false;
         }
         userList.innerHTML = `<option value="" selected disabled>--Seleccione una opcion--</option>`;
-        fetch(`https://juanxxiiizoo.infinityfreepp.com/APIS/api_rol.php?id_role=${roleList.value}`)
+        fetch(`https://juanxxiiizoo.infinityfreeapp.com/APIS/api_rol.php?id_role=${roleList.value}`)
         .then(response => response.json())
         .then(data =>{
             if(data.error){
